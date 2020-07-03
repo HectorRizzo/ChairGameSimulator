@@ -1,3 +1,5 @@
+package TDA;
+
 
 
 public class NodeList<E> {
@@ -15,4 +17,30 @@ public class NodeList<E> {
         this.next = next;
         this.previous = previous;
     }
+
+    public E getContent() {
+        return content;
+    }
+
+    public NodeList<E> getNext() {
+        return next;
+    }
+
+    public NodeList<E> getPrevious() {
+        return previous;
+    }
+
+    public void setContent(E content) {
+        this.content = content;
+    }
+
+    public void setNext(NodeList<E> next) {
+        this.next = next;
+    }
+
+    public void setPrevious(NodeList<E> previous) {
+        this.previous = previous;
+    }
+    
+    
 }
