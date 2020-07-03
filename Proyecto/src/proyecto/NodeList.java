@@ -5,10 +5,7 @@
  */
 package proyecto;
 
-/**
- *
- * @author Xavier
- */
+
 public class NodeList<E> {
     private E content; 
     private NodeList<E> next;
