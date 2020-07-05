@@ -1,4 +1,4 @@
-
+package TDA;
 /**
  *
  * @author Jocelyn Chicaiza
@@ -137,34 +137,36 @@ public class LCDE<E> {
 
     public E removefirst(){
 
-            if(isEmpty()){
-                return null;
-            }else{
-                NodeList<E> referencia =  fin.getNext();
-                fin.setNext(fin.getNext().getNext());
-                fin.getNext().setPrevious(null);
-                fin.getNext().setNext(null);
-                size--;
-                return referencia.getContent();
-            }
+            if (isEmpty()) {
+            return null;
+        } else {
+            NodeList<E> referencia = fin.getNext();
+            fin.setNext(fin.getNext().getNext());
+            fin.getNext().getNext().setPrevious(fin);
+            referencia.setNext(null);
+            referencia.setPrevious(null);
+           
+            size--;
+            return referencia.getContent();
+        }
         }
 
-    public E removeLast(){
+    public E removeLast() {
 
-            if(isEmpty()){
-                return null;
-            }else{
-                NodeList<E> referencia = fin;
-                fin.getPrevious().setNext(fin.getNext());
-                fin.getNext().setPrevious(fin.getPrevious());
-                fin=fin.getPrevious();
-                fin.setNext(null);
-                fin.setPrevious(null);
-                size--;
-                return referencia.getContent();
-            }
-
+        if (isEmpty()) {
+            return null;
+        } else {
+            NodeList<E> copy = fin;
+            fin.getPrevious().setNext(fin.getNext());
+            fin.getNext().setPrevious(fin.getPrevious());
+            fin = copy.getPrevious();
+            copy.setNext(null);
+            copy.setPrevious(null);
+            size--;
+            return copy.getContent();
         }
+
+    }
     /*
     public ListIterator<E> Iterator(){
           ListIterator <E> it=  new ListIterator(){

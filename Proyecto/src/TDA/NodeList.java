@@ -1,4 +1,4 @@
-
+package TDA;
 public class NodeList<E> {
     private E content;
     private NodeList<E> next;
@@ -6,7 +6,7 @@ public class NodeList<E> {
 
     public NodeList(E content) {
         this.content = content;
-        this.next = null;
+        this.next = this;
     }
 
     public NodeList(E content, NodeList<E> next, NodeList<E> previous) {

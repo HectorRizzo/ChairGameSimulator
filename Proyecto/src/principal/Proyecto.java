@@ -1,9 +1,11 @@
-/*
+package principal;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+import TDA.LCDE;
+import TDA.ListDoubleC;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -47,21 +49,20 @@ public class Proyecto extends Application {
 
        // launch(args);
 
-        LCDE <Integer> lista= new LCDE<>();
-
-        for(int i=1; i<6;i++){
-            lista.addLast(i);
-        }
-        System.out.println(lista.size());
-        System.out.println(lista.toString());
-
-        System.out.println(lista.remove(3));
-        System.out.println(lista.remove(1));
-        System.out.println(lista.toString());
-        System.out.println(lista.size());
-        lista.clear();
-        System.out.println(lista);
-        System.out.println(lista.size());
+        ListDoubleC <Integer> prueba1= new ListDoubleC<>();
+        prueba1.addFirst(0);
+        prueba1.addFirst(1);
+        prueba1.addFirst(2);
+        prueba1.addFirst(3);
+        prueba1.addFirst(4);
+        prueba1.addLast(22);
+        System.out.println(prueba1.get(5));
+        prueba1.removefirst();
+        prueba1.removeLast();
+        prueba1.removeLast();
+       // prueba1.remove(1);
+        System.out.println(prueba1.toString());
+        
 
     }
     
