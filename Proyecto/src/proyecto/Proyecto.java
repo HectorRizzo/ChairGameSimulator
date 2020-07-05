@@ -5,6 +5,8 @@
  */
 package proyecto;
 
+import TDA.LCDE;
+import TDA.ListIterator;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -45,7 +47,10 @@ public class Proyecto extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        LCDE <Integer> prueba = new LCDE ();
+        System.out.println(prueba.isEmpty());
+        prueba.addFirst(1);
+        prueba.addLast(6);    
     }
     
 }
