@@ -6,6 +6,7 @@ package principal;/*
 
 import TDA.LCDE;
 import TDA.ListDoubleC;
+import TDA.ListIterator;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -56,14 +57,10 @@ public class Proyecto extends Application {
         prueba1.addFirst(3);
         prueba1.addFirst(4);
         prueba1.addLast(22);
-        System.out.println(prueba1.get(5));
-        prueba1.removefirst();
-        prueba1.removeLast();
-        prueba1.removeLast();
-       // prueba1.remove(1);
-        System.out.println(prueba1.toString());
-        
-
+        ListIterator<Integer> it1= prueba1.Iterator();
+        while(it1.Limit()){
+        System.out.println(it1.previous());
+        }
     }
     
 }

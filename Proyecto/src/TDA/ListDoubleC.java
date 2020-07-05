@@ -201,5 +201,33 @@ public class ListDoubleC<E> {
     public int size() {
         return size;
     }
+    public ListIterator<E> Iterator(){
+          ListIterator <E> it=  new ListIterator(){
+              NodeList <E> n1=ultime.getNext();
+              NodeList <E> n2 = ultime;
+              int count=0;
+              @Override
+              public boolean Limit() {
+                  return count!=size;
+              }
 
+              @Override
+              public E next() {
+                   E content = n1.getContent();
+                   n1=n1.getNext();
+                   count++;
+                   return content;
+              }
+
+              @Override
+              public E previous() {
+                  E content = n2.getContent();
+                   n2=n2.getPrevious();
+                   count++;
+                   return content;
+              }
+
+          };
+          return it;
+    }
 }
