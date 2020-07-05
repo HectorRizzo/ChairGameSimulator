@@ -45,7 +45,24 @@ public class Proyecto extends Application {
      */
     public static void main (String[] args) {
 
-        launch(args);
+       // launch(args);
+
+        LCDE <Integer> lista= new LCDE<>();
+
+        for(int i=1; i<6;i++){
+            lista.addLast(i);
+        }
+        System.out.println(lista.size());
+        System.out.println(lista.toString());
+
+        System.out.println(lista.remove(3));
+        System.out.println(lista.remove(1));
+        System.out.println(lista.toString());
+        System.out.println(lista.size());
+        lista.clear();
+        System.out.println(lista);
+        System.out.println(lista.size());
+
     }
     
 }
