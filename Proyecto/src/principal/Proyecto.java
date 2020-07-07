@@ -4,14 +4,19 @@ package principal;/*
  * and open the template in the editor.
  */
 
+import GUI.Game;
+import GUI.Scene1;
 import TDA.LCDE;
 import TDA.ListDoubleC;
 import TDA.ListIterator;
+import java.io.File;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -23,20 +28,9 @@ public class Proyecto extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
         
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(new Game().getRoot() , 600, 600);
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
@@ -48,19 +42,15 @@ public class Proyecto extends Application {
      */
     public static void main (String[] args) {
 
-       // launch(args);
-
-        ListDoubleC <Integer> prueba1= new ListDoubleC<>();
-        prueba1.addFirst(0);
-        prueba1.addFirst(1);
-        prueba1.addFirst(2);
-        prueba1.addFirst(3);
-        prueba1.addFirst(4);
-        prueba1.addLast(22);
-        ListIterator<Integer> it1= prueba1.Iterator();
-        while(it1.Limit()){
-        System.out.println(it1.previous());
-        }
+        launch();
+        /*
+        ListDoubleC <ImageView> prueba1= new ListDoubleC<>();
+        File file = new File("C:/Users/i7/Desktop/Espol/Estructura de Datos/estructura/Proyecto/src/Files/silla.jpg");
+        Image image = new Image(file.toURI().toString());
+        ImageView imv = new ImageView(image);
+        prueba1.addFirst(imv);
+        System.out.println("hello");
+        */  
     }
     
 }
