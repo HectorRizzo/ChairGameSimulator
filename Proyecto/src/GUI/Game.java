@@ -11,6 +11,7 @@ import TDA.LCDE;
 import TDA.ListDoubleC;
 
 import java.io.File;
+import java.util.Random;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -57,8 +58,9 @@ public class Game {
     public void Organizar() {
         
         for(int i = 0 ; i<listChairs.size();i++){ 
-            listChairs.get(i).getImage().setLayoutX(i);
-            listChairs.get(i).getImage().setLayoutY(i*30+15);
+            Random rd = new Random();
+            listChairs.get(i).getImage().setLayoutX(rd.nextInt(100)*i);
+            listChairs.get(i).getImage().setLayoutY(rd.nextInt(100)*i);
             detail.getChildren().addAll( listChairs.get(i).getImage());
         }
         play.setLayoutX(150);
