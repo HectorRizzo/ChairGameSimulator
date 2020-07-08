@@ -6,10 +6,10 @@ package TDA;
 public class LCDE<E> {
 
     private int size = 0;
-    private NodeList<E> fin;                //unico nodo
+    private NodeList<E> last;                //unico nodo
 
     public LCDE() {
-        fin = null;
+        last = null;
     }
 
     public boolean addFirst(E content) {
@@ -17,17 +17,17 @@ public class LCDE<E> {
         if(content==null){
             return false;
         } else if (isEmpty()) {
-            fin = nuevo;
-            fin.setNext(fin);
-            fin.setPrevious(fin);
+            last = nuevo;
+            last.setNext(last);
+            last.setPrevious(last);
             size++;
             return true;
         } else {
-            NodeList<E> aux = fin.getNext();
+            NodeList<E> aux = last.getNext();
             nuevo.setNext(aux);
             aux.setPrevious(nuevo);
-            fin.setNext(nuevo);
-            nuevo.setPrevious(fin);
+            last.setNext(nuevo);
+            nuevo.setPrevious(last);
             size++;
             return true;
         }
@@ -38,18 +38,18 @@ public class LCDE<E> {
         if(content==null){
             return false;
         } else if (isEmpty()) {
-            fin = nuevo;
-            fin.setNext(fin);
-            fin.setPrevious(fin);
+            last = nuevo;
+            last.setNext(last);
+            last.setPrevious(last);
             size++;
             return true;
         } else {
-            NodeList<E> aux = fin;
+            NodeList<E> aux = last;
             nuevo.setNext(aux.getNext());
             nuevo.getNext().setPrevious(nuevo);
             aux.setNext(nuevo);
             nuevo.setPrevious(aux);
-            fin = nuevo;
+            last = nuevo;
             size++;
             return true;
         }
@@ -59,7 +59,7 @@ public class LCDE<E> {
     public void add(int index, E content) {
 
         NodeList nuevo = new NodeList(content);
-        NodeList<E> n = fin; //Nodo viajero
+        NodeList<E> n = last; //Nodo viajero
         if (index<size()) {
             
             for (int i = 0; i < index; i++) {
@@ -82,7 +82,7 @@ public class LCDE<E> {
         if (isEmpty()) {
             return null;
         } else {
-            NodeList<E> n = fin.getNext();
+            NodeList<E> n = last.getNext();
             if (index<size()) {
                 for (int i = 0; i < index; i++) {
                     n = n.getNext();
@@ -105,7 +105,7 @@ public class LCDE<E> {
         if (indice >size - 1) {
             return null;
         } else {
-            for (NodeList<E> n = fin.getNext(); n != null; n = n.getNext()) {
+            for (NodeList<E> n = last.getNext(); n != null; n = n.getNext()) {
 
                 if (indexer == indice) {
                     return n.getContent();
@@ -119,7 +119,7 @@ public class LCDE<E> {
 
     public E set(int indice, E nuevo){
             NodeList <E> anterior = new NodeList(null);
-            NodeList <E> referencia = fin.getNext();
+            NodeList <E> referencia = last.getNext();
             if(nuevo==null){
                 System.out.println("Dato incorrecto.");
                 return null;
@@ -140,9 +140,9 @@ public class LCDE<E> {
             if (isEmpty()) {
             return null;
         } else {
-            NodeList<E> referencia = fin.getNext();
-            fin.setNext(fin.getNext().getNext());
-            fin.getNext().getNext().setPrevious(fin);
+            NodeList<E> referencia = last.getNext();
+            last.setNext(last.getNext().getNext());
+            last.getNext().getNext().setPrevious(last);
             referencia.setNext(null);
             referencia.setPrevious(null);
            
@@ -156,10 +156,10 @@ public class LCDE<E> {
         if (isEmpty()) {
             return null;
         } else {
-            NodeList<E> copy = fin;
-            fin.getPrevious().setNext(fin.getNext());
-            fin.getNext().setPrevious(fin.getPrevious());
-            fin = copy.getPrevious();
+            NodeList<E> copy = last;
+            last.getPrevious().setNext(last.getNext());
+            last.getNext().setPrevious(last.getPrevious());
+            last = copy.getPrevious();
             copy.setNext(null);
             copy.setPrevious(null);
             size--;
@@ -218,7 +218,7 @@ public class LCDE<E> {
         if(isEmpty()){
             return -1;
         }
-        NodeList <E> temp=fin.getNext();
+        NodeList <E> temp=last.getNext();
         NodeList <E> nextNode;
         //recorre los nodos mientras no llegue al ultimo y los pone en null
         for(int i=0; i<size-1;i++){
@@ -228,7 +228,7 @@ public class LCDE<E> {
             temp.setContent(null);
             temp=nextNode;
         }
-        fin=null;               //fija al ultimo nodo en null
+        last=null;               //fija al ultimo nodo en null
         size=0;
         return 0;
     }
@@ -241,17 +241,17 @@ public class LCDE<E> {
         }
         //si solo tiene un elemento devuelve solo el string de éste
         if(size==1){
-            return fin.getContent().toString();
+            return last.getContent().toString();
         }
         String cadena="";
-        NodeList aux=fin.getNext();
+        NodeList aux=last.getNext();
         //System.out.println("fin "+fin.getNext().getContent().toString());
         //recorre los nodos mientras no llegue al nodo final y agrega el contenido a la cadena
         for(int i= 0; i<size-1;i++){
             cadena+=aux.getContent().toString()+" ";
             aux=aux.getNext();
         }
-        cadena+=fin.getContent().toString();            //se agrega el contenido del nodo final
+        cadena+=last.getContent().toString();            //se agrega el contenido del nodo final
         return cadena;
     }
 }
