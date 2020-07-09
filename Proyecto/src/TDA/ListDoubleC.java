@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TDA;
 
 /**
  *
@@ -201,6 +200,7 @@ public class ListDoubleC<E> {
     public int size() {
         return size;
     }
+    /*
     public ListIterator<E> Iterator(){
           ListIterator <E> it=  new ListIterator(){
               NodeList <E> n1=ultime.getNext();
@@ -230,4 +230,6 @@ public class ListDoubleC<E> {
           };
           return it;
     }
+
+     */
 }
