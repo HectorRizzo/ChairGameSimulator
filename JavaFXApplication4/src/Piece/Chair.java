@@ -16,11 +16,18 @@ import javafx.scene.image.ImageView;
  */
 public class Chair{
     private ImageView image;
+    private double pos_X;
+    private double pos_Y;
 
     public Chair(ImageView image) {
         this.image = image;
     }
 
+    public Chair(double pos_X, double pos_Y) {
+        this.pos_X = pos_X;
+        this.pos_Y = pos_Y;
+    }
+    
     public ImageView getImage() {
         return image;
     }

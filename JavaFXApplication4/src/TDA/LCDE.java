@@ -1,9 +1,12 @@
 package TDA;
+
+import java.util.Iterator;
+
 /**
  *
  * @author Jocelyn Chicaiza
  */
-public class LCDE<E> {
+public class LCDE<E> implements Iterable <E>{
 
     private int size = 0;
     private NodeList<E> fin;                //unico nodo
@@ -253,5 +256,22 @@ public class LCDE<E> {
         }
         cadena+=fin.getContent().toString();            //se agrega el contenido del nodo final
         return cadena;
+    }
+
+    @Override
+    public Iterator iterator() {
+        Iterator <E> it = new Iterator<E> (){
+            NodeList <E> n= fin.getNext();
+            public boolean hasNext(){
+                return n != null;
+            }
+            public E next(){
+                E content = n.getContent();
+                n=n.getNext();
+                return content;
+            }
+            
+        };
+        return it;
     }
 }
