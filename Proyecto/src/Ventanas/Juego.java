@@ -15,9 +15,14 @@ import java.util.ResourceBundle;
 
 public class Juego implements Initializable {
 
+    private Math calcular;
     @FXML Button btnPlay= new Button();
     @FXML ImageView ivSilla = new ImageView();
     @FXML Pane spJuego= new StackPane();
+    boolean signo=true;
+    double radio=100;
+    double posX=-radio;
+    double posY=0;
     boolean parar= false;
     Image img;
     public Juego() throws FileNotFoundException {
@@ -35,15 +40,15 @@ public class Juego implements Initializable {
                 Runnable updater = new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println("1\n");
-                        ivSilla.setTranslateX(ivSilla.getTranslateX()+10);
-                        ivSilla.setTranslateY(ivSilla.getTranslateY()+10);
+                        trazarCircunferencia();
+                        //ivSilla.setTranslateX(ivSilla.getTranslateX()+10);
+                        //ivSilla.setTranslateY(ivSilla.getTranslateY()+10);
                     }
                 };
 
                 while (true) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(50);
                         synchronized (this) {
                             while (parar) {
                                 Thread.interrupted();
@@ -68,8 +73,29 @@ public class Juego implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
+    public void trazarCircunferencia(){
+        ivSilla.setTranslateX(posX);
+        if(signo){
+            posY=calcular.sqrt(calcular.abs((posX*posX)-(radio*radio)));
+            posX+=4;
+            sentido(posX);
+        }else{
+            posY=-(calcular.sqrt(calcular.abs((posX*posX)-(radio*radio))));
+            posX-=4;
+            sentido(posX);
+        }
+        ivSilla.setTranslateY(posY);
+        System.out.println("posX: "+ivSilla.getTranslateX()+" posY: "+ ivSilla.getTranslateY());
+    }
+
+    public void sentido(double posX){
+        if(posX==radio){
+            signo=false;
+        }else if(posX==-radio){
+            signo=true;
+        }
+    }
 
 }

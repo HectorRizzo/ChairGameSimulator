@@ -52,9 +52,9 @@
             <ProgressBar layoutX="369.0" layoutY="18.0" prefWidth="200.0" progress="0.0" />
             <StackPane fx:id="spPane" layoutX="138.0" layoutY="53.0" prefHeight="370.0" prefWidth="485.0" style="-fx-background-color: white;">
                <children>
-                  <ImageView fx:id="ivSilla" fitHeight="66.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true" translateX="15.0" translateY="15.0">
+                  <ImageView fx:id="ivSilla" fitHeight="66.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true" translateX="-100.0">
                      <image>
-                        <Image url="src/Archivos/silla.png" />
+                        <Image url="/Archivos/pelotaTennis.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
