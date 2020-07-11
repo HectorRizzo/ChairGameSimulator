@@ -1,5 +1,5 @@
 
-package Ventanas;
+package GUI;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;

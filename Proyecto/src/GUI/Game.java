@@ -7,8 +7,8 @@ package GUI;
 
 import Piece.Chair;
 import Piece.Setting;
+import Piece.User;
 import TDA.LCDE;
-import TDA.ListDoubleC;
 
 import java.io.File;
 import java.util.Random;
@@ -37,7 +37,7 @@ public class Game {
     private Pane paneButtons = new Pane();
     private Button play = new Button(" Play ");
     private Button stop = new Button(" Stop ");
-    private ListDoubleC listPlayers = new ListDoubleC();
+    private LCDE<User> listPlayers = new LCDE();
     private LCDE<Chair> listChairs = new LCDE();
     private Setting seti = new Setting(5);
     private Pane detail = new Pane ();

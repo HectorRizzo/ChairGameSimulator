@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane id="principal" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: turquoise;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principal.principal">
+<Pane id="principal" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: turquoise;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.principal">
    <children>
       <Button id="btnSalir" fx:id="btnSalir" layoutX="474.0" layoutY="22.0" mnemonicParsing="false" onAction="#Salir" prefHeight="38.0" prefWidth="99.0" text="Salir" />
       <Button id="btnJugar" fx:id="btnJugar" layoutX="225.0" layoutY="200.0" mnemonicParsing="false" onAction="#jugar" prefHeight="38.0" prefWidth="173.0" text="Jugar" />

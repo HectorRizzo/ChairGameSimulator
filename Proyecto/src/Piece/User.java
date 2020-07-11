@@ -1,17 +1,17 @@
-package principal;
+package Piece;
 
 
 import javafx.scene.image.ImageView;
 
 
-public class usuario {
+public class User {
    
     private ImageView image;
     private boolean seated;
     private double posX;
     private double posY;
 
-    public usuario() {
+    public User() {
         image = new ImageView("usuario.jpg");
     }
     
