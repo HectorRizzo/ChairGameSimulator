@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Juego">
+   <children>
+      <Pane prefHeight="430.0" prefWidth="630.0" style="-fx-background-color: gray;">
+         <children>
+            <ToolBar layoutX="138.0" layoutY="7.0" prefHeight="40.0" prefWidth="200.0" />
+            <VBox layoutX="14.0" layoutY="14.0" prefHeight="408.0" prefWidth="115.0" style="-fx-background-color: turquoise;">
+               <children>
+                  <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#btnPlayClicked" prefHeight="36.0" prefWidth="94.0" text="Play" textOverrun="LEADING_ELLIPSIS" wrapText="true">
+                     <font>
+                        <Font name="Book Antiqua" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </Button>
+                  <Button fx:id="btnStop" cache="true" mnemonicParsing="false" onAction="#btnStopClicked" prefHeight="36.0" prefWidth="94.0" style="-fx-background-color: pink;" text="STOP" translateY="290.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Book Antiqua" size="12.0" />
+                     </font>
+                     <effect>
+                        <InnerShadow>
+                           <color>
+                              <Color red="0.13486842811107635" green="0.3552631437778473" blue="0.2524122893810272" />
+                           </color>
+                        </InnerShadow>
+                     </effect>
+                  </Button>
+               </children>
+            </VBox>
+            <ProgressBar layoutX="369.0" layoutY="18.0" prefWidth="200.0" progress="0.0" />
+            <StackPane fx:id="spPane" layoutX="138.0" layoutY="53.0" prefHeight="370.0" prefWidth="485.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fx:id="ivSilla" fitHeight="66.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true" translateX="-100.0">
+                     <image>
+                        <Image url="/Archivos/pelotaTennis.png" />
+                     </image>
+                  </ImageView>
+               </children></StackPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
