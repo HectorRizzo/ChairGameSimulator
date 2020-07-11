@@ -21,28 +21,43 @@ import java.io.IOException;
  * @author Xavier
  */
 public class Proyecto extends Application {
-    
+
+    private Stage PrimaryStage;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
-        System.out.println(getClass().getResource("Juego.fxml"));
-        FXMLLoader loader= new FXMLLoader();
-        loader.setLocation(getClass().getResource("Juego.fxml"));
+        //System.out.println(getClass().getResource("Juego.fxml"));
+        /*FXMLLoader loader= new FXMLLoader();
+        loader.setLocation(getClass().getResource("principal.fxml"));
         Parent root= loader.load();
         Scene sce= new Scene(root);
         primaryStage.setScene(sce);
-        primaryStage.show();
+        primaryStage.show();*/
         //   Parent root= FXMLLoader.load(getClass().getResource("Juego.fxml"));
+        this.PrimaryStage = primaryStage;
+        initRootLayaut();
 
+    }
+
+    public void initRootLayaut() throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("principal.fxml"));
+        Scene scene = new Scene(root);
+        PrimaryStage.setScene(scene);
+        PrimaryStage.show();
+    }
+
+    public Stage getPrimaryStage() {
+        return PrimaryStage;
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         launch(args);
 
-        }
+    }
 
-    
 }
