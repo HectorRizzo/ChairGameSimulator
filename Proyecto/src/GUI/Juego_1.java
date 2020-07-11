@@ -20,24 +20,24 @@ import java.util.Deque;
 import java.util.ResourceBundle;
 
 
-public class Juego implements Initializable {
+public class Juego_1 implements Initializable {
     private LCDE<Chair> listChairs = new LCDE();
     private LCDE <Chair> listChairsGame = new LCDE<>();
     private Deque<Chair> listChairP = new ArrayDeque<>();
     private Math calcular;                          //hará las operaciones
-    //Desde el FXML
+    //Desde el FXML 
     @FXML Button btnPlay= new Button();
     @FXML ImageView ivSilla = new ImageView();
-    @FXML Pane spPane= new StackPane();
+    @FXML Pane spPane= new Pane();
     boolean signo=true;                             //nos permite tomar la parte positiva o negativa de Y en la función.
-    double radio=50;                               //radio de la circunferencia a ser dibujada
-    double posX=-radio;
-    double posY=0;
+    double radio=150;                               //radio de la circunferencia a ser dibujada
+    double posX=61;
+    double posY=135;
     boolean parar= false;                           //es el que controla el hilo, al estar en true el hilo de para.
     Image img;
-    private Setting sett = new Setting(4);
+    private Setting sett = new Setting(5);
     
-    public Juego() throws FileNotFoundException {
+    public Juego_1() throws FileNotFoundException {
     }
 
     //cuando se presiona el botón stop el hilo se interrumpirá.
@@ -92,12 +92,12 @@ public class Juego implements Initializable {
         ivSilla.setTranslateX(posX);
         //verifica que se esté recorriendo hacia la derecha en el eje X
         if(signo){
-            posY=calcular.sqrt(calcular.abs((posX*posX)-(radio*radio)));     //ecuación de la circunferencia
+            posY= (Math.sqrt(Math.pow(50, 2) - Math.pow(posX - 211, 2))) + 135;     //ecuación de la circunferencia
             posX+=4;                                                         //aumentamos la posición X
             sentido(posX);                                                   //verifica si se llegó al final de lo permitido en X
         //Sino se cumple lo anterior, se tomará la parte negativa de la raíz cuadrada de la ecuación
         }else{
-            posY=-(calcular.sqrt(calcular.abs((posX*posX)-(radio*radio))));
+            posY=-(Math.sqrt(Math.pow(50, 2) - Math.pow(posX - 211, 2))) + 135;
             posX-=4;
             sentido(posX);
         }
@@ -108,10 +108,10 @@ public class Juego implements Initializable {
     //nos dice si se llegó al final de lo permitido en el eje X; si es true se seguirá recorriendo hacia la derecha del eje
     public void sentido(double posX){
         //verifica si se llegó al X MAXIMO positivo
-        if(posX==radio){
+        if(posX==261){
             signo=false;
         //verifica si se llegó al MÍNIMO negativo
-        }else if(posX==-radio){
+        }else if(posX==161){
             signo=true;
         }
     }
@@ -133,14 +133,14 @@ public class Juego implements Initializable {
     }
     //(x)^2 +(y)^2 = 50^2
     private void OrganizeController(){
-        double distance = this.radio*4 / listChairs.size();
-        double inicio = -this.radio;
+        double distance = (50*4) / listChairs.size();
+        double inicio = (211-50);
         boolean val1=true;
         boolean val2=true;
         int i=0;
         while(!this.listChairP.isEmpty()){
             while(val1){
-            double coor_y = (Math.sqrt(Math.pow(50, 2) - Math.pow(inicio, 2)));
+            double coor_y = (Math.sqrt(Math.pow(50, 2) - Math.pow(inicio - 211, 2))) + 135;
             this.listChairP.peek().getImage().setLayoutX(inicio);
             this.listChairP.peek().getImage().setLayoutY(coor_y);
             if (i == 0) {
@@ -151,19 +151,19 @@ public class Juego implements Initializable {
             }
             spPane.getChildren().addAll(this.listChairP.pop().getImage());
             inicio=inicio+distance;
-            if(inicio>50){
+            if(inicio>261){
                 val1=false;
-                inicio=50-distance;
+                inicio=261-distance;
             }
             }
             while(val2 && !this.listChairP.isEmpty()){
-            double coor_y = -(Math.sqrt(Math.pow(50, 2) - Math.pow(inicio, 2)));
+            double coor_y = -(Math.sqrt(Math.pow(50, 2) - Math.pow(inicio - 211, 2))) + 135;
              this.listChairP.peek().getImage().setLayoutX(inicio);
              this.listChairP.peek().getImage().setLayoutY(coor_y);
             listChairsGame.addLast(new Chair(inicio, coor_y));
             spPane.getChildren().addAll(this.listChairP.pop().getImage());
             inicio=inicio-distance;
-            if(inicio<=(-50)){
+            if(inicio<=161){
                 val2=false;
             }
             }

@@ -17,19 +17,19 @@ import javafx.scene.image.ImageView;
  * @author i7
  */
 public class Setting <E> {
-    private int numberParticipants;
-    private int Direction;
+    private double numberParticipants;
+    private String Direction;
     //private ListDoubleC <Player>listPlayers;
     private LCDE <Chair>listChairs= new LCDE<>();
 
-    public Setting(int numberParticipants, int Direction) {
+    public Setting(double numberParticipants, String Direction) {
         this.numberParticipants = numberParticipants;
         this.Direction = Direction;
         this.listChairs=null;
        
     }
 
-    public Setting(int numberParticipants) {
+    public Setting(double numberParticipants) {
         this.numberParticipants = numberParticipants;
     }
     
@@ -49,7 +49,7 @@ public class Setting <E> {
 
         for (int i = 0; i < getNumberParticipants() - 1; i++) {
             if (i == 0) {
-                File file = new File("C:/Users/i7/Desktop/Espol/Estructura de Datos/estructura/Proyecto/src/Files/silla.jpg");
+                File file = new File("C:/Users/i7/Desktop/Espol/Estructura de Datos/estructura/Proyecto/src/Files/silla.png");
                 Image image = new Image(file.toURI().toString());
                 ImageView imv = new ImageView(image);
                 imv.setFitHeight(50);
@@ -57,7 +57,7 @@ public class Setting <E> {
                 imv.setPreserveRatio(true);
                 listChairs.addFirst(new Chair(imv));
             } else {
-                File file = new File("C:/Users/i7/Desktop/Espol/Estructura de Datos/estructura/Proyecto/src/Files/silla.jpg");
+                File file = new File("C:/Users/i7/Desktop/Espol/Estructura de Datos/estructura/Proyecto/src/Files/silla.png");
                 Image image = new Image(file.toURI().toString());
                 ImageView imv = new ImageView(image);
                 imv.setFitHeight(50);
@@ -72,7 +72,7 @@ public class Setting <E> {
     /**
      * @return the numberParticipants
      */
-    public int getNumberParticipants() {
+    public double getNumberParticipants() {
         return numberParticipants;
     }
 
@@ -86,14 +86,14 @@ public class Setting <E> {
     /**
      * @return the Direction
      */
-    public int getDirection() {
+    public String getDirection() {
         return Direction;
     }
 
     /**
      * @param Direction the Direction to set
      */
-    public void setDirection(int Direction) {
+    public void setDirection(String Direction) {
         this.Direction = Direction;
     }
 

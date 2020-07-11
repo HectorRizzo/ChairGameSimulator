@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Piece.Setting;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,11 +47,29 @@ public class configuraciones implements Initializable {
     @FXML
     private Label nPersonas;
 
-    @FXML
 
+    @FXML
     void jugar(ActionEvent event) throws IOException {
         ((Node) (event.getSource())).getScene().getWindow().hide();
-        Parent parent = FXMLLoader.load(getClass().getResource("Juego.fxml"));
+        /*
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "Juego.fxml"
+                )
+        );
+        Parent parent = loader.load();
+        */
+        
+        Parent parent =  FXMLLoader.load(getClass().getResource("Juego_1.fxml"));
+        /*
+        Setting set = new Setting(slPersonas.getValue());
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                       "Juego.fxml"
+                ));
+        Juego controller =loader.<Juego>getController();
+        controller.iniData(set);
+*/
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);

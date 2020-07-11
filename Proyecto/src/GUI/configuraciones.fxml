@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="principal" fx:id="rotacion" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: turquoise;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.configuraciones">
+<Pane id="principal" fx:id="rotacion" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: turquoise;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.configuraciones">
     <children>        
         <Label id="lbRotacion" fx:id="lbRotacion" layoutX="41.0" layoutY="200.0" prefHeight="34.0" prefWidth="126.0" text="Rotación:">
          <font>
@@ -18,7 +18,7 @@
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font></Label>
-        <Slider id="slPersonas" fx:id="slPersonas" layoutX="209.0" layoutY="60.0" majorTickUnit="2.0" max="20.0" min="2.0" prefHeight="94.0" prefWidth="369.0" showTickLabels="true" showTickMarks="true" />
+        <Slider id="slPersonas" fx:id="slPersonas" blockIncrement="1.0" layoutX="209.0" layoutY="57.0" majorTickUnit="1.0" max="12.0" min="3.0" minorTickCount="0" prefHeight="66.0" prefWidth="358.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="4.0" />
       <RadioButton layoutX="209.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="103.0" text="Horario" />
       <RadioButton layoutX="365.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="109.0" text="Antihorario" />
     </children>
