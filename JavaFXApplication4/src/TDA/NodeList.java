@@ -1,4 +1,3 @@
-
 package TDA;
 public class NodeList<E> {
     private E content;

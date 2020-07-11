@@ -1,15 +1,18 @@
+package TDA;
+
+import java.util.Iterator;
+
 /**
  *
  * @author Jocelyn Chicaiza
  */
-package TDA;
-public class LCDE<E> {
+public class LCDE<E> implements Iterable <E>{
 
     private int size = 0;
-    private NodeList<E> last;                //unico nodo
+    private NodeList<E> fin;                //unico nodo
 
     public LCDE() {
-        last = null;
+        fin = null;
     }
 
     public boolean addFirst(E content) {
@@ -17,17 +20,17 @@ public class LCDE<E> {
         if(content==null){
             return false;
         } else if (isEmpty()) {
-            last = nuevo;
-            last.setNext(last);
-            last.setPrevious(last);
+            fin = nuevo;
+            fin.setNext(fin);
+            fin.setPrevious(fin);
             size++;
             return true;
         } else {
-            NodeList<E> aux = last.getNext();
+            NodeList<E> aux = fin.getNext();
             nuevo.setNext(aux);
             aux.setPrevious(nuevo);
-            last.setNext(nuevo);
-            nuevo.setPrevious(last);
+            fin.setNext(nuevo);
+            nuevo.setPrevious(fin);
             size++;
             return true;
         }
@@ -38,18 +41,18 @@ public class LCDE<E> {
         if(content==null){
             return false;
         } else if (isEmpty()) {
-            last = nuevo;
-            last.setNext(last);
-            last.setPrevious(last);
+            fin = nuevo;
+            fin.setNext(fin);
+            fin.setPrevious(fin);
             size++;
             return true;
         } else {
-            NodeList<E> aux = last;
+            NodeList<E> aux = fin;
             nuevo.setNext(aux.getNext());
             nuevo.getNext().setPrevious(nuevo);
             aux.setNext(nuevo);
             nuevo.setPrevious(aux);
-            last = nuevo;
+            fin = nuevo;
             size++;
             return true;
         }
@@ -59,7 +62,7 @@ public class LCDE<E> {
     public void add(int index, E content) {
 
         NodeList nuevo = new NodeList(content);
-        NodeList<E> n = last; //Nodo viajero
+        NodeList<E> n = fin; //Nodo viajero
         if (index<size()) {
             
             for (int i = 0; i < index; i++) {
@@ -82,7 +85,7 @@ public class LCDE<E> {
         if (isEmpty()) {
             return null;
         } else {
-            NodeList<E> n = last.getNext();
+            NodeList<E> n = fin.getNext();
             if (index<size()) {
                 for (int i = 0; i < index; i++) {
                     n = n.getNext();
@@ -105,7 +108,7 @@ public class LCDE<E> {
         if (indice >size - 1) {
             return null;
         } else {
-            for (NodeList<E> n = last.getNext(); n != null; n = n.getNext()) {
+            for (NodeList<E> n = fin.getNext(); n != null; n = n.getNext()) {
 
                 if (indexer == indice) {
                     return n.getContent();
@@ -119,7 +122,7 @@ public class LCDE<E> {
 
     public E set(int indice, E nuevo){
             NodeList <E> anterior = new NodeList(null);
-            NodeList <E> referencia = last.getNext();
+            NodeList <E> referencia = fin.getNext();
             if(nuevo==null){
                 System.out.println("Dato incorrecto.");
                 return null;
@@ -140,9 +143,9 @@ public class LCDE<E> {
             if (isEmpty()) {
             return null;
         } else {
-            NodeList<E> referencia = last.getNext();
-            last.setNext(last.getNext().getNext());
-            last.getNext().getNext().setPrevious(last);
+            NodeList<E> referencia = fin.getNext();
+            fin.setNext(fin.getNext().getNext());
+            fin.getNext().getNext().setPrevious(fin);
             referencia.setNext(null);
             referencia.setPrevious(null);
            
@@ -156,10 +159,10 @@ public class LCDE<E> {
         if (isEmpty()) {
             return null;
         } else {
-            NodeList<E> copy = last;
-            last.getPrevious().setNext(last.getNext());
-            last.getNext().setPrevious(last.getPrevious());
-            last = copy.getPrevious();
+            NodeList<E> copy = fin;
+            fin.getPrevious().setNext(fin.getNext());
+            fin.getNext().setPrevious(fin.getPrevious());
+            fin = copy.getPrevious();
             copy.setNext(null);
             copy.setPrevious(null);
             size--;
@@ -218,7 +221,7 @@ public class LCDE<E> {
         if(isEmpty()){
             return -1;
         }
-        NodeList <E> temp=last.getNext();
+        NodeList <E> temp=fin.getNext();
         NodeList <E> nextNode;
         //recorre los nodos mientras no llegue al ultimo y los pone en null
         for(int i=0; i<size-1;i++){
@@ -228,7 +231,7 @@ public class LCDE<E> {
             temp.setContent(null);
             temp=nextNode;
         }
-        last=null;               //fija al ultimo nodo en null
+        fin=null;               //fija al ultimo nodo en null
         size=0;
         return 0;
     }
@@ -241,17 +244,34 @@ public class LCDE<E> {
         }
         //si solo tiene un elemento devuelve solo el string de éste
         if(size==1){
-            return last.getContent().toString();
+            return fin.getContent().toString();
         }
         String cadena="";
-        NodeList aux=last.getNext();
+        NodeList aux=fin.getNext();
         //System.out.println("fin "+fin.getNext().getContent().toString());
         //recorre los nodos mientras no llegue al nodo final y agrega el contenido a la cadena
         for(int i= 0; i<size-1;i++){
             cadena+=aux.getContent().toString()+" ";
             aux=aux.getNext();
         }
-        cadena+=last.getContent().toString();            //se agrega el contenido del nodo final
+        cadena+=fin.getContent().toString();            //se agrega el contenido del nodo final
         return cadena;
+    }
+
+    @Override
+    public Iterator iterator() {
+        Iterator <E> it = new Iterator<E> (){
+            NodeList <E> n= fin.getNext();
+            public boolean hasNext(){
+                return n != null;
+            }
+            public E next(){
+                E content = n.getContent();
+                n=n.getNext();
+                return content;
+            }
+            
+        };
+        return it;
     }
 }
