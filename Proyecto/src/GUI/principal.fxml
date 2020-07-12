@@ -10,7 +10,7 @@
       <Button id="btnSalir" fx:id="btnSalir" layoutX="474.0" layoutY="22.0" mnemonicParsing="false" onAction="#Salir" prefHeight="38.0" prefWidth="99.0" text="Salir" />
       <Button id="btnJugar" fx:id="btnJugar" layoutX="225.0" layoutY="200.0" mnemonicParsing="false" onAction="#jugar" prefHeight="38.0" prefWidth="173.0" text="Jugar" />
       <Button id="btnAyuda" fx:id="btnAyuda" layoutX="225.0" layoutY="297.0" mnemonicParsing="false" onAction="#mostrarAyuda" prefHeight="38.0" prefWidth="173.0" text="Ayuda" />
-      <ImageView id="img" fx:id="img" fitHeight="218.0" fitWidth="340.0" layoutX="-19.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="img" fx:id="img" fitHeight="299.0" fitWidth="332.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Files/juego.png" />
          </image>

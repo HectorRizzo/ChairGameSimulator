@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.effect.InnerShadow?>
@@ -13,11 +15,24 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Juego_1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Juego_1">
    <children>
       <Pane prefHeight="430.0" prefWidth="630.0" style="-fx-background-color: gray;">
          <children>
-            <ToolBar layoutX="138.0" layoutY="7.0" prefHeight="40.0" prefWidth="200.0" />
+            <ToolBar layoutX="138.0" layoutY="14.0" prefHeight="18.0" prefWidth="220.0">
+               <items>
+                  <ImageView id="imgMusica" fx:id="imgMusica" fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Files/musicicon1.png" />
+                     </image>
+                  </ImageView>
+                  <MenuButton id="mbMusic" fx:id="mbMusic" mnemonicParsing="false" text="Change music">
+                    <items>
+                      <MenuItem id="mi1" fx:id="mi1" mnemonicParsing="false" onAction="#change1" text="Morado" />
+                      <MenuItem id="mi2" fx:id="mi2" mnemonicParsing="false" onAction="#change" text="Blinding Lights" />
+                    </items>
+                  </MenuButton>
+               </items></ToolBar>
             <VBox layoutX="14.0" layoutY="14.0" prefHeight="408.0" prefWidth="115.0" style="-fx-background-color: turquoise;">
                <children>
                   <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#btnPlayClicked" prefHeight="36.0" prefWidth="94.0" text="Play" textOverrun="LEADING_ELLIPSIS" wrapText="true">
@@ -59,7 +74,7 @@
                <children>
                   <ImageView fx:id="ivSilla" fitHeight="61.0" fitWidth="69.0" layoutX="81.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Files/usuario.jpg" />
+                        <Image url="@../Files/usuario.png" />
                      </image>
                   </ImageView>
                </children></Pane>

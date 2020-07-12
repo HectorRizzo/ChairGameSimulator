@@ -13,13 +13,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import java.applet.AudioClip;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.ResourceBundle;
-import javafx.fxml.FXMLLoader;
+import javafx.event.ActionEvent;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 
 public class Juego_1 {
 
@@ -43,10 +44,33 @@ public class Juego_1 {
     double posY = 135;
     boolean parar = false;                           //es el que controla el hilo, al estar en true el hilo de para.
     Image img;
+    @FXML
+    private ImageView imgMusica;
+    private MenuButton mbMusic;
+    private MenuItem mi1;
+    private MenuItem mi2;
     private Setting sett = new Setting(0);
     AudioClip sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Morado.wav"));
 
     public Juego_1() throws FileNotFoundException {
+    }
+
+    @FXML
+    void change(ActionEvent event) {
+        sound.stop();
+        sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Blinding Lights.wav"));
+        if (!parar) {
+            sound.play();
+        }
+    }
+
+    @FXML
+    void change1(ActionEvent event) {
+        sound.stop();
+        sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Morado.wav"));
+        if (!parar) {
+            sound.play();
+        }
     }
 
     //cuando se presiona el botón stop el hilo se interrumpirá.
