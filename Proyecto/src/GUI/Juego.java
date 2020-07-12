@@ -4,6 +4,7 @@ package GUI;
 import Piece.Chair;
 import Piece.Setting;
 import TDA.LCDE;
+import java.applet.AudioClip;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,17 +40,21 @@ public class Juego implements Initializable {
     boolean parar= false;                           //es el que controla el hilo, al estar en true el hilo de para.
     Image img;
     private Setting sett = new Setting(4);
+     
+
     
     public Juego() throws FileNotFoundException {
     }
 
     //cuando se presiona el botón stop el hilo se interrumpirá.
     @FXML protected void btnStopClicked(){
+        
         parar=true;
     }
 
     //define que se hará al presionar al botón play
     @FXML protected void btnPlayClicked() {
+        
         parar=false;                                //se lo pone en false porque puede que antes se haya dado al botón stop.
 
         //moverá las pelotas en el tiempo
