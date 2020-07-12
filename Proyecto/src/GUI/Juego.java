@@ -206,11 +206,11 @@ public class Juego {
             //comprueba si se mueve hacia la derecha o la izquierda de las X
             if (user.isSentido()) {
                 posY = Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow((posX), 2)));     //ecuación de la circunferencia
-                posX += 2;                                                         //aumentamos la posición X
+                posX += 1;                                                         //aumentamos la posición X
                 //Sino se cumple lo anterior, se tomará la parte negativa de la raíz cuadrada de la ecuación
             } else {
                 posY = -Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow(posX, 2)));
-                posX -= 2;
+                posX -= 1;
             }
             listUsersGame.get(i).setPosX(posX);
             listUsersGame.get(i).setPosY(posY);
@@ -411,5 +411,5 @@ public class Juego {
     public AudioClip getSound() {
         return sound;
     }
-
+    
 }
