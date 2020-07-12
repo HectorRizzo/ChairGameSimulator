@@ -21,6 +21,14 @@ public class User {
         this.posX = posX;
         this.posY = posY;
     }
+
+    public User(ImageView image, boolean seated, double posX, double posY) {
+        this.image = image;
+        this.seated = seated;
+        this.posX = posX;
+        this.posY = posY;
+    }
+    
     
     public boolean isSeated(){
         return seated;

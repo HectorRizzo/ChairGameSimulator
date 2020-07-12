@@ -38,19 +38,19 @@ public class Setting <E> {
     public LCDE<User> addPlayers() throws MalformedURLException{
         for(int i =0; i< getNumberParticipants();i++){
             if(i==0){
-                File file = new File("@../Files/usuario.png");
-                Image image = new Image(file.toURL().toString());
+               // File file = new File("@../Files/usuario.png");
+                Image image = new Image("/Files/usuario.jpg");
                 ImageView imv = new ImageView(image);
-                imv.setFitHeight(80);
-                imv.setFitWidth(80);
+                imv.setFitHeight(65);
+                imv.setFitWidth(65);
                 imv.setPreserveRatio(true);
                 listPlayers.addFirst(new User(imv,false));
             }else{
-                File file = new File("@../Files/usuario.png");
-                Image image = new Image(file.toURL().toString());
+                //File file = new File("@../Files/usuario.png");
+                Image image = new Image("/Files/usuario.jpg");
                 ImageView imv = new ImageView(image);
-                imv.setFitHeight(80);
-                imv.setFitWidth(80);
+                imv.setFitHeight(65);
+                imv.setFitWidth(65);
                 imv.setPreserveRatio(true);
                 listPlayers.addLast(new User(imv,false));
             }
@@ -62,16 +62,16 @@ public class Setting <E> {
 
         for (double i = 0; i < getNumberParticipants() - 1; i++) {
             if (i == 0) {
-                File file = new File("@../Files/silla.png");
-                Image image = new Image(file.toURL().toString());
+                //File file = new File("@../Files/silla.png");
+                Image image = new Image("/Files/silla.png");
                 ImageView imv = new ImageView(image);
                 imv.setFitHeight(50);
                 imv.setFitWidth(50);
                 imv.setPreserveRatio(true);
                 listChairs.addFirst(new Chair(imv));
             } else {
-                File file = new File("@../Files/silla.png");
-                Image image = new Image(file.toURL().toString());
+                //File file = new File("@../Files/silla.png");
+                Image image = new Image("/Files/silla.png");
                 ImageView imv = new ImageView(image);
                 imv.setFitHeight(50);
                 imv.setFitWidth(50);
