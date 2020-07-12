@@ -3,6 +3,7 @@ package GUI;
 
 import Piece.Chair;
 import Piece.Setting;
+import Piece.User;
 import TDA.LCDE;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -14,16 +15,21 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.ResourceBundle;
+import javafx.fxml.FXMLLoader;
 
 
-public class Juego_1 implements Initializable {
+public class Juego_1  {
     private LCDE<Chair> listChairs = new LCDE();
     private LCDE <Chair> listChairsGame = new LCDE<>();
     private Deque<Chair> listChairP = new ArrayDeque<>();
+    private LCDE<User> listUsers = new LCDE();
+    private LCDE <User> listUsersGame = new LCDE<>();
+    private Deque<User> PileUsers = new ArrayDeque<>();
     private Math calcular;                          //hará las operaciones
     //Desde el FXML 
     @FXML Button btnPlay= new Button();
@@ -35,7 +41,7 @@ public class Juego_1 implements Initializable {
     double posY=135;
     boolean parar= false;                           //es el que controla el hilo, al estar en true el hilo de para.
     Image img;
-    private Setting sett = new Setting(5);
+    private Setting sett = new Setting(0);
     
     public Juego_1() throws FileNotFoundException {
     }
@@ -81,10 +87,18 @@ public class Juego_1 implements Initializable {
         hilo.start();           //inicia el hilo
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setListChairs();
-        OrganizeController();
+    public void initialize(Double nP) throws MalformedURLException { //Se ejecuta este inicializado para llenar todo lo que dijo el usario antes que se abra esta ventana
+        sett = new Setting (nP);
+        listChairs = sett.addChairs(); //En Seeting crera la lista de sillas
+        listUsers=  sett.addPlayers();
+        for (int i = 0; i < listChairs.size(); i++) { //Guarda cada silla en una pila
+            listChairP.push(listChairs.get(i));
+        }
+        for (int i = 0;i< listUsers.size();i++){
+            PileUsers.push(listUsers.get(i));
+    }
+        OrganizeControllerChairs();
+        OrganizeControllerUser();
     }
     
     //mueve al objeto a una posición X,Y según la ecuación
@@ -115,55 +129,78 @@ public class Juego_1 implements Initializable {
             signo=true;
         }
     }
-
-    public void setListChairs() {
-        listChairs=sett.addChairs();
-        for(int i=0; i<listChairs.size();i++){
-            listChairP.push(listChairs.get(i));
-        }
-    }
-    
-    void iniData(Setting set){
-        this.sett=set;
-        listChairs=sett.addChairs();
-        for(int i=0; i<listChairs.size();i++){
-            listChairP.push(listChairs.get(i));
-        }
-    
-    }
-    //(x)^2 +(y)^2 = 50^2
-    private void OrganizeController(){
-        double distance = (50*4) / listChairs.size();
-        double inicio = (211-50);
+    //(x-211)^2 +(y-135)^2 = 50^2 (Ecuacion para las sillas)
+   
+    private void OrganizeControllerChairs(){ //Aqui se crea la forma circular de la silla
+        double distance = (50*4) / listChairs.size(); //se crea el intervalo de aumento para aumentar la posicion en X
+        double inicio = (211-50); //Se proporciona el inicio del intervalo en X es decir su dominio
         boolean val1=true;
         boolean val2=true;
         int i=0;
-        while(!this.listChairP.isEmpty()){
+        while(!this.listChairP.isEmpty()){ //Cada vez que se ingrese una silla se elimina un objeto de la pila 
             while(val1){
-            double coor_y = (Math.sqrt(Math.pow(50, 2) - Math.pow(inicio - 211, 2))) + 135;
-            this.listChairP.peek().getImage().setLayoutX(inicio);
+            double coor_y = (Math.sqrt(Math.pow(50, 2) - Math.pow(inicio - 211, 2))) + 135; //Se saca la posicion en Y segun la ecuacion de la circuferencia
+            this.listChairP.peek().getImage().setLayoutX(inicio); //Se coloca cada silla segun la posioion en X y en Y
             this.listChairP.peek().getImage().setLayoutY(coor_y);
-            if (i == 0) {
+            if (i == 0) { //Solo la primera se guarda en una lista cada silla con sus posiciones nuevas
                 listChairsGame.addFirst(new Chair(inicio, coor_y));
                 i++;
             } else {
                 listChairsGame.addLast(new Chair(inicio, coor_y));
             }
             spPane.getChildren().addAll(this.listChairP.pop().getImage());
-            inicio=inicio+distance;
-            if(inicio>261){
-                val1=false;
-                inicio=261-distance;
+            inicio=inicio+distance; //Se adelante en X
+            if(inicio>261){ //Para que de una vuelta completo y que escoga los valores en Y que estan en la parte inferior de la circuferencia se verifica que no pase del dominio de X
+                val1=false; 
+                inicio=261-distance; //Si se llega a salir del dominio se le quita la distancia a la parte final del domininio para la siguiente vuelta
             }
             }
-            while(val2 && !this.listChairP.isEmpty()){
+            while(val2 && !this.listChairP.isEmpty()){ //Entra aqui si y solo aqui sillas por agrgar que corresponderia a las sillas que se iran colacando en la parte inferior de la circuferencia
             double coor_y = -(Math.sqrt(Math.pow(50, 2) - Math.pow(inicio - 211, 2))) + 135;
              this.listChairP.peek().getImage().setLayoutX(inicio);
              this.listChairP.peek().getImage().setLayoutY(coor_y);
             listChairsGame.addLast(new Chair(inicio, coor_y));
             spPane.getChildren().addAll(this.listChairP.pop().getImage());
-            inicio=inicio-distance;
+            inicio=inicio-distance; //Se va retrocediendo para agregar los valores de "y" que faltan
             if(inicio<=161){
+                val2=false;
+            }
+            }
+        }
+    }
+    //(x-211)^2 +(y-135)^2 = 150^2 (Ecuacion para las sillas)
+    private void OrganizeControllerUser(){
+        double distance = (150*4) / listUsers.size(); //se crea el intervalo de aumento para aumentar la posicion en X
+        double inicio = (211-150); //Se proporciona el inicio del intervalo en X es decir su dominio
+        boolean val1=true;
+        boolean val2=true;
+        int i=0;
+        while(!this.PileUsers.isEmpty()){ //Cada vez que se ingrese una silla se elimina un objeto de la pila 
+            while(val1){
+            double coor_y = (Math.sqrt(Math.pow(150, 2) - Math.pow(inicio - 211, 2))) + 135; //Se saca la posicion en Y segun la ecuacion de la circuferencia
+            this.PileUsers.peek().getImage().setLayoutX(inicio); //Se coloca cada silla segun la posioion en X y en Y
+            this.PileUsers.peek().getImage().setLayoutY(coor_y);
+            if (i == 0) { //Solo la primera se guarda en una lista cada silla con sus posiciones nuevas
+                listUsersGame.addFirst(new User(false,inicio, coor_y));
+                i++;
+            } else {
+                listUsersGame.addLast(new User(false,inicio, coor_y));
+            }
+            spPane.getChildren().addAll(this.PileUsers.pop().getImage());
+            inicio=inicio+distance; //Se adelante en X
+            if(inicio>361){ //Para que de una vuelta completo y que escoga los valores en Y que estan en la parte inferior de la circuferencia se verifica que no pase del dominio de X
+                val1=false; 
+                inicio=361-distance; //Si se llega a salir del dominio se le quita la distancia a la parte final del domininio para la siguiente vuelta
+            }
+            }
+            while(val2 && !this.PileUsers.isEmpty()){ //Entra aqui si y solo aqui sillas por agrgar que corresponderia a las sillas que se iran colacando en la parte inferior de la circuferencia
+            double coor_y = -(Math.sqrt(Math.pow(150, 2) - Math.pow(inicio - 211, 2))) + 135;
+             this.PileUsers.peek().getImage().setLayoutX(inicio);
+             this.PileUsers.peek().getImage().setLayoutY(coor_y);
+            listUsersGame.addLast(new User(false,inicio, coor_y));
+            spPane.getChildren().addAll(this.PileUsers.pop().getImage());
+            inicio=inicio-distance; //Se va retrocediendo para agregar los valores de "y" que faltan
+            if(inicio<=61){
                 val2=false;
             }
             }

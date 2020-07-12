@@ -8,7 +8,7 @@ package Piece;
 
 import TDA.LCDE;
 import java.io.File;
-import javafx.scene.control.Button;
+import java.net.MalformedURLException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -19,13 +19,14 @@ import javafx.scene.image.ImageView;
 public class Setting <E> {
     private double numberParticipants;
     private String Direction;
-    //private ListDoubleC <Player>listPlayers;
+    private LCDE <User>listPlayers=new LCDE<>();
     private LCDE <Chair>listChairs= new LCDE<>();
 
     public Setting(double numberParticipants, String Direction) {
         this.numberParticipants = numberParticipants;
         this.Direction = Direction;
         this.listChairs=null;
+        this.listPlayers=null;
        
     }
 
@@ -33,32 +34,44 @@ public class Setting <E> {
         this.numberParticipants = numberParticipants;
     }
     
-    /*
-    private boolean addPlayers(){
-        for(int i =0; i< numberParticipants;i++){
+    
+    public LCDE<User> addPlayers() throws MalformedURLException{
+        for(int i =0; i< getNumberParticipants();i++){
             if(i==0){
-                listPlayers.addFirst(new Player(0));
+                File file = new File("@../Files/usuario.png");
+                Image image = new Image(file.toURL().toString());
+                ImageView imv = new ImageView(image);
+                imv.setFitHeight(80);
+                imv.setFitWidth(80);
+                imv.setPreserveRatio(true);
+                listPlayers.addFirst(new User(imv,false));
             }else{
-                listPlayers.addLast(new Player(0)):
+                File file = new File("@../Files/usuario.png");
+                Image image = new Image(file.toURL().toString());
+                ImageView imv = new ImageView(image);
+                imv.setFitHeight(80);
+                imv.setFitWidth(80);
+                imv.setPreserveRatio(true);
+                listPlayers.addLast(new User(imv,false));
             }
         }
-        return true;
-    }
-*/
-    public LCDE<Chair> addChairs() {
+        return listPlayers;
+    }   
 
-        for (int i = 0; i < getNumberParticipants() - 1; i++) {
+    public LCDE<Chair> addChairs() throws MalformedURLException {
+
+        for (double i = 0; i < getNumberParticipants() - 1; i++) {
             if (i == 0) {
-                File file = new File("C:/Users/i7/Desktop/Espol/Estructura de Datos/estructura/Proyecto/src/Files/silla.png");
-                Image image = new Image(file.toURI().toString());
+                File file = new File("@../Files/silla.png");
+                Image image = new Image(file.toURL().toString());
                 ImageView imv = new ImageView(image);
                 imv.setFitHeight(50);
                 imv.setFitWidth(50);
                 imv.setPreserveRatio(true);
                 listChairs.addFirst(new Chair(imv));
             } else {
-                File file = new File("C:/Users/i7/Desktop/Espol/Estructura de Datos/estructura/Proyecto/src/Files/silla.png");
-                Image image = new Image(file.toURI().toString());
+                File file = new File("@../Files/silla.png");
+                Image image = new Image(file.toURL().toString());
                 ImageView imv = new ImageView(image);
                 imv.setFitHeight(50);
                 imv.setFitWidth(50);

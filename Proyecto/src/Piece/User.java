@@ -11,8 +11,15 @@ public class User {
     private double posX;
     private double posY;
 
-    public User() {
-        image = new ImageView("usuario.jpg");
+    public User(ImageView image, boolean seated) {
+        this.image = image;
+        this.seated=seated;
+    }
+
+    public User(boolean seated, double posX, double posY) {
+        this.seated = seated;
+        this.posX = posX;
+        this.posY = posY;
     }
     
     public boolean isSeated(){

@@ -57,13 +57,12 @@
             <ProgressBar layoutX="369.0" layoutY="18.0" prefWidth="200.0" progress="0.0" />
             <Pane fx:id="spPane" layoutX="138.0" layoutY="60.0" prefHeight="355.0" prefWidth="483.0">
                <children>
-                  <ImageView fx:id="ivSilla" fitHeight="62.0" fitWidth="67.0" layoutX="89.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="ivSilla" fitHeight="61.0" fitWidth="69.0" layoutX="81.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Files/silla.png" />
+                        <Image url="@../Files/usuario.jpg" />
                      </image>
                   </ImageView>
-               </children>
-            </Pane>
+               </children></Pane>
          </children>
       </Pane>
    </children>

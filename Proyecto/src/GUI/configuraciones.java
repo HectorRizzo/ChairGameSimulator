@@ -9,6 +9,8 @@ import Piece.Setting;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -41,44 +43,46 @@ public class configuraciones implements Initializable {
     private Slider slPersonas;
     @FXML
     private RadioButton rbHorario;
-
     @FXML
     private RadioButton rbAntihorario;
     @FXML
     private Label nPersonas;
-
+    @FXML
+     Label Pnum;
+    
 
     @FXML
     void jugar(ActionEvent event) throws IOException {
         ((Node) (event.getSource())).getScene().getWindow().hide();
-        /*
-        FXMLLoader loader = new FXMLLoader(
+        
+        FXMLLoader loader;
+        loader = new FXMLLoader(
                 getClass().getResource(
-                        "Juego.fxml"
-                )
+                        "/GUI/Juego_1.fxml"
+                )   
         );
         Parent parent = loader.load();
-        */
-        
-        Parent parent =  FXMLLoader.load(getClass().getResource("Juego_1.fxml"));
-        /*
-        Setting set = new Setting(slPersonas.getValue());
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                       "Juego.fxml"
-                ));
-        Juego controller =loader.<Juego>getController();
-        controller.iniData(set);
-*/
+
+        //Parent parent = FXMLLoader.load(getClass().getResource("/GUI/Juego_1.fxml"));
+        Juego_1 controller = loader.getController();
+        controller.initialize(Double.parseDouble(Pnum.getText()));
+        System.out.println(Pnum.getText());
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
+       
+        
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-    }
-
+        this.slPersonas.valueProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    Pnum.setText(String.valueOf(newValue));
+            }
+        });
+        
+}
 }

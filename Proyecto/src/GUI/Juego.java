@@ -14,10 +14,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Juego implements Initializable {
@@ -83,7 +86,11 @@ public class Juego implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setListChairs();
+        try {
+            setListChairs();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+        }
         OrganizeController();
     }
     
@@ -116,14 +123,14 @@ public class Juego implements Initializable {
         }
     }
 
-    public void setListChairs() {
+    public void setListChairs() throws MalformedURLException {
         listChairs=sett.addChairs();
         for(int i=0; i<listChairs.size();i++){
             listChairP.push(listChairs.get(i));
         }
     }
     
-    void iniData(Setting set){
+    void iniData(Setting set) throws MalformedURLException{
         this.sett=set;
         listChairs=sett.addChairs();
         for(int i=0; i<listChairs.size();i++){
