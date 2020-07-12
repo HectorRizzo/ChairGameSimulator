@@ -52,7 +52,7 @@ public class Juego_1 {
     //cuando se presiona el botón stop el hilo se interrumpirá.
     @FXML
     protected void btnStopClicked() {
-       sound.stop();
+        sound.stop();
         parar = true;
     }
 
@@ -106,7 +106,7 @@ public class Juego_1 {
         }
         OrganizeControllerChairs();
         OrganizeControllerUser();
-        
+
     }
 
     //mueve al objeto a una posición X,Y según la ecuación
@@ -215,4 +215,13 @@ public class Juego_1 {
             }
         }
     }
+
+    public AudioClip getSound() {
+        return sound;
+    }
+
+    public void setSound(AudioClip sound) {
+        this.sound = sound;
+    }
+
 }

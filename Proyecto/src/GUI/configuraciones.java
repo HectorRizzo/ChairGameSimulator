@@ -48,18 +48,17 @@ public class configuraciones implements Initializable {
     @FXML
     private Label nPersonas;
     @FXML
-     Label Pnum;
-    
+    Label Pnum;
 
     @FXML
     void jugar(ActionEvent event) throws IOException {
         ((Node) (event.getSource())).getScene().getWindow().hide();
-        
+
         FXMLLoader loader;
         loader = new FXMLLoader(
                 getClass().getResource(
                         "/GUI/Juego_1.fxml"
-                )   
+                )
         );
         Parent parent = loader.load();
 
@@ -71,18 +70,24 @@ public class configuraciones implements Initializable {
         Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
-       
         
+        stage.setOnCloseRequest(event1 -> {
+            controller.getSound().stop();
+            System.out.println("Stage is close");
+
+            // Save file
+        });
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.slPersonas.valueProperty().addListener(new ChangeListener<Number>(){
+        this.slPersonas.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                    Pnum.setText(String.valueOf(newValue));
+                Pnum.setText(String.valueOf(newValue));
             }
         });
-        
-}
+
+    }
 }
