@@ -5,25 +5,15 @@ import Piece.Chair;
 import Piece.Setting;
 import Piece.User;
 import TDA.LCDE;
-import TDA.ListIterator;
-import java.applet.AudioClip;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.*;
 
 
 public class Juego{
@@ -33,18 +23,12 @@ public class Juego{
     private LCDE<User> listUsers = new LCDE();
     private LCDE<User> listUsersGame = new LCDE<>();
     private Deque<User> PileUsers = new ArrayDeque<>();
-    private Math calcular;                          //hará las operaciones
+    private TreeMap<Chair,User> mapaDistancia=new TreeMap<>();          //mapa que guarda las sillas y el user que se sentarán en ella
+    private Stack<Chair> pilaChairOccupated= new Stack<>();             //pila que guarda las sillas de manera que cuando una ya esté ocupada se le hace pop
     //Desde el FXML
     @FXML Button btnPlay= new Button();
-    @FXML ImageView ivUser = new ImageView();
     @FXML Pane spPane= new StackPane();
-    double radio=115;                               //radio de la circunferencia a ser dibujada
-    double posX=-radio;
-    double posY=0;
     boolean parar= false;                           //es el que controla el hilo, al estar en true el hilo de para.
-    Image img;
-    double pos_X=0;
-    double pos_Y=0;
     private Setting sett = new Setting(4);
      
 
@@ -54,13 +38,46 @@ public class Juego{
 
     //cuando se presiona el botón stop el hilo se interrumpirá.
     @FXML protected void btnStopClicked(){
-        
         parar=true;
+        calcularDistancia();
+        Thread hiloSentarse = new Thread(new Runnable() {
+            public void run() {
+                Runnable updater = new Runnable() {
+                    @Override
+                    //aqui se pone lo que se quiere ejecutar en el tiempo
+                    public void run() {
+                        //recorre el mapa y los hace sentarse alrededor de las sillas
+                        for(Map.Entry<Chair,User> entry : mapaDistancia.entrySet()) {
+                            sentarJugadores(entry.getValue(),entry.getKey());
+                        }
+                    }
+                };
+
+                while (true) {
+                    try {
+                        Thread.sleep(100);        //establece cada cuanto tiempo se ejecutará la acción del run
+                        synchronized (this) {
+                            //mientras la pila de sillas no esté vacía se sigue ejecutando el hilo
+                            while (pilaChairOccupated.isEmpty()) {
+                                Thread.interrupted();       //se interrumpe el hilo
+                                wait();
+                            }
+                        }
+                    } catch (InterruptedException ex) {
+                    }
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                }
+            }
+        });
+        hiloSentarse.setDaemon(true);
+        hiloSentarse.start();
+
     }
 
     //define que se hará al presionar al botón play
     @FXML protected void btnPlayClicked() {
-        
+        mapaDistancia.clear();
         parar=false;                                //se lo pone en false porque puede que antes se haya dado al botón stop.
 
         //moverá las pelotas en el tiempo
@@ -133,7 +150,7 @@ public class Juego{
         user.setPosY(posY);                                                             //guarda la posición x,y en el usuario
         user.getImage().setTranslateX(posX);
         user.getImage().setTranslateY(posY);                                            //establece la nueva posicion Y
-        System.out.println(i+"; posX: "+posX+" posY: "+posY);
+        //System.out.println(i+"; posX: "+posX+" posY: "+posY);
     }
 
     //nos dice si se llegó al final de lo permitido en el eje X; si es true se seguirá recorriendo hacia la derecha del eje
@@ -223,4 +240,70 @@ public class Juego{
             }
         }
     }
+
+    //calcula la distancia minima de cada silla con los jugadores y los agrega al mapa
+    public void calcularDistancia(){
+        //recorre la lista de sillas
+        for(int i=0;i<listChairsGame.size();i++){
+            Stack<User> pilaUserSentado=new Stack<>();
+            double distanciaMinima=1000000000;
+            //recorre la lista de users
+            for (int j=0;j<listUsersGame.size();j++){
+                //Verifica si el usuario no se a sentado aún
+                if(!listUsersGame.get(j).isSeated()){
+                    //guarda las posiciones x,y de la silla y los users
+                    double posXChair=listChairsGame.get(i).getPos_X();
+                    double posYChair=listChairsGame.get(i).getPos_y();
+                    double posXUser=listUsersGame.get(j).getPosX();
+                    double posYUser=listUsersGame.get(j).getPosY();
+                    double distancia=Math.sqrt((Math.pow(posXUser-posXChair,2)+Math.pow(posYUser-posYChair,2))); //calcula la distancia minima entre dos puntos: raiz((X-x)^2 + (Y-y)^2))
+                    //verifica si la distancia del usuario es minima a la distancia anterior
+                    if(distancia<distanciaMinima){
+                        distanciaMinima=distancia;
+                        //comprueba si la pila tiene elementos
+                        if(!pilaUserSentado.isEmpty()){
+                            System.out.println(pilaUserSentado.pop());              //elimina el user anterior
+                            pilaUserSentado.push(listUsersGame.get(j));             //agrega el nuevo user
+                        }else{
+                            pilaUserSentado.push(listUsersGame.get(j));             //agrega el user
+                        }
+                    }
+                }
+            }
+            pilaUserSentado.peek().setSeated(true);                                 //pone el estado del user en sentado para que no se vuelva a consultar
+            pilaChairOccupated.push(listChairsGame.get(i));                         //agrega la silla a la pila de sillas
+            mapaDistancia.put(listChairsGame.get(i),pilaUserSentado.pop());         //agrega la silla y el usuario al mapa
+        }
+
+    }
+
+    //efectúa la animación de sentar al jugador; se utilizará la ecuación de la recta Y - y = m (X - x) para que el user "camine" en línea recta
+    public void sentarJugadores(User user, Chair chair){
+        double posX=0;
+        double pendiente= ((chair.getPos_y()-user.getPosY())/(chair.getPos_X()-user.getPosX()));        //se obtiene la pendiente de la recta
+        //comprueba que la silla no esté ya ocupada (porque el hilo ejecuta la acción para todos, por eso se debe verificar)
+        if(!chair.isOccupated()){
+            //verifica que el user no haya llegado a la silla
+            if(user.getPosX()!=chair.getPos_X()||user.getPosY()!=chair.getPos_y()){
+                if(user.getPosX()>chair.getPos_X()){            //si la pos X del user está despues de la posX de la silla, disminuye la posX y con ella se obtiene la posY
+                    posX= user.getPosX()-1;
+                    user.setPosX(posX);
+                }else if(user.getPosX()<chair.getPos_X()){      //si la pos X del user está antes de la posX de la silla, aumenta la posX y con ella se obtiene la posY
+                    posX= user.getPosX()+1;
+                    user.setPosX(posX);
+                }
+                double posY= pendiente * (posX-chair.getPos_X()) + chair.getPos_y();        //se calcula la posY
+                //se establece las posiciones en los atributos del user y se lo mueve
+                user.setPosX(posX);
+                user.setPosY(posY);
+                user.getImage().setTranslateX(posX);
+                user.getImage().setTranslateY(posY);
+            }else{
+                //si ya se llegó a la silla, se la marca como ocupada y se la elimina de la pila
+                chair.setOccupated(true);
+                pilaChairOccupated.pop();
+            }
+        }
+    }
+
 }

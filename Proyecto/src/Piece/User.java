@@ -4,7 +4,7 @@ package Piece;
 import javafx.scene.image.ImageView;
 
 
-public class User {
+public class User implements Comparable<User>{
    
     private ImageView image;
     private boolean seated;
@@ -66,5 +66,20 @@ public class User {
 
     public void setSentido(boolean sentido) {
         this.sentido = sentido;
+    }
+
+    public void setSeated(boolean seated) {
+        this.seated = seated;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        if(this.getPosX()>o.getPosX()){
+            return 1;
+        }
+        if(this.getPosX()<o.getPosX()){
+            return -1;
+        }
+        return 0;
     }
 }
