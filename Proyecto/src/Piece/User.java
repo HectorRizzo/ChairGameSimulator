@@ -10,6 +10,7 @@ public class User {
     private boolean seated;
     private double posX;
     private double posY;
+    private boolean sentido;                                //nos dice hacia que dirección en eje x se moverá; true= derecha, false= izquierda
 
     public User(ImageView image, boolean seated) {
         this.image = image;
@@ -22,11 +23,12 @@ public class User {
         this.posY = posY;
     }
 
-    public User(ImageView image, boolean seated, double posX, double posY) {
+    public User(ImageView image, boolean seated, double posX, double posY,boolean sentido) {
         this.image = image;
         this.seated = seated;
         this.posX = posX;
         this.posY = posY;
+        this.sentido=sentido;
     }
     
     
@@ -57,6 +59,12 @@ public class User {
     public void setPosY(double posY) {
         this.posY = posY;
     }
-    
-    
+
+    public boolean isSentido() {
+        return sentido;
+    }
+
+    public void setSentido(boolean sentido) {
+        this.sentido = sentido;
+    }
 }

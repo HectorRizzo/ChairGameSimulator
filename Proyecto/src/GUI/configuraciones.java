@@ -62,7 +62,6 @@ public class configuraciones implements Initializable {
                 )   
         );
         Parent parent = loader.load();
-
         //Parent parent = FXMLLoader.load(getClass().getResource("/GUI/Juego_1.fxml"));
         Juego controller = loader.getController();
         controller.initialize(Double.parseDouble(Pnum.getText()));

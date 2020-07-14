@@ -38,7 +38,6 @@ public class Setting <E> {
     public LCDE<User> addPlayers() throws MalformedURLException{
         for(int i =0; i< getNumberParticipants();i++){
             if(i==0){
-               // File file = new File("@../Files/usuario.png");
                 Image image = new Image("/Files/usuario.jpg");
                 ImageView imv = new ImageView(image);
                 imv.setFitHeight(65);

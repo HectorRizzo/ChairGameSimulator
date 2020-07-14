@@ -38,7 +38,6 @@ public class Juego{
     @FXML Button btnPlay= new Button();
     @FXML ImageView ivUser = new ImageView();
     @FXML Pane spPane= new StackPane();
-    boolean signo=true;                             //nos permite tomar la parte positiva o negativa de Y en la función.
     double radio=115;                               //radio de la circunferencia a ser dibujada
     double posX=-radio;
     double posY=0;
@@ -71,7 +70,10 @@ public class Juego{
                     @Override
                     //aqui se pone lo que se quiere ejecutar en el tiempo
                     public void run() {
-                        Caminete();    //llama a la función que mueve las figuras
+                        //recorre la lista de jugadores y los hace caminar alrededor de las sillas
+                        for(int i=0;i<listUsersGame.size();i++){
+                            trazarCircunferencia(listUsersGame.get(i),114, i);
+                        }
                     }
                 };
 
@@ -99,7 +101,7 @@ public class Juego{
 
     public void initialize(Double nP) throws MalformedURLException {
         sett = new Setting(nP);
-        listChairs = sett.addChairs(); //En Seeting crera la lista de sillas
+        listChairs = sett.addChairs(); //En Seeting crea la lista de sillas
         listUsers = sett.addPlayers();
         for (int i = 0; i < listChairs.size(); i++) { //Guarda cada silla en una pila
             listChairP.push(listChairs.get(i));
@@ -110,45 +112,40 @@ public class Juego{
         OrganizeControllerChairs();
         OrganizeControllerUser();
     }
-    
-    //mueve al objeto a una posición X,Y según la ecuación
-    private void Caminete(){
-        
-        ListIterator<User> it1= listUsersGame.Iterator();
-         while(it1.Limit()){
-             this.pos_X=it1.previous().getPosX();
-             this.pos_Y=it1.previous().getPosY();
-             trazarCircunferencia(it1.previous().getImage());
-         
-         }
-        System.out.println(this.listUsersGame.size());
-    }
-        
-    public void trazarCircunferencia(ImageView ivUser){
-        ivUser.setTranslateX(pos_X);
+
+
+    //hace que el jugador se muevan en circulo. Sentido true= se mueve hacia la derecha, sentido= false: se mueve hacia la izquierda
+    public void trazarCircunferencia(User user,double initialRadio, int i) {
+        double posX=user.getPosX();
+        double posY;
         //verifica que se esté recorriendo hacia la derecha en el eje X
-        if(signo){
-            pos_Y=calcular.sqrt(calcular.abs((pos_X*pos_X)-(radio*radio)));     //ecuación de la circunferencia
-            pos_X+=4;                                                         //aumentamos la posición X
-            sentido(pos_X);                                                   //verifica si se llegó al final de lo permitido en X
-        //Sino se cumple lo anterior, se tomará la parte negativa de la raíz cuadrada de la ecuación
-        }else{
-            pos_Y=-(calcular.sqrt(calcular.abs((pos_X*pos_X)-(radio*radio))));
-            pos_X-=4;
-            sentido(pos_X);
+        sentido(user,posX,initialRadio);                                //verifica si se llegó al final de lo permitido en X
+        //comprueba si se mueve hacia la derecha o la izquierda de las X
+        if (user.isSentido()) {
+            posY = Math.sqrt(Math.abs(Math.pow(114, 2) - Math.pow((posX), 2))) ;     //ecuación de la circunferencia
+            posX += 2;                                                         //aumentamos la posición X
+            //Sino se cumple lo anterior, se tomará la parte negativa de la raíz cuadrada de la ecuación
+        } else {
+            posY = -Math.sqrt(Math.abs(Math.pow(114, 2) - Math.pow(posX, 2))) ;
+            posX -= 2;
         }
-        ivUser.setTranslateY(pos_Y);                                            //establece la nueva posicion Y
-        //System.out.println("posX: "+ivSilla.getTranslateX()+" posY: "+ ivSilla.getTranslateY());
+        user.setPosX(posX);
+        user.setPosY(posY);                                                             //guarda la posición x,y en el usuario
+        user.getImage().setTranslateX(posX);
+        user.getImage().setTranslateY(posY);                                            //establece la nueva posicion Y
+        System.out.println(i+"; posX: "+posX+" posY: "+posY);
     }
 
     //nos dice si se llegó al final de lo permitido en el eje X; si es true se seguirá recorriendo hacia la derecha del eje
-    public void sentido(double posX){
+    public void sentido(User user,double posX,double radio){
         //verifica si se llegó al X MAXIMO positivo
         if(posX==radio){
-            signo=false;
+            System.out.println("entra en radio");
+            user.setSentido(false);
         //verifica si se llegó al MÍNIMO negativo
         }else if(posX==-radio){
-            signo=true;
+            System.out.println("entra en -radio");
+            user.setSentido(true);
         }
     }
     //(x)^2 +(y)^2 = 50^2
@@ -190,37 +187,37 @@ public class Juego{
         }
     }
     private void OrganizeControllerUser() {
-        double distance = (115*4) / listUsers.size(); //se crea el intervalo de aumento para aumentar la posicion en X
-        double inicio = (- 115); //Se proporciona el inicio del intervalo en X es decir su dominio
+        double distance = (114*4) / listUsers.size(); //se crea el intervalo de aumento para aumentar la posicion en X
+        double inicio = (- 114); //Se proporciona el inicio del intervalo en X es decir su dominio
         boolean val1 = true;
         boolean val2 = true;
         int i = 0;
-        while (!this.PileUsers.isEmpty()) { //Cada vez que se ingrese una silla se elimina un objeto de la pila 
+        while (!this.PileUsers.isEmpty()) { //Cada vez que se ingrese una silla se elimina un objeto de la pila
             while (val1) {
-                double coor_y = (Math.sqrt(Math.pow(115, 2) - Math.pow(inicio, 2))); //Se saca la posicion en Y segun la ecuacion de la circuferencia
+                double coor_y = (Math.sqrt(Math.pow(114, 2) - Math.pow(inicio, 2))); //Se saca la posicion en Y segun la ecuacion de la circuferencia
                 this.PileUsers.peek().getImage().setTranslateX(inicio); //Se coloca cada silla segun la posioion en X y en Y
                 this.PileUsers.peek().getImage().setTranslateY(coor_y);
                 if (i == 0) { //Solo la primera se guarda en una lista cada silla con sus posiciones nuevas
-                    listUsersGame.addFirst(new User(this.PileUsers.peek().getImage(),false, inicio, coor_y));
+                    listUsersGame.addFirst(new User(this.PileUsers.peek().getImage(),false, inicio, coor_y,true));  //usa el constructor que también añade el sentido en que se moverá
                     i++;
                 } else {
-                    listUsersGame.addLast(new User(this.PileUsers.peek().getImage(),false, inicio, coor_y));
+                    listUsersGame.addLast(new User(this.PileUsers.peek().getImage(),false, inicio, coor_y,true));
                 }
                 spPane.getChildren().addAll(this.PileUsers.pop().getImage());
                 inicio = inicio + distance; //Se adelante en X
-                if (inicio > 115) { //Para que de una vuelta completo y que escoga los valores en Y que estan en la parte inferior de la circuferencia se verifica que no pase del dominio de X
+                if (inicio > 114) { //Para que de una vuelta completo y que escoga los valores en Y que estan en la parte inferior de la circuferencia se verifica que no pase del dominio de X
                     val1 = false;
-                    inicio = 115 - distance; //Si se llega a salir del dominio se le quita la distancia a la parte final del domininio para la siguiente vuelta
+                    inicio = 114 - distance; //Si se llega a salir del dominio se le quita la distancia a la parte final del domininio para la siguiente vuelta
                 }
             }
             while (val2 && !this.PileUsers.isEmpty()) { //Entra aqui si y solo aqui sillas por agrgar que corresponderia a las sillas que se iran colacando en la parte inferior de la circuferencia
-                double coor_y = -(Math.sqrt(Math.pow(115, 2) - Math.pow(inicio, 2)));
+                double coor_y = -(Math.sqrt(Math.pow(114, 2) - Math.pow(inicio, 2)));
                 this.PileUsers.peek().getImage().setTranslateX(inicio);
                 this.PileUsers.peek().getImage().setTranslateY(coor_y);
-                listUsersGame.addLast(new User(this.PileUsers.peek().getImage(),false, inicio, coor_y));
+                listUsersGame.addLast(new User(this.PileUsers.peek().getImage(),false, inicio, coor_y,false));
                 spPane.getChildren().addAll(this.PileUsers.pop().getImage());
                 inicio = inicio - distance; //Se va retrocediendo para agregar los valores de "y" que faltan
-                if (inicio <= (-115)) {
+                if (inicio <= (-114)) {
                     val2 = false;
                 }
             }
