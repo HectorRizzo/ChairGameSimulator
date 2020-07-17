@@ -12,8 +12,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
 public class Juego{
@@ -24,12 +31,13 @@ public class Juego{
     private LCDE<User> listUsersGame = new LCDE<>();
     private Deque<User> PileUsers = new ArrayDeque<>();
     private TreeMap<Chair,User> mapaDistancia=new TreeMap<>();          //mapa que guarda las sillas y el user que se sentarán en ella
-    private Stack<Chair> pilaChairOccupated= new Stack<>();             //pila que guarda las sillas de manera que cuando una ya esté ocupada se le hace pop
-    //Desde el FXML
+    private Deque<Chair> pilaChairOccupated= new LinkedList<>();             //pila que guarda las sillas de manera que cuando una ya esté ocupada se le hace pop
+    
+//Desde el FXML
     @FXML Button btnPlay= new Button();
     @FXML Pane spPane= new StackPane();
     boolean parar= false;                           //es el que controla el hilo, al estar en true el hilo de para.
-    private Setting sett = new Setting(4);
+    private Setting sett = new Setting(0);
      
 
     
@@ -76,10 +84,10 @@ public class Juego{
     }
 
     //define que se hará al presionar al botón play
-    @FXML protected void btnPlayClicked() {
+    @FXML protected void btnPlayClicked()  {
         mapaDistancia.clear();
         parar=false;                                //se lo pone en false porque puede que antes se haya dado al botón stop.
-
+        
         //moverá las pelotas en el tiempo
         Thread hilo = new Thread(new Runnable() {
             public void run() {
@@ -89,14 +97,14 @@ public class Juego{
                     public void run() {
                         //recorre la lista de jugadores y los hace caminar alrededor de las sillas
                         for(int i=0;i<listUsersGame.size();i++){
-                            trazarCircunferencia(listUsersGame.get(i),114, i);
+                            trazarCircunferencia(listUsersGame.get(i),115);
                         }
                     }
                 };
 
                 while (true) {
                     try {
-                        Thread.sleep(50);        //establece cada cuanto tiempo se ejecutará la acción del run
+                        Thread.sleep(30);        //establece cada cuanto tiempo se ejecutará la acción del run
                         synchronized (this) {
                             while (parar) {
                                 Thread.interrupted();       //se interrumpe el hilo
@@ -116,8 +124,8 @@ public class Juego{
     }
 
 
-    public void initialize(Double nP) throws MalformedURLException {
-        sett = new Setting(nP);
+    public void initialize(Double nP, String sentido) throws MalformedURLException {
+        sett = new Setting(nP,sentido);
         listChairs = sett.addChairs(); //En Seeting crea la lista de sillas
         listUsers = sett.addPlayers();
         for (int i = 0; i < listChairs.size(); i++) { //Guarda cada silla en una pila
@@ -132,25 +140,46 @@ public class Juego{
 
 
     //hace que el jugador se muevan en circulo. Sentido true= se mueve hacia la derecha, sentido= false: se mueve hacia la izquierda
-    public void trazarCircunferencia(User user,double initialRadio, int i) {
+    public void trazarCircunferencia(User user,double initialRadio) {
+        if(sett.getDirection().equalsIgnoreCase("Antihorario")){
         double posX=user.getPosX();
         double posY;
         //verifica que se esté recorriendo hacia la derecha en el eje X
         sentido(user,posX,initialRadio);                                //verifica si se llegó al final de lo permitido en X
         //comprueba si se mueve hacia la derecha o la izquierda de las X
         if (user.isSentido()) {
-            posY = Math.sqrt(Math.abs(Math.pow(114, 2) - Math.pow((posX), 2))) ;     //ecuación de la circunferencia
-            posX += 2;                                                         //aumentamos la posición X
+            posY = Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow((posX), 2))) ;     //ecuación de la circunferencia
+            posX += 1;                                                         //aumentamos la posición X
             //Sino se cumple lo anterior, se tomará la parte negativa de la raíz cuadrada de la ecuación
         } else {
-            posY = -Math.sqrt(Math.abs(Math.pow(114, 2) - Math.pow(posX, 2))) ;
-            posX -= 2;
+            posY = -Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow(posX, 2))) ;
+            posX -= 1;
         }
         user.setPosX(posX);
         user.setPosY(posY);                                                             //guarda la posición x,y en el usuario
         user.getImage().setTranslateX(posX);
         user.getImage().setTranslateY(posY);                                            //establece la nueva posicion Y
-        //System.out.println(i+"; posX: "+posX+" posY: "+posY);
+        System.out.println("; posX: "+posX+" posY: "+posY);
+        }else if(sett.getDirection().equalsIgnoreCase("Horario")){
+        double posX=user.getPosX();
+        double posY;
+        //verifica que se esté recorriendo hacia la derecha en el eje X
+        sentido(user,posX,initialRadio);                                //verifica si se llegó al final de lo permitido en X
+        //comprueba si se mueve hacia la derecha o la izquierda de las X
+        if (user.isSentido()) {
+            posY = -Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow((posX), 2))) ;     //ecuación de la circunferencia
+            posX += 1;                                                         //aumentamos la posición X
+            //Sino se cumple lo anterior, se tomará la parte negativa de la raíz cuadrada de la ecuación
+        } else {
+            posY = Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow(posX, 2))) ;
+            posX -= 1;
+        }
+        user.setPosX(posX);
+        user.setPosY(posY);                                                             //guarda la posición x,y en el usuario
+        user.getImage().setTranslateX(posX);
+        user.getImage().setTranslateY(posY);                                            //establece la nueva posicion Y
+        System.out.println("; posX: "+posX+" posY: "+posY);
+        }
     }
 
     //nos dice si se llegó al final de lo permitido en el eje X; si es true se seguirá recorriendo hacia la derecha del eje
@@ -211,7 +240,7 @@ public class Juego{
         int i = 0;
         while (!this.PileUsers.isEmpty()) { //Cada vez que se ingrese una silla se elimina un objeto de la pila
             while (val1) {
-                double coor_y = (Math.sqrt(Math.pow(114, 2) - Math.pow(inicio, 2))); //Se saca la posicion en Y segun la ecuacion de la circuferencia
+                double coor_y = (Math.sqrt(Math.pow(115, 2) - Math.pow(inicio, 2))); //Se saca la posicion en Y segun la ecuacion de la circuferencia
                 this.PileUsers.peek().getImage().setTranslateX(inicio); //Se coloca cada silla segun la posioion en X y en Y
                 this.PileUsers.peek().getImage().setTranslateY(coor_y);
                 if (i == 0) { //Solo la primera se guarda en una lista cada silla con sus posiciones nuevas
@@ -228,13 +257,13 @@ public class Juego{
                 }
             }
             while (val2 && !this.PileUsers.isEmpty()) { //Entra aqui si y solo aqui sillas por agrgar que corresponderia a las sillas que se iran colacando en la parte inferior de la circuferencia
-                double coor_y = -(Math.sqrt(Math.pow(114, 2) - Math.pow(inicio, 2)));
+                double coor_y = -(Math.sqrt(Math.pow(115, 2) - Math.pow(inicio, 2)));
                 this.PileUsers.peek().getImage().setTranslateX(inicio);
                 this.PileUsers.peek().getImage().setTranslateY(coor_y);
                 listUsersGame.addLast(new User(this.PileUsers.peek().getImage(),false, inicio, coor_y,false));
                 spPane.getChildren().addAll(this.PileUsers.pop().getImage());
                 inicio = inicio - distance; //Se va retrocediendo para agregar los valores de "y" que faltan
-                if (inicio <= (-114)) {
+                if (inicio <= (-115)) {
                     val2 = false;
                 }
             }
@@ -305,5 +334,17 @@ public class Juego{
             }
         }
     }
-
+    public void closeWindows(){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/configuraciones.fxml"));
+            Parent root = loader.load();
+            configuraciones controller = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage= new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch(IOException ex){
+            Logger.getLogger(configuraciones.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }
 }

@@ -25,8 +25,6 @@ public class Setting <E> {
     public Setting(double numberParticipants, String Direction) {
         this.numberParticipants = numberParticipants;
         this.Direction = Direction;
-        this.listChairs=null;
-        this.listPlayers=null;
        
     }
 
