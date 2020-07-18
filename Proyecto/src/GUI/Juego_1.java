@@ -11,9 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import java.applet.AudioClip;
-import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.ArrayDeque;
@@ -50,7 +48,7 @@ public class Juego_1 {
     private MenuItem mi1;
     private MenuItem mi2;
     private Setting sett = new Setting(0);
-    AudioClip sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Morado.wav"));
+    AudioClip sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Scatman.wav"));
 
     public Juego_1() throws FileNotFoundException {
     }
@@ -68,6 +66,14 @@ public class Juego_1 {
     void change1(ActionEvent event) {
         sound.stop();
         sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Morado.wav"));
+        if (!parar) {
+            sound.play();
+        }
+    }
+     @FXML
+    void change2(ActionEvent event) {
+        sound.stop();
+        sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Scatman.wav"));
         if (!parar) {
             sound.play();
         }

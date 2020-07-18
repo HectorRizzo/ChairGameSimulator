@@ -57,13 +57,13 @@ public class configuraciones implements Initializable {
         FXMLLoader loader;
         loader = new FXMLLoader(
                 getClass().getResource(
-                        "/GUI/Juego_1.fxml"
+                        "/GUI/Juego.fxml"
                 )
         );
         Parent parent = loader.load();
 
         //Parent parent = FXMLLoader.load(getClass().getResource("/GUI/Juego_1.fxml"));
-        Juego_1 controller = loader.getController();
+        Juego controller = loader.getController();
         controller.initialize(Double.parseDouble(Pnum.getText()));
         System.out.println(Pnum.getText());
         Stage stage = new Stage();

@@ -23,13 +23,14 @@
                <items>
                   <ImageView id="imgMusica" fx:id="imgMusica" fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Files/musicicon1.png" />
+                        <Image url="@../Files/iconmusic.png" />
                      </image>
                   </ImageView>
                   <MenuButton id="mbMusic" fx:id="mbMusic" mnemonicParsing="false" text="Change music">
                     <items>
                       <MenuItem id="mi1" fx:id="mi1" mnemonicParsing="false" onAction="#change1" text="Morado" />
                       <MenuItem id="mi2" fx:id="mi2" mnemonicParsing="false" onAction="#change" text="Blinding Lights" />
+                        <MenuItem id="mi3" fx:id="mi3" mnemonicParsing="false" onAction="#change2" text=" Scatman's World" />
                     </items>
                   </MenuButton>
                </items></ToolBar>

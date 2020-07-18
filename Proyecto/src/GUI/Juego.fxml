@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ProgressBar?>
@@ -14,12 +22,26 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Juego">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Juego">
    <children>
       <Pane prefHeight="430.0" prefWidth="630.0" style="-fx-background-color: gray;">
          <children>
-            <ToolBar layoutX="138.0" layoutY="7.0" prefHeight="40.0" prefWidth="200.0" />
-            <VBox layoutX="14.0" layoutY="14.0" prefHeight="408.0" prefWidth="115.0" style="-fx-background-color: turquoise;">
+            <ToolBar layoutX="138.0" layoutY="7.0" prefHeight="40.0" prefWidth="200.0">
+               <items>
+                  <ImageView id="imgM" fx:id="imgM" fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Files/iconmusic.png" />
+                     </image>
+                  </ImageView>
+                  <MenuButton id="mbMusic" fx:id="mbMusic" mnemonicParsing="false" text="Change Music">
+                    <items>
+                      <MenuItem id="mi" fx:id="mi" mnemonicParsing="false" onAction="#change" text="Scatman" />
+                      <MenuItem id="mi1" fx:id="mi1" mnemonicParsing="false" onAction="#change1" text="Morado" />
+                        <MenuItem id="mi2" fx:id="mi2" mnemonicParsing="false" onAction="#change2" text="Blinding Lights" />
+                    </items>
+                  </MenuButton>
+               </items></ToolBar>
+            <VBox layoutX="14.0" layoutY="7.0" prefHeight="415.0" prefWidth="115.0" style="-fx-background-color: turquoise;">
                <children>
                   <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#btnPlayClicked" prefHeight="36.0" prefWidth="94.0" text="Play" textOverrun="LEADING_ELLIPSIS" wrapText="true">
                      <font>
@@ -60,10 +82,11 @@
                <children>
                   <ImageView fx:id="ivSilla" fitHeight="66.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true" translateX="-100.0">
                      <image>
-                        <Image url="/Files/pelotaTennis.png" />
+                        <Image url="@../Files/usuario.png" />
                      </image>
                   </ImageView>
-               </children></StackPane>
+               </children>
+            </StackPane>
          </children>
       </Pane>
    </children>
