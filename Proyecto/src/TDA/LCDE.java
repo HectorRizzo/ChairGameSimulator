@@ -187,7 +187,7 @@ public class LCDE<E> {
 
               @Override
               public E previous() {
-                  E content = n2.getContent();
+                    E content = n2.getContent();
                    n2=n2.getPrevious();
                    count++;
                    return content;

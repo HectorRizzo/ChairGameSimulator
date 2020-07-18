@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -19,8 +20,11 @@
             <Font name="Berlin Sans FB" size="15.0" />
          </font></Label>
         <Slider id="slPersonas" fx:id="slPersonas" blockIncrement="1.0" layoutX="167.0" layoutY="57.0" majorTickUnit="1.0" max="12.0" min="3.0" minorTickCount="0" prefHeight="66.0" prefWidth="358.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="4.0" />
-      <RadioButton layoutX="209.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="103.0" text="Horario" />
-      <RadioButton layoutX="365.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="109.0" text="Antihorario" />
+      <RadioButton fx:id="rbHorario" layoutX="209.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="103.0" text="Horario">
+         <toggleGroup>
+            <ToggleGroup fx:id="Group" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="rbAntihorario" layoutX="365.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="109.0" selected="true" text="Antihorario" toggleGroup="$Group" />
       <Label fx:id="Pnum" layoutX="532.0" layoutY="66.0" prefHeight="24.0" prefWidth="36.0" />
     </children>
 </Pane>

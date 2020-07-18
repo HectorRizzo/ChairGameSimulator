@@ -23,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 /**
@@ -42,34 +43,34 @@ public class configuraciones implements Initializable {
     @FXML
     private Slider slPersonas;
     @FXML
-    private RadioButton rbHorario;
-    @FXML
-    private RadioButton rbAntihorario;
+    private RadioButton select;
     @FXML
     private Label nPersonas;
     @FXML
-    Label Pnum;
+     Label Pnum;
+    @FXML
+    private ToggleGroup Group;
 
     @FXML
     void jugar(ActionEvent event) throws IOException {
         ((Node) (event.getSource())).getScene().getWindow().hide();
-
+        select = (RadioButton) Group.getSelectedToggle();
         FXMLLoader loader;
         loader = new FXMLLoader(
                 getClass().getResource(
                         "/GUI/Juego.fxml"
-                )
+                )   
         );
         Parent parent = loader.load();
-
         //Parent parent = FXMLLoader.load(getClass().getResource("/GUI/Juego_1.fxml"));
         Juego controller = loader.getController();
-        controller.initialize(Double.parseDouble(Pnum.getText()));
-        System.out.println(Pnum.getText());
+        controller.initialize(Double.parseDouble(Pnum.getText()),select.getText());
+        //System.out.println(Pnum.getText());
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(e-> controller.closeWindows());
         
         stage.setOnCloseRequest(event1 -> {
             controller.getSound().stop();
