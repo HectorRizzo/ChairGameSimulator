@@ -33,7 +33,7 @@
                         <Image url="@../Files/iconmusic.png" />
                      </image>
                   </ImageView>
-                  <MenuButton id="mbMusic" fx:id="mbMusic" mnemonicParsing="false" text="Change Music">
+                  <MenuButton id="mbMusic" fx:id="mbMusic" mnemonicParsing="false" text="Scatman">
                     <items>
                       <MenuItem id="mi" fx:id="mi" mnemonicParsing="false" onAction="#change" text="Scatman" />
                       <MenuItem id="mi1" fx:id="mi1" mnemonicParsing="false" onAction="#change1" text="Morado" />

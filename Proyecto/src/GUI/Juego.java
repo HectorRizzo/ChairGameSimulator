@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
 public class Juego implements Initializable {
@@ -49,11 +50,12 @@ public class Juego implements Initializable {
     Image img;
     private Setting sett = new Setting(4);
     @FXML
+    private MenuButton mbMusic;
     private MenuItem mi;
     private MenuItem mi1;
     private MenuItem mi2;
 
-    AudioClip sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Morado.wav"));
+    AudioClip sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Scatman.wav"));
 
     public Juego() throws FileNotFoundException {
     }
@@ -61,6 +63,7 @@ public class Juego implements Initializable {
     @FXML
     void change(ActionEvent event) {
         sound.stop();
+        mbMusic.setText("Scatman");
         sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Scatman.wav"));
         if (!parar) {
             sound.play();
@@ -71,6 +74,7 @@ public class Juego implements Initializable {
     @FXML
     void change1(ActionEvent event) {
         sound.stop();
+        mbMusic.setText("Morado");
         sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Morado.wav"));
         if (!parar) {
             sound.play();
@@ -80,6 +84,7 @@ public class Juego implements Initializable {
     @FXML
     void change2(ActionEvent event) {
         sound.stop();
+        mbMusic.setText("Blinding Lights");
         sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Blinding Lights.wav"));
         if (!parar) {
             sound.play();
