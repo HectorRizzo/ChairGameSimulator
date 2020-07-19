@@ -57,7 +57,7 @@ public class principal implements Initializable {
 
     @FXML
     void mostrarAyuda(ActionEvent event) {
-
+        //Evento del boton ayuda 
     }
 
     @Override
