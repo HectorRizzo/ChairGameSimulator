@@ -62,21 +62,16 @@ public class configuraciones implements Initializable {
                 )   
         );
         Parent parent = loader.load();
-        //Parent parent = FXMLLoader.load(getClass().getResource("/GUI/Juego_1.fxml"));
         Juego controller = loader.getController();
         controller.initialize(Double.parseDouble(Pnum.getText()),select.getText());
-        //System.out.println(Pnum.getText());
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
-        stage.setOnCloseRequest(e-> controller.closeWindows());
-        
         stage.setOnCloseRequest(event1 -> {
             controller.getSound().stop();
+             controller.closeWindows();
             System.out.println("Stage is close");
-
-            // Save file
         });
 
     }
