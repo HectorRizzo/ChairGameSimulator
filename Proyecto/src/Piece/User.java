@@ -10,17 +10,11 @@ public class User implements Comparable<User>{
     private boolean seated;
     private double posX;
     private double posY;
-    private boolean sentido;                                //nos dice hacia que dirección en eje x se moverá; true= derecha, false= izquierda
+    private boolean sentido;                 //nos dice hacia que dirección en eje x se moverá; true= derecha, false= izquierda
 
     public User(ImageView image, boolean seated) {
         this.image = image;
         this.seated=seated;
-    }
-
-    public User(boolean seated, double posX, double posY) {
-        this.seated = seated;
-        this.posX = posX;
-        this.posY = posY;
     }
 
     public User(ImageView image, boolean seated, double posX, double posY,boolean sentido) {
@@ -31,7 +25,7 @@ public class User implements Comparable<User>{
         this.sentido=sentido;
     }
     
-    
+    //getters & setters
     public boolean isSeated(){
         return seated;
     }

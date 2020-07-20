@@ -64,5 +64,4 @@ public class principal implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
 }
