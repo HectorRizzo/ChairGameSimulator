@@ -57,7 +57,7 @@ public class LCDE<E> {
     }
 
     public void add(int index, E content) {
-        NodeList nuevo = new NodeList<>(content);
+        NodeList<E> nuevo = new NodeList<>(content);
         NodeList<E> n = last; //Nodo viajero
         if (index<size()) {
             for (int i = 0; i < index; i++) {
@@ -73,7 +73,7 @@ public class LCDE<E> {
 
         }
 
-    }
+        }
 
     public E remove(int index) {
 
@@ -91,7 +91,6 @@ public class LCDE<E> {
             n.getPrevious().setNext(n.getNext());
             n.getNext().setPrevious(n.getPrevious());
             n.setContent(null);
-            n=null;
             size--;
             return content;
 
@@ -119,7 +118,6 @@ public class LCDE<E> {
             NodeList <E> anterior = new NodeList<>(null);
             NodeList <E> referencia = last.getNext();
             if(nuevo==null){
-                System.out.println("Dato incorrecto.");
                 return null;
             }
             if(indice<size){
@@ -165,13 +163,13 @@ public class LCDE<E> {
         }
 
     }
-    public ListIterator<E> Iterator(){
+    public ListIterator<E> iterator(){
           ListIterator <E> it=  new ListIterator(){
               NodeList <E> n1=last.getNext();
               NodeList <E> n2 = last;
               int count=0;
               @Override
-              public boolean Limit() {
+              public boolean limit() {
                   return count!=size;
               }
 
@@ -190,7 +188,7 @@ public class LCDE<E> {
                    count++;
                    return content;
               }
-
+            
           };
           return it;
     }
@@ -239,7 +237,6 @@ public class LCDE<E> {
         }
         String cadena="";
         NodeList<E> aux=last.getNext();
-        //System.out.println("fin "+fin.getNext().getContent().toString());
         //recorre los nodos mientras no llegue al nodo final y agrega el contenido a la cadena
         for(int i= 0; i<size-1;i++){
             cadena+=aux.getContent().toString()+" ";

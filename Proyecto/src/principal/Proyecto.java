@@ -18,12 +18,12 @@ import java.io.IOException;
  */
 public class Proyecto extends Application {
 
-    private Stage PrimaryStage;
+    private Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         
-        this.PrimaryStage = primaryStage;
+        this.primaryStage = primaryStage;
         initRootLayaut();
 
     }
@@ -32,12 +32,12 @@ public class Proyecto extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("/GUI/principal.fxml"));
         Scene scene = new Scene(root);
-        PrimaryStage.setScene(scene);
-        PrimaryStage.show();
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public Stage getPrimaryStage() {
-        return PrimaryStage;
+        return primaryStage;
     }
 
     /**

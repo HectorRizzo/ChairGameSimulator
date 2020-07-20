@@ -7,7 +7,7 @@ package Piece;
 
 
 import TDA.LCDE;
-import java.net.MalformedURLException;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -15,15 +15,15 @@ import javafx.scene.image.ImageView;
  *
  * @author i7
  */
-public class Setting <E> {
+public class Setting{
     private double numberParticipants;
-    private String Direction;
+    private String direction;
     private LCDE <User>listPlayers=new LCDE<>();
     private LCDE <Chair>listChairs= new LCDE<>();
 
-    public Setting(double numberParticipants, String Direction) {
+    public Setting(double numberParticipants, String direction) {
         this.numberParticipants = numberParticipants;
-        this.Direction = Direction;
+        this.direction = direction;
        
     }
 
@@ -89,14 +89,14 @@ public class Setting <E> {
      * @return the Direction
      */
     public String getDirection() {
-        return Direction;
+        return direction;
     }
 
     /**
      * @param Direction the Direction to set
      */
-    public void setDirection(String Direction) {
-        this.Direction = Direction;
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     /**

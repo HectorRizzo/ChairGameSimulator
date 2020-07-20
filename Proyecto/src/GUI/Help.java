@@ -40,26 +40,18 @@ public class Help {
         listImage.addLast(new Image("/Files/sc1.png"));
         listImage.addLast(new Image("/Files/sc2.png"));
         imvHelp.setImage(listImage.get(0));
-        it= listImage.Iterator();
-        //pnImages.getChildren().add(imvHelp);
+        it= listImage.iterator();
     }
     @FXML
     protected void btnBackClicked(){
-        //ListIterator<Image> it= listImage.Iterator();
-        //pnImages.getChildren().clear();
         imvHelp.setImage(it.previous());
-        //pnImages.getChildren().add(imvHelp);
-      
     }
     @FXML
     protected void btnNextClicked(){
-        //ListIterator<Image> it= listImage.Iterator();
-        //pnImages.getChildren().clear();
         imvHelp.setImage(it.next());
-        //pnImages.getChildren().add(imvHelp);
     }
     
-    public void CloseWindows(Stage st){
+    public void closeWindows(Stage st){
          try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/principal.fxml"));
             Parent root = loader.load();
@@ -68,7 +60,7 @@ public class Help {
             st.setScene(scene);
             st.show();
         } catch (IOException ex) {
-            Logger.getLogger(configuraciones.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Configurations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
