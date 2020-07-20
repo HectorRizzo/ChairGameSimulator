@@ -72,7 +72,7 @@ public class Chair implements Comparable<Chair>{
     public int compareTo(Chair o) {
         if(this.getPos_X()>o.getPos_X()){
             return 1;
-        }if(this.getPos_X()<o.getPos_X()){
+        }else if(this.getPos_X()<o.getPos_X()){
             return -1;
         }
         return 0;

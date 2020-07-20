@@ -55,16 +55,17 @@ public class Juego {
     
     @FXML
     private ImageView ivMusic;
-    AudioClip sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Scatman.wav"));
+    AudioClip sound = java.applet.Applet.newAudioClip(getClass().getResource("/Files/Scatman.wav"));
 
     public Juego() throws FileNotFoundException {
+        //constructor
     }
 
     @FXML
     void change(ActionEvent event) {
         sound.stop();
         mbMusic.setText("Scatman");
-        sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Scatman.wav"));
+        sound = java.applet.Applet.newAudioClip(getClass().getResource("/Files/Scatman.wav"));
         if (!parar) {
             sound.play();
         }
@@ -75,7 +76,7 @@ public class Juego {
     void change1(ActionEvent event) {
         sound.stop();
         mbMusic.setText("Morado");
-        sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Morado.wav"));
+        sound = java.applet.Applet.newAudioClip(getClass().getResource("/Files/Morado.wav"));
         if (!parar) {
             sound.play();
         }
@@ -85,7 +86,7 @@ public class Juego {
     void change2(ActionEvent event) {
         sound.stop();
         mbMusic.setText("Blinding Lights");
-        sound = java.applet.Applet.newAudioClip(getClass().getResource("/GUI/Blinding Lights.wav"));
+        sound = java.applet.Applet.newAudioClip(getClass().getResource("/Files/Blinding Lights.wav"));
         if (!parar) {
             sound.play();
         }
