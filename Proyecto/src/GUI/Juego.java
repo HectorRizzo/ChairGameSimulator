@@ -6,8 +6,11 @@ import Piece.User;
 import TDA.LCDE;
 import java.applet.AudioClip;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -38,23 +41,18 @@ public class Juego {
     private Deque<Chair> pilaChairOccupated = new LinkedList<>();             //pila que guarda las sillas de manera que cuando una ya esté ocupada se le hace pop
     private Deque<User> pilaUserSentado = new LinkedList<>();
     private int season = 0;
+    private int velocity=15;
 //Desde el FXML
-    @FXML
-    Button btnPlay = new Button();
-    @FXML
-    Pane spPane = new StackPane();
+    @FXML Button btnPlay = new Button();
+    @FXML Pane spPane = new StackPane();
     boolean parar = false;                           //es el que controla el hilo, al estar en true el hilo de para.
     private Setting sett = new Setting(0);
-    @FXML
-    private MenuButton mbMusic;
-    @FXML
-    private MenuItem mi2;
-    @FXML
-    private MenuItem mi1;
-    
-    
-    @FXML
-    private ImageView ivMusic;
+    @FXML private MenuButton mbMusic;
+    @FXML private Slider slVelocity;            //slider que controla la velocidad de los jugadores
+    @FXML private MenuItem mi2;
+    @FXML private MenuItem mi1;
+
+    @FXML private ImageView ivMusic;
     AudioClip sound = java.applet.Applet.newAudioClip(getClass().getResource("/Files/Scatman.wav"));
 
     public Juego() throws FileNotFoundException {
@@ -165,7 +163,7 @@ public class Juego {
 
                 while (true) {
                     try {
-                        Thread.sleep(30);        //establece cada cuanto tiempo se ejecutará la acción del run
+                        Thread.sleep(velocity);        //establece cada cuanto tiempo se ejecutará la acción del run
                         synchronized (this) {
                             while (parar) {
                                 Thread.interrupted();       //se interrumpe el hilo
@@ -188,6 +186,22 @@ public class Juego {
         sett = new Setting(nP, sentido);
         listChairs = sett.addChairs(); //En Seeting crea la lista de sillas
         listUsers = sett.addPlayers();
+        //accion de incrementar la velocidad de los jugadores
+        this.slVelocity.valueProperty().addListener(new ChangeListener<Number>() {
+            boolean numero=false;
+            @Override
+            //Se activa al notar un cambio
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                //si el slider marca más de 95 se fija en 2 la velocidad porque puede dar un numero tan cercano a 0 ó 0 y el programa se caería.
+                if(t1.intValue()>95){
+                    velocity=2;
+                }else{
+                    velocity=40-Math.round(40*(t1.floatValue()/100));
+                }
+            }
+        });
+
+
         for (int i = 0; i < listChairs.size(); i++) { //Guarda cada silla en una pila
             listChairP.push(listChairs.get(i));
         }
@@ -200,7 +214,6 @@ public class Juego {
 
     //hace que el jugador se muevan en circulo. Sentido true= se mueve hacia la derecha, sentido= false: se mueve hacia la izquierda
     public void trazarCircunferencia(User user, double initialRadio, int i) {
-        System.out.println("user en X: "+user.getPosX());
         if (sett.getDirection().equalsIgnoreCase("Antihorario")) {
             double posX = user.getPosX();
             double posY;
@@ -431,5 +444,7 @@ public class Juego {
     public AudioClip getSound() {
         return sound;
     }
-    
+
+
+
 }

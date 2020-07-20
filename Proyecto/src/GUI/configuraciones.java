@@ -65,6 +65,7 @@ public class configuraciones implements Initializable {
         //Parent parent = FXMLLoader.load(getClass().getResource("/GUI/Juego_1.fxml"));
         Juego controller = loader.getController();
         controller.initialize(Double.parseDouble(Pnum.getText()),select.getText());
+
         //System.out.println(Pnum.getText());
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
@@ -83,6 +84,7 @@ public class configuraciones implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         this.slPersonas.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
