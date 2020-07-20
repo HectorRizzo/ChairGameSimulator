@@ -45,7 +45,7 @@ public class principal implements Initializable {
     }
 
     @FXML
-    void jugar(ActionEvent event) throws IOException, Exception {
+    void jugar(ActionEvent event) throws Exception {
         ((Node) (event.getSource())).getScene().getWindow().hide();
         Parent parent = FXMLLoader.load(getClass().getResource("/GUI/configuraciones.fxml"));
         Stage stage = new Stage();

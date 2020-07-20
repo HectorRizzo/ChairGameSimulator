@@ -47,7 +47,7 @@ public class configuraciones implements Initializable {
     @FXML
     private Label nPersonas;
     @FXML
-     Label Pnum;
+    Label Pnum;
     @FXML
     private ToggleGroup Group;
 
@@ -56,14 +56,10 @@ public class configuraciones implements Initializable {
         ((Node) (event.getSource())).getScene().getWindow().hide();
         select = (RadioButton) Group.getSelectedToggle();
         FXMLLoader loader;
-        loader = new FXMLLoader(
-                getClass().getResource(
-                        "/GUI/Juego.fxml"
-                )   
-        );
+        loader = new FXMLLoader(getClass().getResource("/GUI/Juego.fxml") );
         Parent parent = loader.load();
         Juego controller = loader.getController();
-        controller.initialize(Double.parseDouble(Pnum.getText()),select.getText());
+        controller.initialize(Double.parseDouble(Pnum.getText()), select.getText());
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
