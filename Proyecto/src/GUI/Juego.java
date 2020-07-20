@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -260,9 +259,7 @@ public class Juego {
             listUsersGame.get(i).setPosY(posY);//guarda la posición x,y en el usuario
             user.getImage().setTranslateX(posX);
             user.getImage().setTranslateY(posY);                                            //establece la nueva posicion Y
-            if(i==0){
-
-            }
+            
         }
     }
 

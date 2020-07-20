@@ -7,7 +7,6 @@ package Piece;
 
 
 import TDA.LCDE;
-import java.io.File;
 import java.net.MalformedURLException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -46,8 +45,6 @@ public class Setting <E> {
                 imv.setPreserveRatio(true);
                 listPlayers.addFirst(new User(imv,false));
                 numeroImagenJugador++;
-
-
         }
         return listPlayers;
     }   
@@ -56,7 +53,6 @@ public class Setting <E> {
 
         for (double i = 0; i < getNumberParticipants() - 1; i++) {
             if (i == 0) {
-                //File file = new File("@../Files/silla.png");
                 Image image = new Image("/Files/silla.png");
                 ImageView imv = new ImageView(image);
                 imv.setFitHeight(50);
@@ -64,7 +60,6 @@ public class Setting <E> {
                 imv.setPreserveRatio(true);
                 listChairs.addFirst(new Chair(imv));
             } else {
-                //File file = new File("@../Files/silla.png");
                 Image image = new Image("/Files/silla.png");
                 ImageView imv = new ImageView(image);
                 imv.setFitHeight(50);

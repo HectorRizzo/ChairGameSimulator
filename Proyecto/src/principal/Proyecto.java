@@ -22,14 +22,7 @@ public class Proyecto extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        //System.out.println(getClass().getResource("Juego.fxml"));
-        /*FXMLLoader loader= new FXMLLoader();
-        loader.setLocation(getClass().getResource("principal.fxml"));
-        Parent root= loader.load();
-        Scene sce= new Scene(root);
-        primaryStage.setScene(sce);
-        primaryStage.show();*/
-        //   Parent root= FXMLLoader.load(getClass().getResource("Juego.fxml"));
+        
         this.PrimaryStage = primaryStage;
         initRootLayaut();
 

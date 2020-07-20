@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import Piece.Setting;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -60,20 +59,13 @@ public class configuraciones implements Initializable {
         Parent parent = loader.load();
         Juego controller = loader.getController();
         controller.initialize(Double.parseDouble(Pnum.getText()), select.getText());
-
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
+        //Eventos al cerrar la ventana
         stage.setOnCloseRequest(e -> controller.closeWindows());
-
-        stage.setOnCloseRequest(event1 -> {
-            controller.getSound().stop();
-            
-
-            // Save file
-        });
-
+        stage.setOnCloseRequest(event1 -> controller.getSound().stop());
     }
 
     @Override
