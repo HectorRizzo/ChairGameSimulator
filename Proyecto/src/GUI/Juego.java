@@ -31,10 +31,10 @@ import javafx.stage.Stage;
 
 public class Juego {
 
-    private LCDE<Chair> listChairs = new LCDE();
+    private LCDE<Chair> listChairs = new LCDE<>();
     private LCDE<Chair> listChairsGame = new LCDE<>();
     private Deque<Chair> listChairP = new ArrayDeque<>();
-    private LCDE<User> listUsers = new LCDE();
+    private LCDE<User> listUsers = new LCDE<>();
     private LCDE<User> listUsersGame = new LCDE<>();
     private Deque<User> PileUsers = new ArrayDeque<>();
     private Map<Chair, User> mapaDistancia = new LinkedHashMap<>();          //mapa que guarda las sillas y el user que se sentarán en ella

@@ -13,7 +13,7 @@ public class LCDE<E> {
     }
 
     public boolean addFirst(E content) {
-        NodeList<E> nuevo = new NodeList(content);
+        NodeList<E> nuevo = new NodeList<>(content);
         if(content==null){
             return false;
         } else if (isEmpty()) {
@@ -34,7 +34,7 @@ public class LCDE<E> {
     }
 
     public boolean addLast(E content) {
-        NodeList<E> nuevo = new NodeList(content);
+        NodeList<E> nuevo = new NodeList<>(content);
         if(content==null){
             return false;
         } else if (isEmpty()) {
@@ -58,15 +58,15 @@ public class LCDE<E> {
 
     public void add(int index, E content) {
 
-        NodeList nuevo = new NodeList(content);
+        NodeList nuevo = new NodeList<>(content);
         NodeList<E> n = last; //Nodo viajero
         if (index<size()) {
             
             for (int i = 0; i < index; i++) {
                 n = n.getNext();
             }
-            NodeList aux = n;
-            NodeList nextAux = n.getNext();
+            NodeList<E> aux = n;
+            NodeList<E> nextAux = n.getNext();
             aux.setNext(nuevo);
             nuevo.setPrevious(aux);
             nuevo.setNext(nextAux);
@@ -118,7 +118,7 @@ public class LCDE<E> {
     }
 
     public E set(int indice, E nuevo){
-            NodeList <E> anterior = new NodeList(null);
+            NodeList <E> anterior = new NodeList<>(null);
             NodeList <E> referencia = last.getNext();
             if(nuevo==null){
                 System.out.println("Dato incorrecto.");
@@ -240,7 +240,7 @@ public class LCDE<E> {
             return last.getContent().toString();
         }
         String cadena="";
-        NodeList aux=last.getNext();
+        NodeList<E> aux=last.getNext();
         //System.out.println("fin "+fin.getNext().getContent().toString());
         //recorre los nodos mientras no llegue al nodo final y agrega el contenido a la cadena
         for(int i= 0; i<size-1;i++){
