@@ -43,7 +43,8 @@ public class Juego {
     private int season = 0;
     private int velocity=15;
 //Desde el FXML
-    @FXML Button btnPlay = new Button();
+    @FXML Button btnPlay ;
+    @FXML Button btnStop;
     @FXML Pane spPane = new StackPane();
     boolean parar = false;                           //es el que controla el hilo, al estar en true el hilo de para.
     private Setting sett = new Setting(0);
@@ -93,6 +94,7 @@ public class Juego {
     //cuando se presiona el botón stop el hilo se interrumpirá.
     @FXML
     protected void btnStopClicked() {
+        btnStop.setDisable(true);
         sound.stop();
         parar = true;
         season++;
@@ -116,6 +118,8 @@ public class Juego {
                         synchronized (this) {
                             //mientras la pila de sillas no esté vacía se sigue ejecutando el hilo
                             while (pilaChairOccupated.isEmpty()) {
+                                System.out.println("interrumpe");
+                                btnPlay.setDisable(false);
                                 Thread.interrupted();       //se interrumpe el hilo
                                 wait();
                             }
@@ -135,6 +139,8 @@ public class Juego {
     //define que se hará al presionar al botón play
     @FXML
     protected void btnPlayClicked() throws MalformedURLException {
+        btnPlay.setDisable(true);
+        btnStop.setDisable(false);
         sound.play();
         mapaDistancia.clear();
         parar = false;                                //se lo pone en false porque puede que antes se haya dado al botón stop.
@@ -257,7 +263,6 @@ public class Juego {
             if(i==0){
 
             }
-            System.out.println(i + "; posX: "+posX+" posY: "+posY);
         }
     }
 
@@ -388,6 +393,7 @@ public class Juego {
 
     //efectúa la animación de sentar al jugador; se utilizará la ecuación de la recta Y - y = m (X - x) para que el user "camine" en línea recta
     public void sentarJugadores(User user, Chair chair) {
+        btnPlay.setDisable(true);
         double posX = 0;
         //comprueba que la silla no esté ya ocupada (porque el hilo ejecuta la acción para todos, por eso se debe verificar)
         if (!chair.isOccupated()) {
@@ -419,11 +425,16 @@ public class Juego {
                 user.setPosY(posY);
                 user.getImage().setTranslateX(posX);
                 user.getImage().setTranslateY(posY);
-            } else {
+                System.out.println("User: posX-"+user.getPosX()+" posY-"+user.getPosY()+";Chair: posX-"+chair.getPos_X()+" posY-"+chair.getPos_y());
+            }
+            if(Math.abs(user.getPosX()-chair.getPos_X())<4 && Math.abs(user.getPosY()-chair.getPos_y())<4){
                 //si ya se llegó a la silla, se la marca como ocupada y se la elimina de la pila
                 chair.setOccupated(true);
                 pilaChairOccupated.pop();
+                System.out.println(pilaChairOccupated.isEmpty());
             }
+
+
         }
     }
 
