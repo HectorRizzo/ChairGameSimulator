@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Juego">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Juego">
    <children>
       <Pane prefHeight="430.0" prefWidth="630.0" style="-fx-background-color: gray;">
          <children>
@@ -45,7 +44,12 @@
                         <InnerShadow />
                      </effect>
                   </Button>
-                  <Button fx:id="btnStop" cache="true" mnemonicParsing="false" onAction="#btnStopClicked" prefHeight="36.0" prefWidth="94.0" style="-fx-background-color: pink;" text="STOP" translateY="290.0">
+                  <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" text="Velocidad" textAlignment="CENTER" translateX="20.0" translateY="40.0">
+                     <font>
+                        <Font name="Segoe UI Italic" size="18.0" />
+                     </font></Label>
+                  <Slider fx:id="slVelocity" blockIncrement="25.0" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" translateX="40.0" translateY="50.0" value="50.0" />
+                  <Button fx:id="btnStop" cache="true" mnemonicParsing="false" onAction="#btnStopClicked" prefHeight="36.0" prefWidth="94.0" style="-fx-background-color: pink;" text="STOP" translateY="140.0">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
@@ -58,7 +62,7 @@
                      <effect>
                         <InnerShadow>
                            <color>
-                              <Color blue="0.2524122893810272" green="0.3552631437778473" red="0.13486842811107635" />
+                              <Color red="0.13486842811107635" green="0.3552631437778473" blue="0.2524122893810272" />
                            </color>
                         </InnerShadow>
                      </effect>

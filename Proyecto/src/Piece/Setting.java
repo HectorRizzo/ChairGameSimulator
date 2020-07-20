@@ -34,23 +34,20 @@ public class Setting <E> {
     
     
     public LCDE<User> addPlayers() {
+        int numeroImagenJugador=0;
         for(int i =0; i< getNumberParticipants();i++){
-            if(i==0){
-                Image image = new Image("/Files/usuario1.png");
+            if(numeroImagenJugador>3){
+                numeroImagenJugador=0;
+            }
+                Image image = new Image("/Files/usuario"+numeroImagenJugador+".png");
                 ImageView imv = new ImageView(image);
                 imv.setFitHeight(65);
                 imv.setFitWidth(65);
                 imv.setPreserveRatio(true);
                 listPlayers.addFirst(new User(imv,false));
-            }else{
-                //File file = new File("@../Files/usuario.png");
-                Image image = new Image("/Files/usuario.png");
-                ImageView imv = new ImageView(image);
-                imv.setFitHeight(65);
-                imv.setFitWidth(65);
-                imv.setPreserveRatio(true);
-                listPlayers.addLast(new User(imv,false));
-            }
+                numeroImagenJugador++;
+
+
         }
         return listPlayers;
     }   

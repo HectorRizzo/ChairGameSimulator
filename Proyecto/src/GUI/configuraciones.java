@@ -78,6 +78,7 @@ public class configuraciones implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         this.slPersonas.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
