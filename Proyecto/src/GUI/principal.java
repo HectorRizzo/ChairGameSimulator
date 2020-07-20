@@ -56,8 +56,23 @@ public class principal implements Initializable {
     }
 
     @FXML
-    void mostrarAyuda(ActionEvent event) {
-        //Evento del boton ayuda 
+    void mostrarAyuda(ActionEvent event) throws IOException {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+       FXMLLoader loader;
+        loader = new FXMLLoader(
+                getClass().getResource(
+                        "/GUI/Help.fxml"
+                )   
+        );
+        Parent parent = loader.load();
+        Help controller=loader.getController();
+        Stage stage = new Stage();
+        Scene scene = new Scene(parent);
+        stage.setScene(scene);
+        stage.show();
+        stage.setOnCloseRequest(e->{
+            controller.CloseWindows(stage);
+        });
     }
 
     @Override

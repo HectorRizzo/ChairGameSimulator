@@ -63,9 +63,12 @@ public class configuraciones implements Initializable {
         Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
-        //Eventos al cerrar la ventana
-        stage.setOnCloseRequest(e -> controller.closeWindows());
-        stage.setOnCloseRequest(event1 -> controller.getSound().stop());
+        stage.setOnCloseRequest(event1 -> {
+            controller.getSound().stop();
+             controller.closeWindows();
+            System.out.println("Stage is close");
+        });
+
     }
 
     @Override

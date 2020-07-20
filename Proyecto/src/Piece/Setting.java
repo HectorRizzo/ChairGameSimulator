@@ -32,7 +32,7 @@ public class Setting <E> {
     }
     
     
-    public LCDE<User> addPlayers() throws MalformedURLException{
+    public LCDE<User> addPlayers() {
         int numeroImagenJugador=0;
         for(int i =0; i< getNumberParticipants();i++){
             if(numeroImagenJugador>3){
@@ -49,7 +49,7 @@ public class Setting <E> {
         return listPlayers;
     }   
 
-    public LCDE<Chair> addChairs() throws MalformedURLException {
+    public LCDE<Chair> addChairs() {
 
         for (double i = 0; i < getNumberParticipants() - 1; i++) {
             if (i == 0) {

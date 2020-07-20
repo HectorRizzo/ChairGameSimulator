@@ -314,7 +314,7 @@ public class Juego {
 
     private void OrganizeControllerUser() {
         double distance = (115 * 4) / listUsers.size(); //se crea el intervalo de aumento para aumentar la posicion en X
-        double inicio = (-distance); //Se proporciona el inicio del intervalo en X es decir su dominio
+        double inicio = (-115); //Se proporciona el inicio del intervalo en X es decir su dominio
         boolean val1 = true;
         boolean val2 = true;
         int i = 0;
@@ -334,7 +334,7 @@ public class Juego {
                 inicio = inicio + distance; //Se adelante en X
                 if (inicio > 115) { //Para que de una vuelta completo y que escoga los valores en Y que estan en la parte inferior de la circuferencia se verifica que no pase del dominio de X
                     val1 = false;
-                    inicio = 115 - (distance / 2); //Si se llega a salir del dominio se le quita la distancia a la parte final del domininio para la siguiente vuelta
+                    inicio = 115 - (distance); //Si se llega a salir del dominio se le quita la distancia a la parte final del domininio para la siguiente vuelta
                 }
             }
             while (val2 && !this.PileUsers.isEmpty()) { //Entra aqui si y solo aqui sillas por agrgar que corresponderia a las sillas que se iran colacando en la parte inferior de la circuferencia
