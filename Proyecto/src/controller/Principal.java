@@ -64,5 +64,6 @@ public class Principal implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //Meotodo para controllar los elemetos de la vista
     }
 }

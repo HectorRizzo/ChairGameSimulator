@@ -5,8 +5,8 @@
  */
 package controller;
 
-import TDA.LCDE;
-import TDA.ListIterator;
+import tda.LCDE;
+import tda.ListIterator;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

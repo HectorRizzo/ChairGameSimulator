@@ -1,9 +1,9 @@
 package controller;
 
-import Piece.Chair;
-import Piece.Setting;
-import Piece.User;
-import TDA.LCDE;
+import piece.Chair;
+import piece.Setting;
+import piece.User;
+import tda.LCDE;
 import java.io.File;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -187,6 +187,7 @@ public class Juego {
     }
 
     public void initialize(Double nP, String sentido) {
+        
         sett = new Setting(nP, sentido);
         listChairs = sett.addChairs(); //En Seeting crea la lista de sillas
         listUsers = sett.addPlayers();
@@ -435,10 +436,6 @@ public class Juego {
             Logger.getLogger(Configurations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-   /* public AudioClip getSound() {
-        return sound;
-    }*/
 
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
