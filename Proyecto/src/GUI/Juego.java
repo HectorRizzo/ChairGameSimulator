@@ -6,16 +6,12 @@ import Piece.User;
 import TDA.LCDE;
 import java.applet.AudioClip;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,12 +26,12 @@ import javafx.stage.Stage;
 
 public class Juego {
 
-    private LCDE<Chair> listChairs = new LCDE();
+    private LCDE<Chair> listChairs = new LCDE<>();
     private final LCDE<Chair> listChairsGame = new LCDE<>();
     private final Deque<Chair> listChairP = new ArrayDeque<>();
-    private LCDE<User> listUsers = new LCDE();
+    private LCDE<User> listUsers = new LCDE<>();
     private final LCDE<User> listUsersGame = new LCDE<>();
-    private final Deque<User> PileUsers = new ArrayDeque<>();
+    private final Deque<User> pileUsers = new ArrayDeque<>();
     private final Map<Chair, User> mapaDistancia = new LinkedHashMap<>();          //mapa que guarda las sillas y el user que se sentarán en ella
     private final Deque<Chair> pilaChairOccupated = new LinkedList<>();             //pila que guarda las sillas de manera que cuando una ya esté ocupada se le hace pop
     private final Deque<User> pilaUserSentado = new LinkedList<>();
@@ -114,7 +110,6 @@ public class Juego {
                         synchronized (this) {
                             //mientras la pila de sillas no esté vacía se sigue ejecutando el hilo
                             while (pilaChairOccupated.isEmpty()) {
-                                System.out.println("interrumpe");
                                 btnPlay.setDisable(false);
                                 Thread.interrupted();       //se interrumpe el hilo
                                 wait();
@@ -203,10 +198,10 @@ public class Juego {
             listChairP.push(listChairs.get(i));
         }
         for (int i = 0; i < listUsers.size(); i++) {
-            PileUsers.push(listUsers.get(i));
+            pileUsers.push(listUsers.get(i));
         }
-        OrganizeControllerChairs();
-        OrganizeControllerUser();
+        organizeControllerChairs();
+        organizeControllerUser();
     }
 
     //hace que el jugador se muevan en circulo. Sentido true= se mueve hacia la derecha, sentido= false: se mueve hacia la izquierda
@@ -226,9 +221,7 @@ public class Juego {
                 posX -= 1;
             }
             listUsersGame.get(i).setPosX(posX);
-            listUsersGame.get(i).setPosY(posY);
-            //user.setPosX(posX);
-            //user.setPosY(posY);                                                             //guarda la posición x,y en el usuario
+            listUsersGame.get(i).setPosY(posY);                                                        //guarda la posición x,y en el usuario
             user.getImage().setTranslateX(posX);
             user.getImage().setTranslateY(posY);                                            //establece la nueva posicion Y
         } else if (sett.getDirection().equalsIgnoreCase("Horario")) {
@@ -245,8 +238,6 @@ public class Juego {
                 posY = Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow(posX, 2)));
                 posX -= 1;
             }
-            //user.setPosX(posX);
-            //user.setPosY(posY);
             listUsersGame.get(i).setPosX(posX);
             listUsersGame.get(i).setPosY(posY);//guarda la posición x,y en el usuario
             user.getImage().setTranslateX(posX);
@@ -258,31 +249,29 @@ public class Juego {
     public void sentido(User user, double posX, double radio) {
         //verifica si se llegó al X MAXIMO positivo
         if (posX +1 > radio) {
-            //System.out.println("entra en radio");
             user.setSentido(false);
             //verifica si se llegó al MÍNIMO negativo
         } else if (posX -1 < -radio) {
-            //System.out.println("entra en -radio");
             user.setSentido(true);
         }
     }
 
     //(x)^2 +(y)^2 = 50^2
-    private void OrganizeControllerChairs() {
+    private void organizeControllerChairs() {
         double distance = 50 * 4 / listChairs.size();
         double inicio = -50;
         boolean val1 = true;
         boolean val2 = true;
         while (!this.listChairP.isEmpty()) {
             while (val1) {
-                double coor_y = (Math.sqrt(Math.pow(50, 2) - Math.pow(inicio, 2)));
+                double cordy = (Math.sqrt(Math.pow(50, 2) - Math.pow(inicio, 2)));
                 assert this.listChairP.peek() != null;
                 this.listChairP.peek().getImage().setTranslateX(inicio);
                 assert this.listChairP.peek() != null;
-                this.listChairP.peek().getImage().setTranslateY(coor_y);
+                this.listChairP.peek().getImage().setTranslateY(cordy);
 
                 assert this.listChairP.peek() != null;
-                listChairsGame.addLast(new Chair(this.listChairP.peek().getImage(), inicio, coor_y));
+                listChairsGame.addLast(new Chair(this.listChairP.peek().getImage(), inicio, cordy));
 
                 spPane.getChildren().addAll(this.listChairP.pop().getImage());
                 inicio = inicio + distance;
@@ -292,12 +281,12 @@ public class Juego {
                 }
             }
             while (val2 && !this.listChairP.isEmpty()) {
-                double coor_y = -(Math.sqrt(Math.pow(50, 2) - Math.pow(inicio, 2)));
+                double cordy = -(Math.sqrt(Math.pow(50, 2) - Math.pow(inicio, 2)));
                 this.listChairP.peek().getImage().setTranslateX(inicio);
                 assert this.listChairP.peek() != null;
-                this.listChairP.peek().getImage().setTranslateY(coor_y);
+                this.listChairP.peek().getImage().setTranslateY(cordy);
                 assert this.listChairP.peek() != null;
-                listChairsGame.addLast(new Chair(this.listChairP.peek().getImage(), inicio, coor_y));
+                listChairsGame.addLast(new Chair(this.listChairP.peek().getImage(), inicio, cordy));
                 spPane.getChildren().addAll(this.listChairP.pop().getImage());
                 inicio = inicio - distance;
                 if (inicio <= (-50)) {
@@ -307,39 +296,38 @@ public class Juego {
         }
     }
 
-    private void OrganizeControllerUser() {
+    private void organizeControllerUser() {
         double distance = (115 * 4) / listUsers.size(); //se crea el intervalo de aumento para aumentar la posicion en X
         double inicio; //Se proporciona el inicio del intervalo en X es decir su dominio
         boolean val1 = true;
         boolean val2 = true;
-        while (!this.PileUsers.isEmpty()) { //Cada vez que se ingrese una silla se elimina un objeto de la pila
+        while (!this.pileUsers.isEmpty()) { //Cada vez que se ingrese una silla se elimina un objeto de la pila
             inicio=-115;
-            System.out.println("posX en organize: "+ inicio);
             while (val1) {
-                double coor_y = -(Math.sqrt(Math.pow(115, 2) - Math.pow(inicio, 2))); //Se saca la posicion en Y segun la ecuacion de la circuferencia
-                assert this.PileUsers.peek() != null;
-                this.PileUsers.peek().getImage().setTranslateX(inicio); //Se coloca cada silla segun la posioion en X y en Y
-                assert this.PileUsers.peek() != null;
-                this.PileUsers.peek().getImage().setTranslateY(coor_y);
+                double cordy = -(Math.sqrt(Math.pow(115, 2) - Math.pow(inicio, 2))); //Se saca la posicion en Y segun la ecuacion de la circuferencia
+                assert this.pileUsers.peek() != null;
+                this.pileUsers.peek().getImage().setTranslateX(inicio); //Se coloca cada silla segun la posioion en X y en Y
+                assert this.pileUsers.peek() != null;
+                this.pileUsers.peek().getImage().setTranslateY(cordy);
 
-                assert this.PileUsers.peek() != null;
-                listUsersGame.addLast(new User(this.PileUsers.peek().getImage(), false, inicio, coor_y, true));
+                assert this.pileUsers.peek() != null;
+                listUsersGame.addLast(new User(this.pileUsers.peek().getImage(), false, inicio, cordy, true));
 
-                spPane.getChildren().addAll(this.PileUsers.pop().getImage());
+                spPane.getChildren().addAll(this.pileUsers.pop().getImage());
                 inicio = inicio + distance; //Se adelante en X
                 if (inicio > 115) { //Para que de una vuelta completo y que escoga los valores en Y que estan en la parte inferior de la circuferencia se verifica que no pase del dominio de X
                     val1 = false;
                     inicio = 115 - (distance / 2); //Si se llega a salir del dominio se le quita la distancia a la parte final del domininio para la siguiente vuelta
                 }
             }
-            while (val2 && !this.PileUsers.isEmpty()) { //Entra aqui si y solo aqui sillas por agrgar que corresponderia a las sillas que se iran colacando en la parte inferior de la circuferencia
-                double coor_y = (Math.sqrt(Math.pow(115, 2) - Math.pow(inicio, 2)));
-                this.PileUsers.peek().getImage().setTranslateX(inicio);
-                assert this.PileUsers.peek() != null;
-                this.PileUsers.peek().getImage().setTranslateY(coor_y);
-                assert this.PileUsers.peek() != null;
-                listUsersGame.addLast(new User(this.PileUsers.peek().getImage(), false, inicio, coor_y, false));
-                spPane.getChildren().addAll(this.PileUsers.pop().getImage());
+            while (val2 && !this.pileUsers.isEmpty()) { //Entra aqui si y solo aqui sillas por agrgar que corresponderia a las sillas que se iran colacando en la parte inferior de la circuferencia
+                double cordy = (Math.sqrt(Math.pow(115, 2) - Math.pow(inicio, 2)));
+                this.pileUsers.peek().getImage().setTranslateX(inicio);
+                assert this.pileUsers.peek() != null;
+                this.pileUsers.peek().getImage().setTranslateY(cordy);
+                assert this.pileUsers.peek() != null;
+                listUsersGame.addLast(new User(this.pileUsers.peek().getImage(), false, inicio, cordy, false));
+                spPane.getChildren().addAll(this.pileUsers.pop().getImage());
                 inicio = inicio - distance; //Se va retrocediendo para agregar los valores de "y" que faltan
                 if (inicio <= (-115)) {
                     val2 = false;
@@ -359,8 +347,8 @@ public class Juego {
                 //Verifica si el usuario no se a sentado aún
                 if (!listUsersGame.get(j).isSeated()) {
                     //guarda las posiciones x,y de la silla y los users
-                    double posXChair = listChairsGame.get(i).getPos_X();
-                    double posYChair = listChairsGame.get(i).getPos_y();
+                    double posXChair = listChairsGame.get(i).getPosX();
+                    double posYChair = listChairsGame.get(i).getPosY();
                     double posXUser = listUsersGame.get(j).getPosX();
                     double posYUser = listUsersGame.get(j).getPosY();
                     double distancia = Math.sqrt((Math.pow(posXChair - posXUser, 2) + Math.pow(posYChair - posYUser, 2))); //calcula la distancia minima entre dos puntos: raiz((X-x)^2 + (Y-y)^2))
@@ -389,27 +377,27 @@ public class Juego {
         //comprueba que la silla no esté ya ocupada (porque el hilo ejecuta la acción para todos, por eso se debe verificar)
         if (!chair.isOccupated()) {
             
-            double pendiente = ((chair.getPos_y() - user.getPosY()) / (chair.getPos_X() - user.getPosX()));        //se obtiene la pendiente de la recta
+            double pendiente = ((chair.getPosY() - user.getPosY()) / (chair.getPosX() - user.getPosX()));        //se obtiene la pendiente de la recta
             //verifica que el user no haya llegado a la silla
-            if (user.getPosX() != chair.getPos_X() || user.getPosY() != chair.getPos_y()) {
+            if (user.getPosX() != chair.getPosX() || user.getPosY() != chair.getPosY()) {
                 double posY = 0;
-                if(chair.getPos_X()==user.getPosX()){
-                    double aumento=Math.abs((user.getPosY()-chair.getPos_y())/23);
+                if(chair.getPosX()==user.getPosX()){
+                    double aumento=Math.abs((user.getPosY()-chair.getPosY())/23);
                     if(user.getPosY()>0){
                         posY=user.getPosY()-aumento;
                     }else{
                         posY=user.getPosY()+aumento;
                     }
-                } else if (user.getPosX() > chair.getPos_X()) {            //si la pos X del user está despues de la posX de la silla, disminuye la posX y con ella se obtiene la posY
-                    double aumento=Math.abs((user.getPosX()-chair.getPos_X())/23);
+                } else if (user.getPosX() > chair.getPosX()) {            //si la pos X del user está despues de la posX de la silla, disminuye la posX y con ella se obtiene la posY
+                    double aumento=Math.abs((user.getPosX()-chair.getPosX())/23);
                     posX = user.getPosX() - aumento;
                     user.setPosX(posX);
-                    posY = pendiente * (posX - chair.getPos_X()) + chair.getPos_y();        //se calcula la posY
-                } else if (user.getPosX() < chair.getPos_X()) {      //si la pos X del user está antes de la posX de la silla, aumenta la posX y con ella se obtiene la posY
-                    double aumento=Math.abs((user.getPosX()-chair.getPos_X())/23);
+                    posY = pendiente * (posX - chair.getPosX()) + chair.getPosY();        //se calcula la posY
+                } else if (user.getPosX() < chair.getPosX()) {      //si la pos X del user está antes de la posX de la silla, aumenta la posX y con ella se obtiene la posY
+                    double aumento=Math.abs((user.getPosX()-chair.getPosX())/23);
                     posX = user.getPosX() + aumento;
                     user.setPosX(posX);
-                    posY = pendiente * (posX - chair.getPos_X()) + chair.getPos_y();        //se calcula la posY
+                    posY = pendiente * (posX - chair.getPosX()) + chair.getPosY();        //se calcula la posY
                 }
                 //se establece las posiciones en los atributos del user y se lo mueve
                 user.setPosX(posX);
@@ -417,11 +405,10 @@ public class Juego {
                 user.getImage().setTranslateX(posX);
                 user.getImage().setTranslateY(posY);
             }
-            if(Math.abs(user.getPosX()-chair.getPos_X())<4 && Math.abs(user.getPosY()-chair.getPos_y())<4){
+            if(Math.abs(user.getPosX()-chair.getPosX())<4 && Math.abs(user.getPosY()-chair.getPosY())<4){
                 //si ya se llegó a la silla, se la marca como ocupada y se la elimina de la pila
                 chair.setOccupated(true);
                 pilaChairOccupated.pop();
-                System.out.println(pilaChairOccupated.isEmpty());
             }
 
 

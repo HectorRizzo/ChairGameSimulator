@@ -13,7 +13,7 @@ public class LCDE<E> {
     }
 
     public void addFirst(E content) {
-        NodeList<E> nuevo = new NodeList(content);
+        NodeList<E> nuevo = new NodeList<>(content);
          if (isEmpty()) {
             last = nuevo;
             last.setNext(last);
@@ -29,7 +29,7 @@ public class LCDE<E> {
     }
 
     public void addLast(E content) {
-        NodeList<E> nuevo = new NodeList(content);
+        NodeList<E> nuevo = new NodeList<>(content);
         if (isEmpty()) {
             last = nuevo;
             last.setNext(last);
@@ -48,7 +48,7 @@ public class LCDE<E> {
 
     public void add(int index, E content) {
 
-        NodeList nuevo = new NodeList(content);
+        NodeList nuevo = new NodeList<>(content);
         NodeList<E> n = last; //Nodo viajero
         if (index<size()) {
             
@@ -107,10 +107,9 @@ public class LCDE<E> {
     }
 
     public E set(int indice, E nuevo){
-            NodeList <E> anterior = new NodeList(null);
+            NodeList <E> anterior = new NodeList<>(null);
             NodeList <E> referencia = last.getNext();
             if(nuevo==null){
-                System.out.println("Dato incorrecto.");
                 return null;
             }
             if(indice<size){
@@ -156,13 +155,13 @@ public class LCDE<E> {
         }
 
     }
-    public ListIterator<E> Iterator(){
+    public ListIterator<E> iterator(){
         return (ListIterator<E>) new ListIterator(){
             NodeList<E> n1=last.getNext();
             NodeList <E> n2 = last;
             int count=0;
             @Override
-            public boolean Limit() {
+            public boolean limit() {
                 return count!=size;
             }
 
@@ -227,8 +226,7 @@ public class LCDE<E> {
             return last.getContent().toString();
         }
         String cadena;
-        NodeList aux=last.getNext();
-        //System.out.println("fin "+fin.getNext().getContent().toString());
+        NodeList<E> aux=last.getNext();
         //recorre los nodos mientras no llegue al nodo final y agrega el contenido a la cadena
         StringBuilder cadenaBuilder = new StringBuilder();
         for(int i = 0; i<size-1; i++){

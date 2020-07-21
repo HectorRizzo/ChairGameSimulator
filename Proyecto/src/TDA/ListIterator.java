@@ -11,7 +11,7 @@ package TDA;
  * @param <E>
  */
 public interface ListIterator <E>{
-    boolean Limit();
+    boolean limit();
     E next();
     E previous();
 }

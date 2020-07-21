@@ -15,18 +15,18 @@ import javafx.scene.image.ImageView;
  */
 public class Chair implements Comparable<Chair>{
     private final ImageView image;
-    double pos_X;
-    double pos_y;
+    double posX;
+    double posY;
     boolean occupated=false;
 
     public Chair(ImageView image) {
         this.image = image;
     }
 
-    public Chair(ImageView image, double pos_X, double pos_y) {
+    public Chair(ImageView image, double posX, double posY) {
         this.image = image;
-        this.pos_X = pos_X;
-        this.pos_y = pos_y;
+        this.posX = posX;
+        this.posY = posY;
         this.occupated=false;
     }
 
@@ -35,18 +35,12 @@ public class Chair implements Comparable<Chair>{
         return image;
     }
 
-// --Commented out by Inspection START (20/7/2020 21:41):
-//    public void setImage(ImageView image) {
-//        this.image = image;
-//    }
-// --Commented out by Inspection STOP (20/7/2020 21:41)
-
-    public double getPos_X() {
-        return pos_X;
+    public double getPosX() {
+        return posX;
     }
 
-    public double getPos_y() {
-        return pos_y;
+    public double getPosY() {
+        return posY;
     }
 
     public void setOccupated(boolean occupated) {
@@ -59,9 +53,9 @@ public class Chair implements Comparable<Chair>{
 
     @Override
     public int compareTo(Chair o) {
-        if(this.getPos_X()>o.getPos_X()){
+        if(this.getPosX()>o.getPosX()){
             return 1;
-        }else if(this.getPos_X()<o.getPos_X()){
+        }else if(this.getPosX()<o.getPosX()){
             return -1;
         }
         return 0;

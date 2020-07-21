@@ -40,7 +40,7 @@ public class Help {
         listImage.addLast(new Image("/Files/sc1.png"));
         listImage.addLast(new Image("/Files/sc2.png"));
         imvHelp.setImage(listImage.get(0));
-        it= listImage.Iterator();
+        it= listImage.iterator();
     }
     @FXML
     protected void btnBackClicked(){
