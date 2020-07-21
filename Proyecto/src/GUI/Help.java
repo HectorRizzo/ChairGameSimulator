@@ -53,7 +53,7 @@ public class Help {
     
     public void closeWindows(Stage st){
          try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/principal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Principal.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             st = new Stage();

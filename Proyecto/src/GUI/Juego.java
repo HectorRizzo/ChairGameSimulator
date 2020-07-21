@@ -413,7 +413,7 @@ public class Juego {
 
     public void closeWindows() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/configuraciones.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Configurations.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
