@@ -366,7 +366,6 @@ public class Juego {
                     double distancia = Math.sqrt((Math.pow(posXChair - posXUser, 2) + Math.pow(posYChair - posYUser, 2))); //calcula la distancia minima entre dos puntos: raiz((X-x)^2 + (Y-y)^2))
                     //verifica si la distancia del usuario es minima a la distancia anterior
                     if (distancia < distanciaMinima) {
-                        System.out.println("distancia anterior: "+ distanciaMinima + " ,distancia nueva: "+ distancia);
                         distanciaMinima = distancia;
                         if (!pilaUserSentado.isEmpty()) {
                             pilaUserSentado.pop();
@@ -417,7 +416,6 @@ public class Juego {
                 user.setPosY(posY);
                 user.getImage().setTranslateX(posX);
                 user.getImage().setTranslateY(posY);
-                System.out.println("User: posX-"+user.getPosX()+" posY-"+user.getPosY()+";Chair: posX-"+chair.getPos_X()+" posY-"+chair.getPos_y());
             }
             if(Math.abs(user.getPosX()-chair.getPos_X())<4 && Math.abs(user.getPosY()-chair.getPos_y())<4){
                 //si ya se llegó a la silla, se la marca como ocupada y se la elimina de la pila
