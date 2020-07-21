@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -16,9 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -27,7 +26,6 @@ import javafx.stage.Stage;
  */
 public class principal implements Initializable {
 
-    Pane principal = new Pane();
     @FXML
     private Button btnSalir;
 
@@ -47,7 +45,7 @@ public class principal implements Initializable {
     @FXML
     void jugar(ActionEvent event) throws Exception {
         ((Node) (event.getSource())).getScene().getWindow().hide();
-        Parent parent = FXMLLoader.load(getClass().getResource("/GUI/configuraciones.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("/GUI/configurations.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
@@ -56,23 +54,9 @@ public class principal implements Initializable {
     }
 
     @FXML
-    void mostrarAyuda(ActionEvent event) throws IOException {
-        ((Node) (event.getSource())).getScene().getWindow().hide();
-       FXMLLoader loader;
-        loader = new FXMLLoader(
-                getClass().getResource(
-                        "/GUI/Help.fxml"
-                )   
-        );
-        Parent parent = loader.load();
-        Help controller=loader.getController();
-        Stage stage = new Stage();
-        Scene scene = new Scene(parent);
-        stage.setScene(scene);
-        stage.show();
-        stage.setOnCloseRequest(e->{
-            controller.CloseWindows(stage);
-        });
+    void mostrarAyuda(ActionEvent event) {
+        Alert alert= new Alert(Alert.AlertType.INFORMATION,"hola");
+        alert.show();
     }
 
     @Override

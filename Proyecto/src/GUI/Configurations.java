@@ -42,8 +42,6 @@ public class Configurations implements Initializable {
     @FXML
     private Slider slPersonas;
     @FXML
-    private RadioButton select;
-    @FXML
     private Label nPersonas;
     @FXML
     Label pnum;
@@ -53,7 +51,7 @@ public class Configurations implements Initializable {
     @FXML
     void jugar(ActionEvent event) throws IOException {
         ((Node) (event.getSource())).getScene().getWindow().hide();
-        select = (RadioButton) group.getSelectedToggle();
+        RadioButton select = (RadioButton) group.getSelectedToggle();
         FXMLLoader loader;
         loader = new FXMLLoader(getClass().getResource("/GUI/Juego.fxml") );
         Parent parent = loader.load();
@@ -73,12 +71,7 @@ public class Configurations implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        this.slPersonas.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                pnum.setText(String.valueOf(newValue));
-            }
-        });
+        this.slPersonas.valueProperty().addListener((observable, oldValue, newValue) -> pnum.setText(String.valueOf(newValue)));
 
     }
 }

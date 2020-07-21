@@ -40,7 +40,7 @@ public class Help {
         listImage.addLast(new Image("/Files/sc1.png"));
         listImage.addLast(new Image("/Files/sc2.png"));
         imvHelp.setImage(listImage.get(0));
-        it= listImage.iterator();
+        it= listImage.Iterator();
     }
     @FXML
     protected void btnBackClicked(){
@@ -51,12 +51,12 @@ public class Help {
         imvHelp.setImage(it.next());
     }
     
-    public void closeWindows(Stage st){
+    public void closeWindows(){
          try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Principal.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            st = new Stage();
+             Stage st = new Stage();
             st.setScene(scene);
             st.show();
         } catch (IOException ex) {

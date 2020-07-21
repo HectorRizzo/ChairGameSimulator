@@ -18,7 +18,7 @@ import javafx.scene.image.ImageView;
 public class Setting{
     private double numberParticipants;
     private String direction;
-    private LCDE <User>listPlayers=new LCDE<>();
+    private final LCDE <User>listPlayers=new LCDE<>();
     private LCDE <Chair>listChairs= new LCDE<>();
 
     public Setting(double numberParticipants, String direction) {
@@ -93,7 +93,6 @@ public class Setting{
     }
 
     /**
-     * @param Direction the Direction to set
      */
     public void setDirection(String direction) {
         this.direction = direction;

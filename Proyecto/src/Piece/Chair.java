@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Piece;
+
 import javafx.scene.image.ImageView;
 
 
@@ -13,19 +14,19 @@ import javafx.scene.image.ImageView;
  * @author i7
  */
 public class Chair implements Comparable<Chair>{
-    private ImageView image;
-    double posX;
-    double posY;
+    private final ImageView image;
+    double pos_X;
+    double pos_y;
     boolean occupated=false;
 
     public Chair(ImageView image) {
         this.image = image;
     }
 
-    public Chair(ImageView image, double posX, double posy) {
+    public Chair(ImageView image, double pos_X, double pos_y) {
         this.image = image;
-        this.posX = posX;
-        this.posY = posy;
+        this.pos_X = pos_X;
+        this.pos_y = pos_y;
         this.occupated=false;
     }
 
@@ -34,24 +35,18 @@ public class Chair implements Comparable<Chair>{
         return image;
     }
 
-    public void setImage(ImageView image) {
-        this.image = image;
+// --Commented out by Inspection START (20/7/2020 21:41):
+//    public void setImage(ImageView image) {
+//        this.image = image;
+//    }
+// --Commented out by Inspection STOP (20/7/2020 21:41)
+
+    public double getPos_X() {
+        return pos_X;
     }
 
-    public double getPosX() {
-        return posX;
-    }
-
-    public void setPosX(double posX) {
-        this.posX = posX;
-    }
-
-    public double getPosY() {
-        return posY;
-    }
-
-    public void setPosY(double posY) {
-        this.posY = posY;
+    public double getPos_y() {
+        return pos_y;
     }
 
     public void setOccupated(boolean occupated) {
@@ -64,9 +59,9 @@ public class Chair implements Comparable<Chair>{
 
     @Override
     public int compareTo(Chair o) {
-        if(this.getPosX()>o.getPosX()){
+        if(this.getPos_X()>o.getPos_X()){
             return 1;
-        }else if(this.getPosX()<o.getPosX()){
+        }else if(this.getPos_X()<o.getPos_X()){
             return -1;
         }
         return 0;

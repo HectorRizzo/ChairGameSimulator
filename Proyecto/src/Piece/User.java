@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 
 public class User implements Comparable<User>{
    
-    private ImageView image;
+    private final ImageView image;
     private boolean seated;
     private double posX;
     private double posY;
@@ -32,10 +32,6 @@ public class User implements Comparable<User>{
 
     public ImageView getImage() {
         return image;
-    }
-
-    public void setIamgen(ImageView image) {
-        this.image = image;
     }
 
     public double getPosX() {
@@ -68,12 +64,6 @@ public class User implements Comparable<User>{
 
     @Override
     public int compareTo(User o) {
-        if(this.getPosX()>o.getPosX()){
-            return 1;
-        }
-        if(this.getPosX()<o.getPosX()){
-            return -1;
-        }
-        return 0;
+        return Double.compare(this.getPosX(), o.getPosX());
     }
 }
