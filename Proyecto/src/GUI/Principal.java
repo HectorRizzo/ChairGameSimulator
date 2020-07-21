@@ -46,11 +46,16 @@ public class Principal implements Initializable {
     void showHelp(ActionEvent event) {
         try {
             ((Node) (event.getSource())).getScene().getWindow().hide();
-            Parent parent = FXMLLoader.load(getClass().getResource("/GUI/Help.fxml"));
+             FXMLLoader loader;
+            loader = new FXMLLoader(getClass().getResource("/GUI/Help.fxml") );
+            Parent parent = loader.load();
+            Help controller = loader.getController();
             Stage stage = new Stage();
             Scene scene = new Scene(parent);
             stage.setScene(scene);
             stage.show();
+            stage.setOnCloseRequest(e->controller.closeWindows());
+            
         } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
