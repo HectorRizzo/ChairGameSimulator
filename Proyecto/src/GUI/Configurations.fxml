@@ -22,9 +22,9 @@
         <Slider id="slPersonas" fx:id="slPersonas" blockIncrement="1.0" layoutX="167.0" layoutY="57.0" majorTickUnit="1.0" max="12.0" min="3.0" minorTickCount="0" prefHeight="66.0" prefWidth="358.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="4.0" />
       <RadioButton fx:id="rbHorario" layoutX="209.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="103.0" text="Horario">
          <toggleGroup>
-            <ToggleGroup fx:id="Group" />
+            <ToggleGroup fx:id="group" />
          </toggleGroup></RadioButton>
       <RadioButton fx:id="rbAntihorario" layoutX="365.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="109.0" selected="true" text="Antihorario" toggleGroup="$Group" />
-      <Label fx:id="Pnum" layoutX="532.0" layoutY="66.0" prefHeight="24.0" prefWidth="36.0" />
+      <Label fx:id="pnum" layoutX="532.0" layoutY="66.0" prefHeight="24.0" prefWidth="36.0" />
     </children>
 </Pane>
