@@ -12,6 +12,7 @@
       <Button id="btnAyuda" fx:id="btnAyuda" layoutX="225.0" layoutY="297.0" mnemonicParsing="false" onAction="#showHelp" prefHeight="38.0" prefWidth="173.0" text="Ayuda" />
       <ImageView id="img" fx:id="img" fitHeight="299.0" fitWidth="332.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
          <image>
+             
             <Image url="@../Files/juego.png" />
          </image>
       </ImageView>
