@@ -48,15 +48,15 @@ public class LCDE<E> {
 
     public void add(int index, E content) {
 
-        NodeList nuevo = new NodeList<>(content);
+        NodeList<E> nuevo = new NodeList<>(content);
         NodeList<E> n = last; //Nodo viajero
         if (index<size()) {
             
             for (int i = 0; i < index; i++) {
                 n = n.getNext();
             }
-            NodeList aux = n;
-            NodeList nextAux = n.getNext();
+            NodeList<E> aux = n;
+            NodeList<E> nextAux = n.getNext();
             aux.setNext(nuevo);
             nuevo.setPrevious(aux);
             nuevo.setNext(nextAux);

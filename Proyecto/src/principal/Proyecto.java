@@ -24,7 +24,7 @@ public class Proyecto extends Application {
 
     public void initRootLayaut() throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/GUI/Principal.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/Principal.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
