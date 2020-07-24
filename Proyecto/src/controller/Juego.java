@@ -141,18 +141,14 @@ public class Juego {
         btnPlay.setDisable(true);
         btnStop.setDisable(false);
         mediaPlayer.play();
-         
-        mapaDistancia.clear();
         parar = false;                                //se lo pone en false porque puede que antes se haya dado al botón stop.
         if (season > 0) {
             this.spPane.getChildren().clear();
-            this.listChairs.clear();
-            this.listChairsGame.clear();
-            this.listUsers.clear();
-            this.listUsersGame.clear();
-            this.mapaDistancia.clear();
-            this.initialize(sett.getNumberParticipants() - 1, sett.getDirection());
+            this.saveChairsUser();  
+            this.organizeControllerChairs();
+            this.organizeControllerUser();
         }
+        this.mapaDistancia.clear();
         //moverá las pelotas en el tiempo
         Thread hilo = new Thread(new Runnable() {
             public void run() {
@@ -378,7 +374,24 @@ public class Juego {
         }
 
     }
-
+    public void saveChairsUser(){
+        this.listUsers.clear();
+        this.listUsersGame.clear();
+        this.listChairs.clear();
+        this.listChairsGame.clear();
+        for (Map.Entry<Chair, User> entry : mapaDistancia.entrySet()){
+            this.listUsers.addLast(entry.getValue());
+            this.listChairs.addLast(entry.getKey());
+        }
+        for (int i = 0; i < listUsers.size(); i++) {
+            pileUsers.push(listUsers.get(i));
+        }
+        for (int i = 0; i < listChairs.size(); i++) { //Guarda cada silla en una pila
+            listChairP.push(listChairs.get(i));
+        }
+        this.listChairs.removefirst();
+        this.listChairP.removeLast();
+    }
     //efectúa la animación de sentar al jugador; se utilizará la ecuación de la recta Y - y = m (X - x) para que el user "camine" en línea recta
     public void sentarJugadores(User user, Chair chair) {
         btnPlay.setDisable(true);
@@ -426,7 +439,7 @@ public class Juego {
 
     public void closeWindows() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Configurations.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Configurations.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();

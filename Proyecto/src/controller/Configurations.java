@@ -59,7 +59,7 @@ public class Configurations implements Initializable {
         Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
-       
+        stage.setOnCloseRequest(e->controller.closeWindows());
 
     }
 
