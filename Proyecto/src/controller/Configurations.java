@@ -60,7 +60,7 @@ public class Configurations implements Initializable {
         stage.setScene(scene);
         stage.show();
         stage.setOnCloseRequest(e->controller.closeWindows());
-
+        
     }
 
     @Override
