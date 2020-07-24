@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane id="Principal" fx:id="rotacion" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-      style="-fx-background-color: turquoise;" xmlns="http://javafx.com/javafx/10.0.2-internal"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Configurations">
-    <Label id="lbRotacion" fx:id="lbRotacion" layoutX="41.0" layoutY="200.0" prefHeight="34.0" prefWidth="126.0"
-           text="Rotación:">
-        <font>
-        <Font name="Berlin Sans FB" size="14.0"/>
-        </font>
-    </Label>
-    <Button id="btnPlay" fx:id="btnPlay" layoutX="239.0" layoutY="308.0" mnemonicParsing="false" onAction="#jugar"
-            prefHeight="34.0" prefWidth="126.0" text="Play"/>
-    <Label id="lbPersonas" fx:id="lbPersonas" layoutX="14.0" layoutY="73.0" prefHeight="34.0" prefWidth="150.0"
-           text="Numero de personas:">
-        <font>
-        <Font name="Berlin Sans FB" size="15.0"/>
-        </font>
-    </Label>
-    <Slider id="slPersonas" fx:id="slPersonas" blockIncrement="1.0" layoutX="167.0" layoutY="57.0" majorTickUnit="1.0"
-            max="12.0" min="3.0" minorTickCount="0" prefHeight="66.0" prefWidth="358.0" showTickLabels="true"
-            showTickMarks="true" snapToTicks="true" value="4.0"/>
-    <RadioButton fx:id="rbHorario" layoutX="209.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0"
-                 prefWidth="103.0" text="Horario">
-        <toggleGroup>
-          <ToggleGroup fx:id="group"/>
-        </toggleGroup>
-    </RadioButton>
-    <RadioButton fx:id="rbAntihorario" layoutX="365.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0"
-                 prefWidth="109.0" selected="true" text="Antihorario" toggleGroup="$group"/>
-    <Label fx:id="pnum" layoutX="532.0" layoutY="66.0" prefHeight="24.0" prefWidth="36.0"/>
+<Pane id="Principal" fx:id="rotacion" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: turquoise;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Configurations">
+   <children>
+       <Label id="lbRotacion" fx:id="lbRotacion" layoutX="41.0" layoutY="200.0" prefHeight="34.0" prefWidth="126.0" text="Rotación:">
+           <font>
+           <Font name="Berlin Sans FB" size="14.0" />
+           </font>
+       </Label>
+       <Button id="btnPlay" fx:id="btnPlay" layoutX="239.0" layoutY="308.0" mnemonicParsing="false" onAction="#jugar" prefHeight="34.0" prefWidth="126.0" text="Play" />
+       <Label id="lbPersonas" fx:id="lbPersonas" layoutX="14.0" layoutY="73.0" prefHeight="34.0" prefWidth="150.0" text="Numero de personas:">
+           <font>
+           <Font name="Berlin Sans FB" size="15.0" />
+           </font>
+       </Label>
+       <Slider id="slPersonas" fx:id="slPersonas" blockIncrement="1.0" layoutX="167.0" layoutY="57.0" majorTickUnit="1.0" max="12.0" min="3.0" minorTickCount="0" prefHeight="66.0" prefWidth="358.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="4.0" />
+       <RadioButton fx:id="rbHorario" layoutX="209.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="103.0" text="Horario">
+           <toggleGroup>
+             <ToggleGroup fx:id="group" />
+           </toggleGroup>
+       </RadioButton>
+       <RadioButton fx:id="rbAntihorario" layoutX="365.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="109.0" selected="true" text="Antihorario" toggleGroup="$group" />
+       <Label fx:id="pnum" layoutX="532.0" layoutY="66.0" prefHeight="24.0" prefWidth="36.0" text="4.0" />
+   </children>
 </Pane>
