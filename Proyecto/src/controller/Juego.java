@@ -42,6 +42,7 @@ public class Juego {
     private final Deque<User> pilaUserSentado = new LinkedList<>();
     private int season = 0;
     private int velocity=15;
+    private int sillasIntocables=0;
      Stage windows;
 //Desde el FXML
     @FXML Button btnPlay ;
@@ -55,7 +56,7 @@ public class Juego {
     @FXML private MenuItem mi1;
 
     @FXML private ImageView ivMusic;
-    Media sound= new Media(new File("src/Files/Scatman.mp3").toURI().toString());
+    Media sound= new Media(new File("Proyecto/src/Files/Scatman.mp3").toURI().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(sound);
     
     public Juego() {
@@ -66,7 +67,7 @@ public class Juego {
     void change(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Scatman");
-        sound= new Media(new File("src/Files/Scatman.mp3").toURI().toString());
+        sound= new Media(new File("Proyecto/src/Files/Scatman.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
@@ -78,7 +79,7 @@ public class Juego {
     void change1(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Morado");
-        sound= new Media(new File("src/Files/Morado.mp3").toURI().toString());
+        sound= new Media(new File("Proyecto/src/Files/Morado.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
@@ -89,7 +90,7 @@ public class Juego {
     void change2(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Blinding Lights");
-        sound= new Media(new File("src/Files/Blinding Lights.mp3").toURI().toString());
+        sound= new Media(new File("Proyecto/src/Files/Blinding Lights.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
@@ -136,29 +137,16 @@ public class Juego {
                                 Thread.interrupted();       //se interrumpe el hilo
                                 wait();
                             }
-
-                          }
+                        }
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
                     // UI update is run on the Application thread
                     Platform.runLater(updater);
                 }
-
             }
         }
         );
-        if (listUsersGame.size() == 2) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Mensjase de aviso");
-            alert.setContentText("Juego terminado");
-            alert.setHeaderText(null);
-            alert.show();
-            alert.setOnCloseRequest(e->{
-            windows.close();
-            this.closeWindows();
-            });
-        }
         hiloSentarse.setDaemon(true);
         hiloSentarse.start();
 
@@ -215,8 +203,9 @@ public class Juego {
         hilo.start();           //inicia el hilo
     }
 
-    public void initialize(Double nP, String sentido, Stage stage) {
+    public void initialize(Double nP, Integer numSillas, String sentido, Stage stage) {
         windows=stage;
+        sillasIntocables=numSillas;
         sett = new Setting(nP, sentido);
         listChairs = sett.addChairs(); //En Seeting crea la lista de sillas
         listUsers = sett.addPlayers();
@@ -346,10 +335,10 @@ public class Juego {
     public void calcularDistancia() {
         //recorre la lista de sillas
         int sentado = 0;
-        for (int i = 0; i < listChairsGame.size(); i++) {
+        for (int i = 0; i < listChairsGame.size()- sillasIntocables; i++) {
             double distanciaMinima = 1000000000;
             //recorre la lista de users
-            for (int j = 0; j < listUsersGame.size(); j++) {
+            for (int j = 0; j < listUsersGame.size() ; j++) {
                 //Verifica si el usuario no se a sentado aún
                 if (!listUsersGame.get(j).isSeated()) {
                     //guarda las posiciones x,y de la silla y los users
@@ -399,7 +388,6 @@ public class Juego {
         double posX = 0;
         //comprueba que la silla no esté ya ocupada (porque el hilo ejecuta la acción para todos, por eso se debe verificar)
         if (!chair.isOccupated()) {
-            
             double pendiente = ((chair.getPosY() - user.getPosY()) / (chair.getPosX() - user.getPosX()));        //se obtiene la pendiente de la recta
             //verifica que el user no haya llegado a la silla
             if (user.getPosX() != chair.getPosX() || user.getPosY() != chair.getPosY()) {
@@ -432,12 +420,28 @@ public class Juego {
                 //si ya se llegó a la silla, se la marca como ocupada y se la elimina de la pila
                 chair.setOccupated(true);
                 pilaChairOccupated.pop();
+                if(pilaChairOccupated.isEmpty()){
+                    comprobarGanador();
+                }
             }
 
 
         }
     }
 
+    public void comprobarGanador(){
+        if (mapaDistancia.size()==1||mapaDistancia.size()-1<=sillasIntocables) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Mensjase de aviso");
+            alert.setContentText("Juego terminado");
+            alert.setHeaderText(null);
+            alert.show();
+            alert.setOnCloseRequest(e->{
+                windows.close();
+                this.closeWindows();
+            });
+        }
+    }
     public void closeWindows() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Configurations.fxml"));

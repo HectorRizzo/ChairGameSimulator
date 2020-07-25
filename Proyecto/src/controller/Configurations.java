@@ -8,19 +8,18 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 /**
@@ -42,6 +41,8 @@ public class Configurations implements Initializable {
     @FXML
     private Label nPersonas;
     @FXML
+    private ChoiceBox <Integer> chbNumSillas;
+    @FXML
     Label pnum;
     @FXML
     private ToggleGroup group;
@@ -57,7 +58,7 @@ public class Configurations implements Initializable {
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
-         controller.initialize(Double.parseDouble(pnum.getText()), select.getText(),stage);
+         controller.initialize(Double.parseDouble(pnum.getText()), chbNumSillas.getValue(), select.getText(),stage);
         stage.show();
         stage.setOnCloseRequest(e->controller.closeWindows());
         
@@ -65,8 +66,14 @@ public class Configurations implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        this.chbNumSillas.setItems(setItemsList());
+        chbNumSillas.setValue(0);
         this.slPersonas.valueProperty().addListener((observable, oldValue, newValue) -> pnum.setText(String.valueOf(newValue)));
 
+    }
+    protected ObservableList<Integer> setItemsList(){
+        ObservableList <Integer> obList= FXCollections.observableArrayList();
+        obList.addAll(0,1,2);
+        return obList;
     }
 }
