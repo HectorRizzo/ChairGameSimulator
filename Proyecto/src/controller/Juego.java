@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -41,6 +42,7 @@ public class Juego {
     private final Deque<User> pilaUserSentado = new LinkedList<>();
     private int season = 0;
     private int velocity=15;
+     Stage windows;
 //Desde el FXML
     @FXML Button btnPlay ;
     @FXML Button btnStop;
@@ -53,7 +55,7 @@ public class Juego {
     @FXML private MenuItem mi1;
 
     @FXML private ImageView ivMusic;
-    Media sound= new Media(new File("Proyecto/src/Files/Scatman.mp3").toURI().toString());
+    Media sound= new Media(new File("src/Files/Scatman.mp3").toURI().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(sound);
     
     public Juego() {
@@ -64,7 +66,7 @@ public class Juego {
     void change(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Scatman");
-        sound= new Media(new File("Proyecto/src/Files/Scatman.mp3").toURI().toString());
+        sound= new Media(new File("src/Files/Scatman.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
@@ -76,7 +78,7 @@ public class Juego {
     void change1(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Morado");
-        sound= new Media(new File("Proyecto/src/Files/Morado.mp3").toURI().toString());
+        sound= new Media(new File("src/Files/Morado.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
@@ -87,7 +89,7 @@ public class Juego {
     void change2(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Blinding Lights");
-        sound= new Media(new File("Proyecto/src/Files/Blinding Lights.mp3").toURI().toString());
+        sound= new Media(new File("src/Files/Blinding Lights.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
@@ -123,29 +125,44 @@ public class Juego {
                         synchronized (this) {
                             //mientras la pila de sillas no esté vacía se sigue ejecutando el hilo
                             while (pilaChairOccupated.isEmpty()) {
+                                
                                 btnPlay.setDisable(false);
                                 Thread.interrupted();       //se interrumpe el hilo
                                 wait();
                             }
-                        }
+                            
+                          }
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
                     // UI update is run on the Application thread
                     Platform.runLater(updater);
                 }
-            }
-        });
+                
+            }  
+        }    
+        );
+        if (listUsersGame.size() == 2) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Mensjase de aviso");
+            alert.setContentText("Juego terminado");
+            alert.setHeaderText(null);
+            alert.show();
+            alert.setOnCloseRequest(e->{
+            windows.close();
+            this.closeWindows();
+            });
+        }
         hiloSentarse.setDaemon(true);
         hiloSentarse.start();
-
+        
     }
 
     //define que se hará al presionar al botón play
     @FXML
     protected void btnPlayClicked() {
         if(season>0){
-            changeDirection();
+            this.changeDirection();
         }
         btnPlay.setDisable(true);
         btnStop.setDisable(false);
@@ -153,10 +170,11 @@ public class Juego {
         parar = false;                                //se lo pone en false porque puede que antes se haya dado al botón stop.
         if (season > 0) {
             this.spPane.getChildren().clear();
-            this.saveChairsUser();  
+            this.saveChairsUser();
             this.organizeControllerChairs();
-            this.organizeControllerUser();
+            this.organizeControllerUser();           
         }
+        
         this.mapaDistancia.clear();
         //moverá las pelotas en el tiempo
         Thread hilo = new Thread(new Runnable() {
@@ -191,8 +209,8 @@ public class Juego {
         hilo.start();           //inicia el hilo
     }
 
-    public void initialize(Double nP, String sentido) {
-        
+    public void initialize(Double nP, String sentido, Stage stage) {
+        windows=stage;
         sett = new Setting(nP, sentido);
         listChairs = sett.addChairs(); //En Seeting crea la lista de sillas
         listUsers = sett.addPlayers();
@@ -252,10 +270,8 @@ public class Juego {
                 this.listChairP.peek().getImage().setTranslateX(inicio);
                 assert this.listChairP.peek() != null;
                 this.listChairP.peek().getImage().setTranslateY(cordy);
-
                 assert this.listChairP.peek() != null;
                 listChairsGame.addLast(new Chair(this.listChairP.peek().getImage(), inicio, cordy));
-
                 spPane.getChildren().addAll(this.listChairP.pop().getImage());
                 inicio = inicio + distance;
                 if (inicio > 50) {
@@ -317,6 +333,7 @@ public class Juego {
                 }
             }
         }
+        
     }
 
     //calcula la distancia minima de cada silla con los jugadores y los agrega al mapa
@@ -433,12 +450,6 @@ public class Juego {
     }
 
     public void changeDirection(){
-        tda.ListIterator <User> it= listUsersGame.iterator();
-        //Usamos el método hasNext, para comprobar si hay algun elemento
-        while(it.limit()){
-            it.next().setSentido(!it.next().isSentido());
-            //El iterador devuelve el proximo elemento
-        }
         if (sett.getDirection().equalsIgnoreCase("Antihorario")) {
             sett.setDirection("Horario");
         }else{
