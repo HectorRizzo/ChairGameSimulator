@@ -164,7 +164,7 @@ public class LCDE<E> {
             @Override
             public boolean limit() {
 
-                return count != size;
+                return count < size;
             }
 
             @Override

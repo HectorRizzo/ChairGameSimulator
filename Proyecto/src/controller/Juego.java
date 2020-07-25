@@ -96,6 +96,12 @@ public class Juego {
 
     @FXML
     void btnDirectionClicked(){
+        tda.ListIterator <User> it= listUsersGame.iterator();
+        while(it.limit()){
+            User u= it.previous();
+            u.setSentido(!u.isSentido());
+        }
+
         changeDirection();
     }
 
@@ -433,12 +439,7 @@ public class Juego {
     }
 
     public void changeDirection(){
-        tda.ListIterator <User> it= listUsersGame.iterator();
-        //Usamos el método hasNext, para comprobar si hay algun elemento
-        while(it.limit()){
-            it.next().setSentido(!it.next().isSentido());
-            //El iterador devuelve el proximo elemento
-        }
+
         if (sett.getDirection().equalsIgnoreCase("Antihorario")) {
             sett.setDirection("Horario");
         }else{
