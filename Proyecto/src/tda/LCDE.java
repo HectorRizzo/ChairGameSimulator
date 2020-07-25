@@ -156,7 +156,7 @@ public class LCDE<E> {
 
     }
     public ListIterator<E> iterator(){
-        return new ListIterator<>() {
+        return new ListIterator<E>() {
             NodeList<E> n1 = last.getNext();
             NodeList<E> n2 = last;
             int count = 0;

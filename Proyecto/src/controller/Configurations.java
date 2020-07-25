@@ -54,10 +54,10 @@ public class Configurations implements Initializable {
         loader = new FXMLLoader(getClass().getResource("/View/Juego.fxml") );
         Parent parent = loader.load();
         Juego controller = loader.getController();
-        controller.initialize(Double.parseDouble(pnum.getText()), select.getText());
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
+         controller.initialize(Double.parseDouble(pnum.getText()), select.getText(),stage);
         stage.show();
         stage.setOnCloseRequest(e->controller.closeWindows());
         

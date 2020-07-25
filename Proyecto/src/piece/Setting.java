@@ -35,7 +35,7 @@ public class Setting{
     public LCDE<User> addPlayers() {
         int numeroImagenJugador=0;
         for(int i =0; i< getNumberParticipants();i++){
-            if(numeroImagenJugador>3){
+            if(numeroImagenJugador>6){
                 numeroImagenJugador=0;
             }
                 Image image = new Image("/Files/usuario"+numeroImagenJugador+".png");
