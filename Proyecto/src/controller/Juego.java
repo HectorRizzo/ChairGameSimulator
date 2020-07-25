@@ -1,5 +1,6 @@
 package controller;
 
+import org.jetbrains.annotations.NotNull;
 import piece.Chair;
 import piece.Setting;
 import piece.User;
@@ -99,13 +100,12 @@ public class Juego {
 
     @FXML
     void btnDirectionClicked(){
+        changeDirection();
         tda.ListIterator <User> it= listUsersGame.iterator();
         while(it.limit()){
-            User u= it.previous();
+            User u= it.next();
             u.setSentido(!u.isSentido());
         }
-
-        changeDirection();
     }
 
     //cuando se presiona el botón stop el hilo se interrumpirá.
@@ -155,6 +155,9 @@ public class Juego {
     //define que se hará al presionar al botón play
     @FXML
     protected void btnPlayClicked() {
+
+
+
         if(season>0){
             this.changeDirection();
         }
@@ -432,7 +435,7 @@ public class Juego {
     public void comprobarGanador(){
         if (mapaDistancia.size()==1||mapaDistancia.size()-1<=sillasIntocables) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Mensjase de aviso");
+            alert.setTitle("Mensaje de aviso");
             alert.setContentText("Juego terminado");
             alert.setHeaderText(null);
             alert.show();
@@ -460,12 +463,7 @@ public class Juego {
     }
 
     public void changeDirection(){
-        tda.ListIterator <User> it= listUsersGame.iterator();
-        //Usamos el método hasNext, para comprobar si hay algun elemento
-        while(it.limit()){
-            it.next().setSentido(!it.next().isSentido());
-            //El iterador devuelve el proximo elemento
-        }
+
         if (sett.getDirection().equalsIgnoreCase("Antihorario")) {
             sett.setDirection("Horario");
         }else{
@@ -475,7 +473,7 @@ public class Juego {
     }
 
     //hace que los jugadores se muevan según la dirección dada; true para sentido antihorario
-    public void recorrerSentido(User user, double initialRadio, int i,boolean direction){
+    public void recorrerSentido( User user, double initialRadio, int i, boolean direction){
         double posX = user.getPosX();
         double posY;
         int signoA= -1;
@@ -495,10 +493,9 @@ public class Juego {
             posY = signoB * Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow(posX, 2)));
             posX -= 1;
         }
-        listUsersGame.get(i).setPosX(posX);
-        listUsersGame.get(i).setPosY(posY);                                                        //guarda la posición x,y en el usuario
+        user.setPosX(posX);
+        user.setPosY(posY);                                                        //guarda la posición x,y en el usuario
         user.getImage().setTranslateX(posX);
         user.getImage().setTranslateY(posY);
-
     }
 }
