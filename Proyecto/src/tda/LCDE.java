@@ -156,29 +156,31 @@ public class LCDE<E> {
 
     }
     public ListIterator<E> iterator(){
-        return (ListIterator<E>) new ListIterator(){
-            NodeList<E> n1=last.getNext();
-            NodeList <E> n2 = last;
-            int count=0;
+        return new ListIterator<>() {
+            NodeList<E> n1 = last.getNext();
+            NodeList<E> n2 = last;
+            int count = 0;
+
             @Override
             public boolean limit() {
-                return count!=size;
+
+                return count != size;
             }
 
             @Override
             public E next() {
-                 E content = n1.getContent();
-                 n1=n1.getNext();
-                 count++;
-                 return content;
+                E content = n1.getContent();
+                n1 = n1.getNext();
+                count++;
+                return content;
             }
 
             @Override
             public E previous() {
-                  E content = n2.getContent();
-                 n2=n2.getPrevious();
-                 count++;
-                 return content;
+                E content = n2.getContent();
+                n2 = n2.getPrevious();
+                count++;
+                return content;
             }
 
         };

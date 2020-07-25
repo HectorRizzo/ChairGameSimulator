@@ -6,10 +6,7 @@
         <item url="file://$PROJECT_DIR$/Proyecto/.scannerwork/css-bundle/node_modules/@types/node/index.d.ts" />
       </sourceFilesUrls>
     </properties>
-    <CLASSES>
-      <root url="file://$PROJECT_DIR$/Proyecto/.scannerwork/css-bundle/node_modules/@types/node/base.d.ts" />
-      <root url="file://$PROJECT_DIR$/Proyecto/.scannerwork/css-bundle/node_modules/@types/node/index.d.ts" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES />
   </library>

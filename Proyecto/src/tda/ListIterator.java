@@ -5,13 +5,18 @@
  */
 package tda;
 
+import piece.User;
+
 /**
  *
  * @author i7
  * @param <E>
  */
-public interface ListIterator <E>{
+public interface ListIterator <E>  {
     boolean limit();
+
     E next();
+
     E previous();
+
 }

@@ -28,6 +28,8 @@ import javafx.stage.Stage;
 
 public class Juego {
 
+    public Button btnDirection;
+    public MenuItem mi;
     private LCDE<Chair> listChairs = new LCDE<>();
     private final LCDE<Chair> listChairsGame = new LCDE<>();
     private final Deque<Chair> listChairP = new ArrayDeque<>();
@@ -51,8 +53,7 @@ public class Juego {
     @FXML private MenuItem mi1;
 
     @FXML private ImageView ivMusic;
-   
-    Media sound= new Media(new File("src/Files/Scatman.mp3").toURI().toString());
+    Media sound= new Media(new File("Proyecto/src/Files/Scatman.mp3").toURI().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(sound);
     
     public Juego() {
@@ -63,7 +64,7 @@ public class Juego {
     void change(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Scatman");
-        sound= new Media(new File("src/Files/Scatman.mp3").toURI().toString());
+        sound= new Media(new File("Proyecto/src/Files/Scatman.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
@@ -75,7 +76,7 @@ public class Juego {
     void change1(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Morado");
-        sound= new Media(new File("src/Files/Morado.mp3").toURI().toString());
+        sound= new Media(new File("Proyecto/src/Files/Morado.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
@@ -86,11 +87,16 @@ public class Juego {
     void change2(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Blinding Lights");
-        sound= new Media(new File("src/Files/Blinding Lights.mp3").toURI().toString());
+        sound= new Media(new File("Proyecto/src/Files/Blinding Lights.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
         }
+    }
+
+    @FXML
+    void btnDirectionClicked(){
+        changeDirection();
     }
 
     //cuando se presiona el botón stop el hilo se interrumpirá.
@@ -138,6 +144,9 @@ public class Juego {
     //define que se hará al presionar al botón play
     @FXML
     protected void btnPlayClicked() {
+        if(season>0){
+            changeDirection();
+        }
         btnPlay.setDisable(true);
         btnStop.setDisable(false);
         mediaPlayer.play();
@@ -212,41 +221,10 @@ public class Juego {
     //hace que el jugador se muevan en circulo. Sentido true= se mueve hacia la derecha, sentido= false: se mueve hacia la izquierda
     public void trazarCircunferencia(User user, double initialRadio, int i) {
         if (sett.getDirection().equalsIgnoreCase("Antihorario")) {
-            double posX = user.getPosX();
-            double posY;
-            //verifica que se esté recorriendo hacia la derecha en el eje X
-            sentido(user, posX, initialRadio);                                //verifica si se llegó al final de lo permitido en X
-            //comprueba si se mueve hacia la derecha o la izquierda de las X
-            if (user.isSentido()) {
-                posY = Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow((posX), 2)));     //ecuación de la circunferencia
-                posX += 1;                                                         //aumentamos la posición X
-                //Sino se cumple lo anterior, se tomará la parte negativa de la raíz cuadrada de la ecuación
-            } else {
-                posY = -Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow(posX, 2)));
-                posX -= 1;
-            }
-            listUsersGame.get(i).setPosX(posX);
-            listUsersGame.get(i).setPosY(posY);                                                        //guarda la posición x,y en el usuario
-            user.getImage().setTranslateX(posX);
-            user.getImage().setTranslateY(posY);                                            //establece la nueva posicion Y
+            recorrerSentido(user,initialRadio,i,true);
+
         } else if (sett.getDirection().equalsIgnoreCase("Horario")) {
-            double posX = user.getPosX();
-            double posY;
-            //verifica que se esté recorriendo hacia la derecha en el eje X
-            sentido(user, posX, initialRadio);                                //verifica si se llegó al final de lo permitido en X
-            //comprueba si se mueve hacia la derecha o la izquierda de las X
-            if (user.isSentido()) {
-                posY = -Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow((posX), 2)));     //ecuación de la circunferencia
-                posX += 1;                                                         //aumentamos la posición X
-                //Sino se cumple lo anterior, se tomará la parte negativa de la raíz cuadrada de la ecuación
-            } else {
-                posY = Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow(posX, 2)));
-                posX -= 1;
-            }
-            listUsersGame.get(i).setPosX(posX);
-            listUsersGame.get(i).setPosY(posY);//guarda la posición x,y en el usuario
-            user.getImage().setTranslateX(posX);
-            user.getImage().setTranslateY(posY);                                            //establece la nueva posicion Y
+            recorrerSentido(user,initialRadio,i,false);
         }
     }
 
@@ -309,14 +287,14 @@ public class Juego {
         while (!this.pileUsers.isEmpty()) { //Cada vez que se ingrese una silla se elimina un objeto de la pila
             inicio=-115;
             while (val1) {
-                double cordy = -(Math.sqrt(Math.pow(115, 2) - Math.pow(inicio, 2))); //Se saca la posicion en Y segun la ecuacion de la circuferencia
+                double cordY = -(Math.sqrt(Math.pow(115, 2) - Math.pow(inicio, 2))); //Se saca la posicion en Y segun la ecuacion de la circuferencia
                 assert this.pileUsers.peek() != null;
                 this.pileUsers.peek().getImage().setTranslateX(inicio); //Se coloca cada silla segun la posioion en X y en Y
                 assert this.pileUsers.peek() != null;
-                this.pileUsers.peek().getImage().setTranslateY(cordy);
+                this.pileUsers.peek().getImage().setTranslateY(cordY);
 
                 assert this.pileUsers.peek() != null;
-                listUsersGame.addLast(new User(this.pileUsers.peek().getImage(), false, inicio, cordy, true));
+                listUsersGame.addLast(new User(this.pileUsers.peek().getImage(), false, inicio, cordY, true));
 
                 spPane.getChildren().addAll(this.pileUsers.pop().getImage());
                 inicio = inicio + distance; //Se adelante en X
@@ -454,6 +432,46 @@ public class Juego {
         return mediaPlayer;
     }
 
-   
+    public void changeDirection(){
+        tda.ListIterator <User> it= listUsersGame.iterator();
+        //Usamos el método hasNext, para comprobar si hay algun elemento
+        while(it.limit()){
+            it.next().setSentido(!it.next().isSentido());
+            //El iterador devuelve el proximo elemento
+        }
+        if (sett.getDirection().equalsIgnoreCase("Antihorario")) {
+            sett.setDirection("Horario");
+        }else{
+            sett.setDirection("Antihorario");
+        }
 
+    }
+
+    //hace que los jugadores se muevan según la dirección dada; true para sentido antihorario
+    public void recorrerSentido(User user, double initialRadio, int i,boolean direction){
+        double posX = user.getPosX();
+        double posY;
+        int signoA= -1;
+        int signoB= 1;
+        if(direction){
+            signoA=1;
+            signoB=-1;
+        }
+        //verifica que se esté recorriendo hacia la derecha en el eje X
+        sentido(user, posX, initialRadio);                                //verifica si se llegó al final de lo permitido en X
+        //comprueba si se mueve hacia la derecha o la izquierda de las X
+        if (user.isSentido()) {
+            posY = signoA *Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow((posX), 2)));     //ecuación de la circunferencia
+            posX += 1;                                                         //aumentamos la posición X
+            //Sino se cumple lo anterior, se tomará la parte negativa de la raíz cuadrada de la ecuación
+        } else {
+            posY = signoB * Math.sqrt(Math.abs(Math.pow(115, 2) - Math.pow(posX, 2)));
+            posX -= 1;
+        }
+        listUsersGame.get(i).setPosX(posX);
+        listUsersGame.get(i).setPosY(posY);                                                        //guarda la posición x,y en el usuario
+        user.getImage().setTranslateX(posX);
+        user.getImage().setTranslateY(posY);
+
+    }
 }
