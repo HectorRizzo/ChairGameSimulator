@@ -5,7 +5,6 @@
  */
 package controller;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +14,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -26,7 +24,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import piece.User;
 import tda.LCDE;
 
 
@@ -42,15 +39,7 @@ public class Configurations implements Initializable {
     @FXML
     Pane principal = new Pane();
     @FXML
-    private Label lbRotacion;
-    @FXML
-    private Button btnPlay;
-    @FXML
-    private Label lbPersonas;
-    @FXML
     private Slider slPersonas;
-    @FXML
-    private Label nPersonas;
     @FXML
     private ChoiceBox <Integer> chbNumSillas;
     @FXML
@@ -59,10 +48,6 @@ public class Configurations implements Initializable {
     private ToggleGroup group;
     @FXML
     private ImageView imvPlayer;
-    @FXML
-    private Button nextPlayer;
-    @FXML
-    private Button choosePlayer;
     @FXML
     private Pane panePlayers;
     @FXML
@@ -154,7 +139,6 @@ public class Configurations implements Initializable {
             listImagePlayer.addLast(image);
             i++;
         }
-        System.out.println(listImagePlayer.size()+" add");
         imvPlayer.setImage(listImagePlayer.get(0));
     }
 

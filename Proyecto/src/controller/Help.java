@@ -14,10 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -26,19 +24,14 @@ import javafx.stage.Stage;
  */
 public class Help {
     @FXML
-    private Pane pnImages;
-    @FXML
     private ImageView imvHelp;
-    @FXML
-    private Button previous;
-    @FXML
-    private Button next;
-    
     private final LCDE<Image> listImage = new LCDE<>();
     private ListIterator<Image> it;
     public void initialize(){
-        listImage.addLast(new Image("/Files/sc1.png"));
-        listImage.addLast(new Image("/Files/sc2.png"));
+        listImage.addLast(new Image("/Files/help1.png"));
+        listImage.addLast(new Image("/Files/help2.png"));
+        listImage.addLast(new Image("/Files/help3.png"));
+        listImage.addLast(new Image("/Files/help4.png"));
         imvHelp.setImage(listImage.get(0));
         it= listImage.iterator();
     }
