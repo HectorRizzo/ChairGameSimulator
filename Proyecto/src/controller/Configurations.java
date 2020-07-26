@@ -64,6 +64,8 @@ public class Configurations implements Initializable {
     @FXML
     private Button choosePlayer;
     @FXML
+    private Pane panePlayers;
+    @FXML
     void jugar(ActionEvent event) throws IOException {
         ((Node) (event.getSource())).getScene().getWindow().hide();
         RadioButton select = (RadioButton) group.getSelectedToggle();
@@ -80,15 +82,18 @@ public class Configurations implements Initializable {
         
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        addImagePlayer();
+        addImagePlayer((Integer.valueOf(pnum.getText())));
         it= listImagePlayer.iterator();
         it.next();
         this.chbNumSillas.setItems(setItemsList());
         chbNumSillas.setValue(0);
-        this.slPersonas.valueProperty().addListener((observable, oldValue, newValue) -> pnum.setText(String.valueOf(newValue)));
-
+        this.slPersonas.valueProperty().addListener((observable, oldValue, newValue) ->
+                cambiosSlider(String.valueOf(newValue.intValue()))
+                //pnum.setText(String.valueOf(newValue))
+        );
     }
     @FXML
     void choosePlayerClicked(){
@@ -106,6 +111,27 @@ public class Configurations implements Initializable {
 
     }
 
+    protected void cambiosSlider(String newValue){
+        if(!slPersonas.valueChangingProperty().get()){
+            pnum.setText(String.valueOf(newValue));
+
+            panePlayers.getChildren().remove(imvPlayer);
+            //this.imvPlayer=new ImageView();
+            listImagePlayer.clear();
+            addImagePlayer(Integer.valueOf(pnum.getText()));
+            it=listImagePlayer.iterator();
+            imvPlayer.setFitHeight(150);
+            imvPlayer.setFitWidth(150);
+            imvPlayer.setLayoutX(47);
+            imvPlayer.setLayoutY(41);
+            panePlayers.getChildren().add(imvPlayer);
+            nextPlayerClicked();
+
+        }else{
+            System.out.println("cambiando");
+        }
+
+    }
 
     protected ObservableList<Integer> setItemsList(){
         ObservableList <Integer> obList= FXCollections.observableArrayList();
@@ -120,13 +146,15 @@ public class Configurations implements Initializable {
 
 
     }
-    protected void addImagePlayer(){
+
+    protected void addImagePlayer(int num){
         int i= 0;
-        while (i<=7){
+        while (i<num){
             Image image = new Image("/Files/usuario"+i+".png");
             listImagePlayer.addLast(image);
             i++;
         }
+        System.out.println(listImagePlayer.size()+" add");
         imvPlayer.setImage(listImagePlayer.get(0));
     }
 

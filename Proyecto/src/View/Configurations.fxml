@@ -18,17 +18,17 @@
            <Font name="Berlin Sans FB" size="15.0" />
            </font>
        </Label>
-       <Slider id="slPersonas" fx:id="slPersonas" blockIncrement="1.0" layoutX="167.0" layoutY="57.0" majorTickUnit="1.0" max="8.0" min="4.0" minorTickCount="0" prefHeight="66.0" prefWidth="358.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="4.0" />
+       <Slider id="slPersonas" fx:id="slPersonas" blockIncrement="1.0" layoutX="167.0" layoutY="57.0" majorTickUnit="1.0" max="8.0" min="4.0" minorTickCount="1" prefHeight="66.0" prefWidth="358.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="4.0" />
        <RadioButton fx:id="rbHorario" layoutX="161.0" layoutY="127.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="103.0" text="Horario">
            <toggleGroup>
              <ToggleGroup fx:id="group" />
            </toggleGroup>
        </RadioButton>
        <RadioButton fx:id="rbAntihorario" layoutX="161.0" layoutY="164.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="109.0" selected="true" text="Antihorario" toggleGroup="$group" />
-       <Label fx:id="pnum" layoutX="532.0" layoutY="66.0" prefHeight="24.0" prefWidth="36.0" text="4.0" />
+       <Label fx:id="pnum" layoutX="532.0" layoutY="66.0" prefHeight="24.0" prefWidth="36.0" text="4" />
       <Label layoutX="7.0" layoutY="200.0" prefHeight="34.0" prefWidth="165.0" text="Numero de sillas no Jugables: " />
       <ChoiceBox fx:id="chbNumSillas" layoutX="180.0" layoutY="205.0" prefHeight="25.0" prefWidth="49.0" />
-      <Pane layoutX="272.0" layoutY="118.0" pickOnBounds="false" prefHeight="232.0" prefWidth="293.0">
+      <Pane fx:id="panePlayers" layoutX="272.0" layoutY="118.0" pickOnBounds="false" prefHeight="232.0" prefWidth="293.0">
          <children>
             <Button fx:id="choosePlayer" layoutX="118.0" layoutY="198.0" mnemonicParsing="false" onAction="#choosePlayerClicked" prefHeight="25.0" prefWidth="57.0" text="Elegir" />
             <Button fx:id="nextPlayer" layoutX="227.0" layoutY="12.0" mnemonicParsing="false" onAction="#nextPlayerClicked" prefHeight="25.0" prefWidth="49.0" text="Next" />
