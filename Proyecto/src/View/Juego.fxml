@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Juego">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Juego">
    <Pane prefHeight="430.0" prefWidth="630.0" style="-fx-background-color: gray;">
       <ToolBar layoutX="138.0" layoutY="7.0" prefHeight="40.0" prefWidth="200.0">
          <ImageView id="ivMusic" fx:id="ivMusic" fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
@@ -58,15 +67,15 @@
             <effect>
                <InnerShadow>
                   <color>
-                     <Color red="0.13486842811107635" green="0.3552631437778473" blue="0.2524122893810272" />
+                     <Color blue="0.2524122893810272" green="0.3552631437778473" red="0.13486842811107635" />
                   </color>
                </InnerShadow>
             </effect>
          </Button>
       </VBox>
-      <ProgressBar layoutX="369.0" layoutY="18.0" prefWidth="200.0" progress="0.0" />
       <StackPane fx:id="spPane" layoutX="138.0" layoutY="53.0" prefHeight="370.0" prefWidth="485.0" style="-fx-background-color: white;">
          <ImageView fitHeight="80.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true" />
       </StackPane>
+      <Button fx:id="btnElimChair" layoutX="348.0" layoutY="15.0" mnemonicParsing="false" onAction="#eliminateRandomChair" text="Eliminar Silla" />
    </Pane>
 </AnchorPane>

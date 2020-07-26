@@ -56,7 +56,7 @@ public class Juego {
     @FXML private MenuItem mi1;
 
     @FXML private ImageView ivMusic;
-    Media sound= new Media(new File("Proyecto/src/Files/Scatman.mp3").toURI().toString());
+    Media sound= new Media(new File("src/Files/Scatman.mp3").toURI().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(sound);
     
     public Juego() {
@@ -67,7 +67,7 @@ public class Juego {
     void change(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Scatman");
-        sound= new Media(new File("Proyecto/src/Files/Scatman.mp3").toURI().toString());
+        sound= new Media(new File("src/Files/Scatman.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
@@ -79,7 +79,7 @@ public class Juego {
     void change1(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Morado");
-        sound= new Media(new File("Proyecto/src/Files/Morado.mp3").toURI().toString());
+        sound= new Media(new File("src/Files/Morado.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
@@ -90,7 +90,7 @@ public class Juego {
     void change2(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Blinding Lights");
-        sound= new Media(new File("Proyecto/src/Files/Blinding Lights.mp3").toURI().toString());
+        sound= new Media(new File("src/Files/Blinding Lights.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();
@@ -499,6 +499,18 @@ public class Juego {
         listUsersGame.get(i).setPosY(posY);                                                        //guarda la posición x,y en el usuario
         user.getImage().setTranslateX(posX);
         user.getImage().setTranslateY(posY);
-
+    }
+    @FXML
+    public void eliminateRandomChair(){
+       Random rand = new Random();
+       int randomChair = rand.nextInt(this.listChairsGame.size());
+       int randomPane= rand.nextInt(this.spPane.getChildren().size());
+       boolean vali=false;
+       if(!this.listChairsGame.isEmpty()){
+       System.out.println(this.listChairsGame.get(randomChair));
+       this.listChairs.remove(randomChair);
+       this.listChairsGame.remove(randomChair);
+       this.spPane.getChildren().remove(this.listChairsGame.get(randomChair).getImage());
+    }
     }
 }
