@@ -34,6 +34,7 @@ public class Help {
         listImage.addLast(new Image("/Files/help4.png"));
         imvHelp.setImage(listImage.get(0));
         it= listImage.iterator();
+        it.next();
     }
     @FXML
     protected void btnBackClicked(){

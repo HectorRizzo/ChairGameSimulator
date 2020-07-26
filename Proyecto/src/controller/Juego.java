@@ -68,7 +68,7 @@ public class Juego {
     void change(ActionEvent event) {
         mediaPlayer.stop();
         mbMusic.setText("Scatman");
-        sound = new Media(new File("Files/Scatman.mp3").toURI().toString());
+        sound = new Media(new File("src/Files/Scatman.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         if (!parar) {
             mediaPlayer.play();

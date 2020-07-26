@@ -15,7 +15,7 @@
        </ImageView>
        <Button id="btnSalir" fx:id="btnSalir" layoutX="474.0" layoutY="22.0" mnemonicParsing="false" onAction="#toExit" prefHeight="38.0" prefWidth="99.0" text="Salir" />
        <Button id="btnAyuda" fx:id="btnAyuda" layoutX="225.0" layoutY="297.0" mnemonicParsing="false" onAction="#showHelp" prefHeight="38.0" prefWidth="173.0" text="Ayuda" />
-      <Label layoutX="131.0" layoutY="11.0" prefHeight="61.0" prefWidth="321.0" text="Musical Charis">
+      <Label layoutX="131.0" layoutY="11.0" prefHeight="61.0" prefWidth="321.0" text="Musical Chairs">
          <font>
             <Font name="Engravers MT" size="27.0" />
          </font>
