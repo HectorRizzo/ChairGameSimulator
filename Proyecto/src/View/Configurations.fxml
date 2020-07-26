@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -11,7 +12,7 @@
            <Font name="Berlin Sans FB" size="14.0" />
            </font>
        </Label>
-       <Button id="btnPlay" fx:id="btnPlay" layoutX="239.0" layoutY="308.0" mnemonicParsing="false" onAction="#jugar" prefHeight="34.0" prefWidth="126.0" text="Play" />
+       <Button id="btnPlay" fx:id="btnPlay" layoutX="127.0" layoutY="327.0" mnemonicParsing="false" onAction="#jugar" prefHeight="34.0" prefWidth="126.0" text="Play" />
        <Label id="lbPersonas" fx:id="lbPersonas" layoutX="14.0" layoutY="73.0" prefHeight="34.0" prefWidth="150.0" text="Numero de personas:">
            <font>
            <Font name="Berlin Sans FB" size="15.0" />
@@ -27,5 +28,13 @@
        <Label fx:id="pnum" layoutX="532.0" layoutY="66.0" prefHeight="24.0" prefWidth="36.0" text="4.0" />
       <Label layoutX="7.0" layoutY="200.0" prefHeight="34.0" prefWidth="165.0" text="Numero de sillas no Jugables: " />
       <ChoiceBox fx:id="chbNumSillas" layoutX="180.0" layoutY="205.0" prefHeight="25.0" prefWidth="49.0" />
+      <Pane layoutX="272.0" layoutY="118.0" pickOnBounds="false" prefHeight="232.0" prefWidth="293.0">
+         <children>
+            <Button fx:id="choosePlayer" layoutX="118.0" layoutY="198.0" mnemonicParsing="false" onAction="#choosePlayerClicked" prefHeight="25.0" prefWidth="57.0" text="Elegir" />
+            <Button fx:id="nextPlayer" layoutX="227.0" layoutY="12.0" mnemonicParsing="false" onAction="#nextPlayerClicked" prefHeight="25.0" prefWidth="49.0" text="Next" />
+            <ImageView fx:id="imvPlayer" fitHeight="150.0" fitWidth="200.0" layoutX="47.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="72.0" layoutY="16.0" prefHeight="17.0" prefWidth="150.0" text="Elegir Jugador intocable" />
+         </children>
+      </Pane>
    </children>
 </Pane>

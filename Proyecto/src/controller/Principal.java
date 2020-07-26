@@ -38,7 +38,6 @@ public class Principal implements Initializable {
         Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
-        
     }
 
     @FXML
