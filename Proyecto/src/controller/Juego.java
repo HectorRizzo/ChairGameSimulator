@@ -527,14 +527,15 @@ public class Juego {
     @FXML
     public void eliminateRandomChair(){
        Random rand = new Random();
-       int randomChair = rand.nextInt(this.listChairsGame.size());
+       int randomChair = rand.nextInt(this.listChairsGame.size()); //coge un numero randon entre toda las sillas
        int randomPane= rand.nextInt(this.spPane.getChildren().size());
        boolean vali=false;
        if(!this.listChairsGame.isEmpty()){
        System.out.println(this.listChairsGame.get(randomChair));
-       this.listChairs.remove(randomChair);
-       this.listChairsGame.remove(randomChair);
-       this.spPane.getChildren().remove(this.listChairsGame.get(randomChair).getImage());
+       this.listChairs.remove(randomChair); //quita la silla de esta lista
+       this.listChairsGame.remove(randomChair); //quita la silla de esta lista tambien
+       this.spPane.getChildren().remove(this.listChairsGame.get(randomChair).getImage()); //por ultimo quita la silla en la pantalla
+       //hay problemas al momento de sentarse, una persona se va a la silla eliminada :c
     }
     }
 }
