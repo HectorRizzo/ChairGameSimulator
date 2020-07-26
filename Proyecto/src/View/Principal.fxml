@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane id="Principal" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: turquoise;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Principal">
-    <Button id="btnSalir" fx:id="btnSalir" layoutX="474.0" layoutY="22.0" mnemonicParsing="false" onAction="#toExit" prefHeight="38.0" prefWidth="99.0" text="Salir" />
-    <Button id="btnJugar" fx:id="btnJugar" layoutX="225.0" layoutY="200.0" mnemonicParsing="false" onAction="#toPlay" pickOnBounds="false" prefHeight="38.0" prefWidth="173.0" text="Jugar" />
-    <Button id="btnAyuda" fx:id="btnAyuda" layoutX="225.0" layoutY="297.0" mnemonicParsing="false" onAction="#showHelp" prefHeight="38.0" prefWidth="173.0" text="Ayuda" />
-    <ImageView id="img" fx:id="img" fitHeight="299.0" fitWidth="332.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Files/juego.png" />
-    </ImageView>
+<Pane id="Principal" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: turquoise;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Principal">
+   <children>
+       <ImageView id="img" fx:id="img" fitHeight="195.0" fitWidth="312.0" layoutX="6.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+              <Image url="@../Files/juego.png" />
+          </image>
+       </ImageView>
+       <Button id="btnSalir" fx:id="btnSalir" layoutX="474.0" layoutY="22.0" mnemonicParsing="false" onAction="#toExit" prefHeight="38.0" prefWidth="99.0" text="Salir" />
+       <Button id="btnAyuda" fx:id="btnAyuda" layoutX="225.0" layoutY="297.0" mnemonicParsing="false" onAction="#showHelp" prefHeight="38.0" prefWidth="173.0" text="Ayuda" />
+      <Label layoutX="131.0" layoutY="11.0" prefHeight="61.0" prefWidth="321.0" text="Musical Charis">
+         <font>
+            <Font name="Engravers MT" size="27.0" />
+         </font>
+      </Label>
+       <Button id="btnJugar" fx:id="btnJugar" layoutX="225.0" layoutY="226.0" mnemonicParsing="false" onAction="#toPlay" pickOnBounds="false" prefHeight="38.0" prefWidth="173.0" text="Jugar" />
+   </children>
 </Pane>

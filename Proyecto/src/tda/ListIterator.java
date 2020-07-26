@@ -5,8 +5,6 @@
  */
 package tda;
 
-import piece.User;
-
 /**
  *
  * @author i7

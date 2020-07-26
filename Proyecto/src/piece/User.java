@@ -4,7 +4,7 @@ package piece;
 import javafx.scene.image.ImageView;
 
 
-public class User implements Comparable<User>{
+public class User {
    
     private final ImageView image;
     private boolean seated;
@@ -62,8 +62,5 @@ public class User implements Comparable<User>{
         this.seated = seated;
     }
 
-    @Override
-    public int compareTo(User o) {
-        return Double.compare(this.getPosX(), o.getPosX());
-    }
+    
 }

@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
  *
  * @author i7
  */
-public class Chair implements Comparable<Chair>{
+public class Chair {
     private final ImageView image;
     double posX;
     double posY;
@@ -51,13 +51,4 @@ public class Chair implements Comparable<Chair>{
         return occupated;
     }
 
-    @Override
-    public int compareTo(Chair o) {
-        if(this.getPosX()>o.getPosX()){
-            return 1;
-        }else if(this.getPosX()<o.getPosX()){
-            return -1;
-        }
-        return 0;
-    }
 }

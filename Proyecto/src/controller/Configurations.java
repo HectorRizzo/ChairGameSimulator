@@ -83,12 +83,10 @@ public class Configurations implements Initializable {
     @FXML
     void choosePlayerClicked(){
         tda.ListIterator <Image> itPlayer=listImagePlayer.iterator();
-        boolean encontrado=true;
         int h=0;
-        while(itPlayer.limit()&&encontrado){
+        while(itPlayer.limit()){
             if(itPlayer.next()==imvPlayer.getImage()){
                 playerChoosed=h;
-                encontrado=true;
             }
             h++;
         }
@@ -101,7 +99,6 @@ public class Configurations implements Initializable {
             pnum.setText(String.valueOf(newValue));
 
             panePlayers.getChildren().remove(imvPlayer);
-            //this.imvPlayer=new ImageView();
             listImagePlayer.clear();
             addImagePlayer(Integer.valueOf(pnum.getText()));
             it=listImagePlayer.iterator();
@@ -112,8 +109,6 @@ public class Configurations implements Initializable {
             panePlayers.getChildren().add(imvPlayer);
             nextPlayerClicked();
 
-        }else{
-            System.out.println("cambiando");
         }
 
     }

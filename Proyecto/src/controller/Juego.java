@@ -21,15 +21,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class Juego {
 
-    public Button btnDirection;
-    public MenuItem mi;
+    
     private LCDE<Chair> listChairs = new LCDE<>();
     private final LCDE<Chair> listChairsGame = new LCDE<>();
     private final Deque<Chair> listChairP = new ArrayDeque<>();
@@ -43,6 +41,7 @@ public class Juego {
     private int velocity = 15;
     private int sillasIntocables = 0;
     private User userIntocable = null;
+    private  static final String ANTIHORARIO="Antihorario";
     Stage windows;
 //Desde el FXML
     @FXML
@@ -182,7 +181,7 @@ public class Juego {
             public void run() {
                 Runnable updater = () -> {
                     for (int i = 0; i < listUsersGame.size(); i++) {
-                        trazarCircunferencia(listUsersGame.get(i), 115, i);
+                        trazarCircunferencia(listUsersGame.get(i), 115);
                     }
                 };
 
@@ -251,14 +250,13 @@ public class Juego {
      *
      * @param user escoge el usuario que tocara moverse
      * @param initialRadio da el radio inicial del movimiento
-     * @param i
      */
-    public void trazarCircunferencia(User user, double initialRadio, int i) {
-        if (sett.getDirection().equalsIgnoreCase("Antihorario")) {
-            recorrerSentido(user, initialRadio, i, true);
+    public void trazarCircunferencia(User user, double initialRadio) {
+        if (sett.getDirection().equalsIgnoreCase(ANTIHORARIO)) {
+            recorrerSentido(user, initialRadio, true);
 
         } else if (sett.getDirection().equalsIgnoreCase("Horario")) {
-            recorrerSentido(user, initialRadio, i, false);
+            recorrerSentido(user, initialRadio, false);
         }
     }
 
@@ -292,7 +290,7 @@ public class Juego {
      * negativa de la circugferencia para encontrar Y.
      */
     private void organizeControllerChairs() {
-        double distance = 50 * 4 / listChairs.size();
+        double distance = (50f * 4) / listChairs.size();
         double inicio = -50;
         boolean val1 = true;
         boolean val2 = true;
@@ -341,7 +339,7 @@ public class Juego {
      * la raiz negativa de la circugferencia para encontrar Y.
      */
     private void organizeControllerUser() {
-        double distance = (115 * 4) / listUsers.size();
+        double distance = (115f * 4) / listUsers.size();
         double inicio;
         boolean val1 = true;
         boolean val2 = true;
@@ -553,10 +551,10 @@ public class Juego {
 
     public void changeDirection() {
 
-        if (sett.getDirection().equalsIgnoreCase("Antihorario")) {
+        if (sett.getDirection().equalsIgnoreCase(ANTIHORARIO)) {
             sett.setDirection("Horario");
         } else {
-            sett.setDirection("Antihorario");
+            sett.setDirection(ANTIHORARIO);
         }
 
     }
@@ -572,10 +570,9 @@ public class Juego {
      * En la linea 615 y 616 cambian posición x,y en el usuario
      * @param user
      * @param initialRadio
-     * @param i
      * @param direction
      */
-    public void recorrerSentido(User user, double initialRadio, int i, boolean direction) {
+    public void recorrerSentido(User user, double initialRadio, boolean direction) {
         double posX = user.getPosX();
         double posY;
         int signoA = -1;
